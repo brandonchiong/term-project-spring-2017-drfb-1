@@ -9,6 +9,8 @@ var passport = require('passport');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var register = require('./routes/register');
+var login = require('./routes/login');
 
 var app = express();
 
