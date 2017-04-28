@@ -15,12 +15,9 @@ var passport = require('passport');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var register = require('./routes/register');
-<<<<<<< HEAD
 var login = require('./routes/login');
 var game = require('./routes/game');
 var chat = require('./routes/chat');
-=======
->>>>>>> 4d705b0e35cafb131646168b3a2468fcc0bc59ff
 var gameLobby = require('./routes/gameLobby');
 var rules = require('./routes/rules');
 var forgotPassword = require('./routes/forgotPassword');
@@ -62,12 +59,9 @@ app.use(passport.session());
 app.use('/', index);
 app.use('/users', users);
 app.use('/register', register);
-<<<<<<< HEAD
 app.use('/login', login);
 app.use('/game', game);
 app.use('/chat', chat);
-=======
->>>>>>> 4d705b0e35cafb131646168b3a2468fcc0bc59ff
 app.use('/gameLobby', gameLobby);
 app.use('/rules', rules);
 app.use('/forgotPassword', forgotPassword);
