@@ -4,10 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var pgp = require('pg-promise')();
+var configDB = require('./db/configDB');
 var session = require('express-session');
 var passport = require('passport');
 
 //require('./config/passport.js')(passport);
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -18,12 +21,22 @@ var forgotPassword = require('./routes/forgotPassword');
 
 var app = express();
 
+var connection = {
+  host: configDB.host,
+  port: configDB.port,
+  database: configDB.name,
+  user: configDB.user,
+  password: configDB.pw
+};
+
+var db = pgp(process.env.DATABASE_URL || connection);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
