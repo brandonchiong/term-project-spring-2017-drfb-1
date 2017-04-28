@@ -11,14 +11,11 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var register = require('./routes/register');
 var login = require('./routes/login');
-<<<<<<< HEAD
 var game = require('./routes/game');
 var chat = require('./routes/chat');
-=======
 var gameLobby = require('./routes/gameLobby');
 var rules = require('./routes/rules');
 var forgotPassword = require('./routes/forgotPassword');
->>>>>>> rain
 
 var app = express();
 
