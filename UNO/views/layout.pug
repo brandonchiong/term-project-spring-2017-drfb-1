@@ -14,6 +14,29 @@ html(lang='en')
 
     link(rel='stylesheet', href='/stylesheets/style.css')
 
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css", integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r", crossorigin="anonymous")
+  body      
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          a.navbar-brand(href='/') UNO
+        ul.nav.navbar-nav
+          li.active
+            a(href='#') Home
+          li
+            a(href='#') Page 1
+
+        ul.nav.navbar-nav.navbar-right
+          li
+            a(href='/register')
+              span.glyphicon.glyphicon-user
+              |  Sign Up
+          li
+            a(href='/')
+              span.glyphicon.glyphicon-log-in
+              |  Login
+
+
     block content
 
     script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
@@ -22,3 +45,4 @@ html(lang='en')
 
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/bundle.js')
+
