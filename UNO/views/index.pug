@@ -1,7 +1,6 @@
 extends layout
 
 block content
-
   .main.container
     .row.text-center
      .media
@@ -25,7 +24,11 @@ block content
           div.form-group
             label(for='pw2') Confirm Password:
             input#pw2.form-control(type='password' name='confirmPassword')
-          button.btn.btn-primary(type='submit') Login in
+            
+          //TODO: fix hardcode to gamelobby for SUBMIT
+          //button.btn.btn-primary(type='submit') Login in
+          a.btn.btn-info(href='/gameLobby', role='button') Login in
+
           a.btn.btn-info(href='/register', role='button') Register
 
 
