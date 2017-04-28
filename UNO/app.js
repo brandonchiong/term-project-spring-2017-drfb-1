@@ -11,8 +11,14 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var register = require('./routes/register');
 var login = require('./routes/login');
+<<<<<<< HEAD
 var game = require('./routes/game');
 var chat = require('./routes/chat');
+=======
+var gameLobby = require('./routes/gameLobby');
+var rules = require('./routes/rules');
+var forgotPassword = require('./routes/forgotPassword');
+>>>>>>> rain
 
 var app = express();
 
@@ -44,6 +50,9 @@ app.use('/register', register);
 app.use('/login', login);
 app.use('/game', game);
 app.use('/chat', chat);
+app.use('/gameLobby', gameLobby);
+app.use('/rules', rules);
+app.use('/forgotPassword', forgotPassword);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
