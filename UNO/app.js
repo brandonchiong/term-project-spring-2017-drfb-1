@@ -4,26 +4,67 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var pgp = require('pg-promise')();
+var configDB = require('./db/configDB');
+var session = require('express-session');
+var passport = require('passport');
+
+//require('./config/passport.js')(passport);
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var register = require('./routes/register');
+var login = require('./routes/login');
+var game = require('./routes/game');
+var chat = require('./routes/chat');
+var gameLobby = require('./routes/gameLobby');
+var rules = require('./routes/rules');
+var forgotPassword = require('./routes/forgotPassword');
 
 var app = express();
+
+var connection = {
+  host: configDB.host,
+  port: configDB.port,
+  database: configDB.name,
+  user: configDB.user,
+  password: configDB.pw
+};
+
+var db = pgp(process.env.DATABASE_URL || connection);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+	secret: 'drfb',
+	resave: false,
+	saveUninitialized: false
+}));
+
+// Passport configuration
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', index);
 app.use('/users', users);
+app.use('/register', register);
+app.use('/login', login);
+app.use('/game', game);
+app.use('/chat', chat);
+app.use('/gameLobby', gameLobby);
+app.use('/rules', rules);
+app.use('/forgotPassword', forgotPassword);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
