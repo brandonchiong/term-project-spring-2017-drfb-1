@@ -13,6 +13,11 @@ body {
   bottom: 0;
 }
 
+#initial-form {
+  position: fixed;
+  bottom: 0;
+}
+
 .messages {
   min-height: 300px;
 }
