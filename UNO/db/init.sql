@@ -10,8 +10,9 @@
  *
  * Use postgres to view db on the terminal.
  *
- * run command: sudo -u postgres psql
- *  		\d	(Displays the db tables)
+ * run command: sudo -u postgres psql Uno
+ *		ALTER USER "postgres" WITH PASSWORD 'DRFB_S17';  (Change password from the default).
+ *  		\d	(Displays the db tables).
  *		SELECT * FROM [Name of Table];	(Display all rows from the table).
  */
 
