@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 
+require.('./config/passport.js')(passport);
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var register = require('./routes/register');
@@ -30,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
 	secret: 'drfb',
-	resave: true,
+	resave: false,
 	saveUninitialized: false
 }));
 
