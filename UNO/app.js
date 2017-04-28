@@ -7,12 +7,11 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 
-require.('./config/passport.js')(passport);
+//require('./config/passport.js')(passport);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var register = require('./routes/register');
-var login = require('./routes/login');
 var gameLobby = require('./routes/gameLobby');
 var rules = require('./routes/rules');
 var forgotPassword = require('./routes/forgotPassword');
@@ -43,7 +42,6 @@ app.use(passport.session());
 app.use('/', index);
 app.use('/users', users);
 app.use('/register', register);
-app.use('/login', login);
 app.use('/gameLobby', gameLobby);
 app.use('/rules', rules);
 app.use('/forgotPassword', forgotPassword);

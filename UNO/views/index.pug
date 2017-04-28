@@ -13,23 +13,17 @@ block content
        img(src='/images/UNO.png', style='width:250px')
     .row
       .col-md-6.col-md-offset-3
-        h1.display-4.m-b-2 Log in
+        h1.display-4.m-b-2 Log In
 
         // Login form
         form(method='POST' action='/gameLobby')
           div.form-group
-            label(for='name') Name:
-            input#name.form-control(type='text', placeholder='username' name='name')
-          div.form-group
-            label(for='email') Email:
-            input#email.form-control(type='email', placeholder='e-mail' name='email')
+            label(for='name') Username:
+            input#name.form-control(type='text', placeholder='Username' name='name')
           div.form-group
             label(for='pw') Password:
             input#pw.form-control(type='password' name='password')
-          div.form-group
-            label(for='pw2') Confirm Password:
-            input#pw2.form-control(type='password' name='confirmPassword')
-          button.btn.btn-primary(type='submit') Login in
+          button.btn.btn-primary(type='submit') Log In
           a.btn.btn-info(href='/register', role='button') Register
 
 
