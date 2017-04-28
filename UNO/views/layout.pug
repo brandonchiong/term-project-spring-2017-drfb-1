@@ -3,5 +3,28 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", crossorigin="anonymous")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css", integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r", crossorigin="anonymous")
+  body      
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          a.navbar-brand(href='#') WebSiteName
+        ul.nav.navbar-nav
+          li.active
+            a(href='#') Home
+          li
+            a(href='#') Page 1
+          li
+            a(href='#') Page 2
+        ul.nav.navbar-nav.navbar-right
+          li
+            a(href='#')
+              span.glyphicon.glyphicon-user
+              |  Sign Up
+          li
+            a(href='#')
+              span.glyphicon.glyphicon-log-in
+              |  Login
     block content
+
