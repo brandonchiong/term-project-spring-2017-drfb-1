@@ -9,8 +9,10 @@ var configDB = require('./db/configDB');
 var session = require('express-session');
 
 var passport = require('passport');
-require('./config/passport.js');
+var LocalStrategy = require('passport-local').Strategy;
+require('./config/passport.js')(passport);
 var flash = require('connect-flash');
+var db = require('./models/database');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
