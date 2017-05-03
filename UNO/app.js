@@ -7,10 +7,12 @@ var bodyParser = require('body-parser');
 var pgp = require('pg-promise')();
 var configDB = require('./db/configDB');
 var session = require('express-session');
+
 var passport = require('passport');
-
-//require('./config/passport.js')(passport);
-
+var LocalStrategy = require('passport-local').Strategy;
+require('./config/passport.js')(passport);
+var flash = require('connect-flash');
+var db = require('./models/database');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -32,7 +34,7 @@ var connection = {
   password: configDB.pw
 };
 
-var db = pgp(process.env.DATABASE_URL || connection);
+//var db = pgp(process.env.DATABASE_URL || connection);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -55,6 +57,7 @@ app.use(session({
 // Passport configuration
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use('/', index);
 app.use('/users', users);

@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Login' });
 });
 
-router.post('/login',
+router.post('/',
   passport.authenticate('local', { successRedirect: '/gameLobby',
                                    failureRedirect: '/',
                                    failureFlash: true })
