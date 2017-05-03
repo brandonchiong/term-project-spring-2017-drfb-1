@@ -179,3 +179,6 @@ INSERT INTO Cards (id, card_type, color, number, image) VALUES
   (105, 'draw2','b', -1, 'tbd'),
   (106, 'wild', 'w', -1, 'tbd'),
   (107, 'wild4', 'w', -1, 'tbd');
+
+INSERT INTO Users (id, first_name, last_name, alias, email, pw) VALUES
+  (0, 'testfirst', 'testlast', 'testuser', 'test@test.com', 'testpassword');
