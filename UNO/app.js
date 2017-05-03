@@ -1,12 +1,12 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var pgp = require('pg-promise')();
-var configDB = require('./db/configDB');
-var session = require('express-session');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -14,27 +14,21 @@ require('./config/passport.js')(passport);
 var flash = require('connect-flash');
 var db = require('./models/database');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var register = require('./routes/register');
-var login = require('./routes/login');
-var game = require('./routes/game');
-var chat = require('./routes/chat');
-var gameLobby = require('./routes/gameLobby');
-var rules = require('./routes/rules');
-var forgotPassword = require('./routes/forgotPassword');
+const index = require('./routes/index');
+const users = require('./routes/users');
+const register = require('./routes/register');
+const login = require('./routes/login');
+const game = require('./routes/game');
+const chat = require('./routes/chat');
+const gameLobby = require('./routes/gameLobby');
+const rules = require('./routes/rules');
+const forgotPassword = require('./routes/forgotPassword');
+const test = require('./routes/test');
 
-var app = express();
+const app = express();
 
-var connection = {
-  host: configDB.host,
-  port: configDB.port,
-  database: configDB.name,
-  user: configDB.user,
-  password: configDB.pw
-};
 
-//var db = pgp(process.env.DATABASE_URL || connection);
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -68,10 +62,11 @@ app.use('/chat', chat);
 app.use('/gameLobby', gameLobby);
 app.use('/rules', rules);
 app.use('/forgotPassword', forgotPassword);
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

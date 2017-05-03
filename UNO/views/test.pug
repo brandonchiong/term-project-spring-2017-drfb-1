@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h3 Card Listing
+
+  table
+    thead
+      tr
+        th Card Id 
+        th Card Type 
+        th Card Color
+        th Card Number 
+    tbody
+      each card in cards
+        tr
+          td= card.id
+          td= card.card_type
+          td= card.color
+          td= card.number
+
+  
