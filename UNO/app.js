@@ -7,8 +7,12 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 
-//require('./config/passport.js')(passport);
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+require('./config/passport.js')(passport);
+var flash = require('connect-flash');
+var db = require('./models/database');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -22,6 +26,7 @@ const forgotPassword = require('./routes/forgotPassword');
 const test = require('./routes/test');
 
 const app = express();
+
 
 
 
@@ -46,6 +51,7 @@ app.use(session({
 // Passport configuration
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use('/', index);
 app.use('/users', users);

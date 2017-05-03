@@ -1,33 +1,38 @@
-var passport = require('passport')
-var LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-var User = {
-  username: 'testuser',
-  password: 'testpassword',
-  id: 1
-}
+const users = require('../models/users.js');
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
+module.exports = function(passport) {
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
   });
-});
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
+  passport.deserializeUser(function(id, done) {
+    users.findById(id, function(err, user) {
+      done(err, user);
     });
-  }
-));
+  });
+
+  passport.use(new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password'
+  },
+    function(username, password, done) {
+      users.findByUsername(username, function (err, user) {
+        if (err) { 
+          return done(err); 
+        }
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (user.pw != password) {
+          return done(null, false, { message: 'Incorrect password.' });
+          console.log('Incorrect password');
+        }
+        return done(null, user);
+      });
+    }
+  ));
+}
