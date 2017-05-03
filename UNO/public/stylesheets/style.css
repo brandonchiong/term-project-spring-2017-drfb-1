@@ -8,15 +8,15 @@ body {
 }
 
 #chat-area {
-  display: none;
-  position: fixed;
+/*  display: none;
+*/  position: fixed;
   bottom: 0;
 }
 
-#initial-form {
+/*#initial-form {
   position: fixed;
   bottom: 0;
-}
+}*/
 
 .messages {
   min-height: 300px;
