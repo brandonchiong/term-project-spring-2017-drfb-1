@@ -52,17 +52,17 @@ var intializeSocket = function intializeSocket() {
 $(document).ready(function () {
   var user = 'anonymous';
 
-  $('#initial-form button').click(function (event) {
-    user = $('#who-are-you').val();
+  // $('#initial-form button').click(function (event) {
+  //   user = $('#who-are-you').val();
 
-    $('#initial-form').hide();
-    $('#chat-area').show();
+  //   $('#initial-form').hide();
+  //   $('#chat-area').show();
 
     intializeSocket();
     socket.emit(_events.USER_JOINED, { user: user, timestamp: Date.now() });
 
-    return false;
-  });
+  //   return false;
+  // });
 
   $('#chat-area button').click(function (event) {
     var message = $('#chat-area input').val();
