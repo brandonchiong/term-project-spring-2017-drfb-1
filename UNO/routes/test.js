@@ -18,7 +18,7 @@ router.get('/', (request, response) => {
         console.log('Created id: ' + users.id);
      })
     .catch( () => {
-        console.log('Error');
+        console.log('Error user not created. \nMake sure user is not already in db.');
     })
 })
 
