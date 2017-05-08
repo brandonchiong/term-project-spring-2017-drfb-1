@@ -30,7 +30,7 @@ const userJoined = data =>
 
 const messageReceived = data =>
   appendMessage( messageElement(
-    Object.assign( data, { user: `${data.user} said` })
+    Object.assign( data, { user: `${data.user} said ` })
   ))
 
 const intializeSocket = () => {
@@ -39,21 +39,22 @@ const intializeSocket = () => {
 }
 
 $( document ).ready( () => {
-  let user = 'anonymous'
+  // let user = 'anonymous'
+   let user = require('../models/users.js');
 
-  $( '#initial-form button' ).click( event => {
-    user = $( '#who-are-you' ).val()
+  // $( '#initial-form button' ).click( event => {
+  //   user = $( '#who-are-you' ).val()
 
-    $( '#initial-form' ).hide()
-    $( '#chat-area' ).show()
+  //   $( '#initial-form' ).hide()
+  //   $( '#chat-area' ).show()
 
     intializeSocket()
     socket.emit( USER_JOINED, { user, timestamp: Date.now() })
 
-    return false
-  })
+  //   return false
+  // })
 
-  $( '#chat-area button' ).click( event => {
+$( '#chat-area button' ).click( event => {
     const message = $( '#chat-area input' ).val()
     $( '#chat-area input' ).val( '' )
 
