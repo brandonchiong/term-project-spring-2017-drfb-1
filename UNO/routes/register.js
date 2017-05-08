@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const users = require('../db/Users/index.js');
+const { Users } = require('../db');
 
 router.get('/', function(req, res, next) {
   res.render('register', { title: 'Register' });
@@ -12,7 +12,7 @@ router.post('/register', function(req, res) {
 	var password = req.body.password;
 	var email = req.body.email;
 
-	users.create(username, username, username, email, password)
+	Users.create(username, email, password)
 	.then(() => {
 		res.render('/login');
 	})
