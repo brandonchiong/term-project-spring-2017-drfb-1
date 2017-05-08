@@ -19,7 +19,8 @@ body {
 }*/
 
 .messages {
-  min-height: 300px;
+  min-height: 100px;
+  max-height: 100px;
 }
 
 .message {

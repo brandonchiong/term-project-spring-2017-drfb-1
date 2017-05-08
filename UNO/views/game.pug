@@ -1,5 +1,17 @@
 extends layout
-
 block content
   h1 Game page
-  canvas(heigh="400", width="400", style="border:1px solid;")
+  //- img#card(src="/images/UnoCard/Q.png" height=380 width=245)
+  canvas#gameCanvas(height=1000, width=1000, style="border:1px solid;")
+  script.
+    var q_card = new Image();
+
+    window.onload = function() {
+      var canvas = document.getElementById("gameCanvas");
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(q_card,10,10,q_card.width*0.3, q_card.height*0.3);
+    }
+
+    q_card.src = 'images/UnoCard/Q.png';
+  //- include chat.pug
+
