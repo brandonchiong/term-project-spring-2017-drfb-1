@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  .main.container
+    .row.text-center
+     .media
+      .media-middle
+       img(src='/images/UNO.png', style='width:250px')
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Log In
+
+        // Login form
+        form(method='POST' action='/')
+          div.form-group
+
+            label(for='name') User Name:
+            input#name.form-control(type='text', placeholder='username' name='username')
+
+          div.form-group
+            label(for='pw') Password:
+            input#pw.form-control(type='password' name='password')
+
+            
+          //TODO: fix hardcode to gamelobby for SUBMIT
+          button.btn.btn-primary(type='submit') Log in
+          //a.btn.btn-info(href='/gameLobby', role='button') Login in
+
+          a.btn.btn-info(href='/register', role='button') Register
+          li
+            a(href='/forgotPassword')
+              small Forgot Password?
+
+
+
+

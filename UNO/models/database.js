@@ -3,7 +3,7 @@ const connection = {
 	database: 'Uno',
 	port: 5432,
 	user: 'postgres',
-	password: 'DRFB_S17'
+	password: ''
 };
 
 const pgp = require('pg-promise')();

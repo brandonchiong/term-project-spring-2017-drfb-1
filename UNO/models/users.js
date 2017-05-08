@@ -1,4 +1,4 @@
-const db = require('./database');
+const db = require('../db/connect');
 
 exports.findById = function(id, cb) {
 	db.one('SELECT * FROM users WHERE id = $1', [id])

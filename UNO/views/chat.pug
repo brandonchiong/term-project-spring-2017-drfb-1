@@ -1,21 +1,15 @@
-extends layout
+#chat-area
+  .row
+    .messages.col-sm-4.well.well-sm
+  .row
+    .col-sm-4
+      .input-group
+        input.form-control(type='text', placeholder='Message...')
+        span.input-group-btn
+          button.btn.btn-default(type='button') Send
 
-block content
-  h1 Basic Chat App
-  p this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text this is a bunch of nonsense text 
-  
-  #chat-area
-    .row
-      .messages.col-lg-6.well.well-sm
-    .row
-      .col-lg-6
-        .input-group
-          input.form-control(type='text', placeholder='Message...')
-          span.input-group-btn
-            button.btn.btn-default(type='button') Send
-
-  form.form-inline#initial-form
-    .form-group
-      label(for='who-are-you') Who are you?
-      input#who-are-you.form-control(type='text', placeholder='Anonymous')
-    button.btn.btn-primary(type='submit') Start Chatting
+  //- form.form-inline#initial-form
+  //-   .form-group
+  //-     label(for='who-are-you') Name: 
+  //-     input#who-are-you.form-control(type='text', placeholder='Anonymous')
+  //-   button.btn.btn-primary(type='submit') Start Chatting

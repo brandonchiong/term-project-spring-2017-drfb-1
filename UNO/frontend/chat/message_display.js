@@ -27,7 +27,7 @@ const userJoined = data =>
 
 const messageReceived = data =>
   appendMessage( messageElement(
-    Object.assign( data, { user: `${data.user} said` })
+    Object.assign( data, { user: `${data.user} said ` })
   ))
 
 export { userJoined, messageReceived }
