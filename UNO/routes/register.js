@@ -4,21 +4,38 @@ var router = express.Router();
 const { Users } = require('../db');
 
 router.get('/', function(req, res, next) {
-  res.render('register', { title: 'Register' });
+    res.render('register', { title: 'Register' });
 });
 
-router.post('/register', function(req, res) {
-	var username = req.body.username;
-	var password = req.body.password;
-	var email = req.body.email;
+router.post('/', function(req, res) {
+    req.checkBody('name', 'Field must be filled.').notEmpty();
+    req.checkBody('pw', 'Field must be filled.').notEmpty();
+    req.checkBody('email', 'Field must be filled.').notEmpty();
+    var errors = req.validationErrors();
 
-	Users.create(username, email, password)
-	.then(() => {
-		res.render('/login');
-	})
-	.catch(error => {
-		console.log(error)
-	});
+    var username = req.body.name;
+    var password = req.body.pw;
+    var email = req.body.email;
+
+    if (errors) {
+        res.render('register', { title: 'Register' });
+        return;
+    } else {
+
+        res.redirect('gameLobby');
+        Users.create(username, email, password)
+            .then(users => {
+                console.log('User id: ' + users.id + ' inserted.')
+                res.redirect('gameLobby');
+            })
+            .catch(error => {
+                console.log(error)
+                res.redirect('register');
+            });
+    }
+
+
+
 });
 
 module.exports = router;
