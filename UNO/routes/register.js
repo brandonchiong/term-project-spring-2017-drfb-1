@@ -33,9 +33,6 @@ router.post('/', function(req, res) {
                 res.redirect('register');
             });
     }
-
-
-
 });
 
 module.exports = router;
