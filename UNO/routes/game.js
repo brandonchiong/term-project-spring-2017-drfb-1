@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const { Cards } = require('../db')
+
 router.get('/', (request, response) => {
     Cards.all()
         .then(cards => {

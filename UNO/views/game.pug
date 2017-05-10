@@ -3,6 +3,23 @@ block content
   canvas#canvas(style="border:5px solid;")
   img#back_card(src="/images/UnoCard/Q.png" align="right" width=73.05 height=119.25)
   include chat.pug
+  h3 Card Listing
+  table
+    thead
+      tr
+        th Id 
+        th Type 
+        th Color
+        th Number 
+        th image
+    tbody
+      each card in cards
+        tr
+          td= card.id
+          td= card.card_type
+          td= card.color
+          td= card.number
+          td= card.image
   script.
     var q_card = new Image();
     var blue0 = new Image();
