@@ -13,6 +13,11 @@ body {
   bottom: 0;
 }
 
+#host-button {
+  position: fixed;
+  bottom: 0;
+}
+
 /*#game_space {
     background-color: #000000; 
     color: #ffffff;
