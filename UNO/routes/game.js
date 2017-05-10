@@ -6,18 +6,60 @@ const { GameCards } = require('../db');
 const { Cards } = require('../db');
 
 router.get('/', function(req, res, next) {
-  res.render('game', { title: 'Game' });
+	res.render('game', { title: 'Game' });
 });
 
 module.exports = router;
 
 //Game Logic Start
-var cardTurn = false; //clockwise if true, counter clockwise if false
+const socket = io();
+
+var cardTurnClockwise = false; //clockwise if true, counter clockwise if false
 var currentPlayerTurn = 0;
 var cardPlayed;
 var topCard;
 
+var playerInfo {
 
+}
+
+$(function () {
+	$('#start').hide();
+	$('#ready').hide();
+	$('#drawFromDeck').hide();
+	$('#drawFromDiscardPile').hide();
+	$('#UNO').hide();
+
+	//Game Canvas buttons
+	$('#start').click(function() {
+		if($('#start').prop('disabled')) {
+			return false;
+		}else{
+		socket.emit('start', playerInfo);
+		}
+	})
+
+	$('#drawFromDeck').click(function() {
+		$('#drawFromDeck').hide();
+		//socket.emit('draw-cards', playerInfo);
+	})
+
+	$('#drawFromDiscardPile').click(function() {
+		$('#drawFromDiscardPile').hide();
+		//socket.emit('draw-cards', playerInfo);
+	})
+
+
+
+	$('#UNO').click(function() {
+		if($('UNO').prop('disabled')) {
+	}else{
+	socket.emit('UNO', myInfo, gameState);
+	}
+	return false;
+	})
+
+})
 
 function getNextPlayerTurn(){
 	if (isCardTurnReversed == true){
@@ -53,6 +95,13 @@ function isValidPlay(){
 	else return false;
 }
 
-function Update(){
 
+//TODO: maybe not needed?
+function cardAction(){
+
+}
+function Update(){
+	getNextPlayerTurn();
+
+	//TODO: UNO condition
 }
