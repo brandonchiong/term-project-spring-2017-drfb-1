@@ -10,7 +10,7 @@ router.get('/', (request, response) => {
             response.render('test', { cards })
             console.log(cards.id);
         })
-    var uname = 'someguy1'
+/*    var uname = 'someguy1'
     var uemail = 'asdgh@lol'
     var upw = "1234asdfffg"
     Users.create(uname, uemail, upw)
@@ -19,7 +19,7 @@ router.get('/', (request, response) => {
      })
     .catch( () => {
         console.log('Error user not created. \nMake sure user is not already in db.');
-    })
+    })*/
 })
 
 module.exports = router
