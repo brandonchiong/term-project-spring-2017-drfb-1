@@ -8,18 +8,27 @@ body {
 }
 
 #chat-area {
-  display: none;
-  position: fixed;
+/*  display: none;
+*/  position: fixed;
   bottom: 0;
 }
 
-#initial-form {
+/*#game_space {
+    background-color: #000000; 
+    color: #ffffff;
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+*/
+/*#initial-form {
   position: fixed;
   bottom: 0;
-}
+}*/
 
 .messages {
-  min-height: 300px;
+  min-height: 100px;
+  max-height: 100px;
 }
 
 .message {

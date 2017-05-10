@@ -8,6 +8,6 @@ const DELETE = `DELETE FROM GameCards WHERE game_id=$1 AND card_id=$2 AND user_i
 module.exports = {
    all: () => db.any( ALL ),
    find: ( game_id, card_id, user_id ) => db.oneOrNone( FIND, [ game_id, card_id, user_id ] ),
-   create: ( first_name, last_name, alias, email, pw ) => db.none( CREATE, [ first_name, last_name, alias, email, pw ] ),
+   create: ( game_id, card_id, user_id, discarded_at, discarded ) => db.none( CREATE, [ game_id, card_id, user_id, discarded_at, discarded ] ),
    delete: ( game_id, card_id, user_id ) => db.none( DELETE, [ game_id, card_id, user_id ] ),
 }
