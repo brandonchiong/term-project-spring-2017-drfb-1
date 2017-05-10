@@ -1,4 +1,4 @@
-const db = require( '../connect' )
+const db = require('../connect')
 
 const ALL = `SELECT * FROM Users`
 const FIND = `SELECT * FROM Users WHERE id=$1`
