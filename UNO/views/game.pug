@@ -1,8 +1,8 @@
 extends layout
 block content
-  h1 Game
-  canvas#canvas(height=500, width=725, style="border:1px solid;")
-  img#back_card(src="/images/UnoCard/Q.png" width=97.4 height=159)
+  canvas#canvas(style="border:5px solid;", )
+  img#back_card(src="/images/UnoCard/Q.png" align="right" width=73.05 height=119.25)
+  include chat.pug
   script.
     var q_card = new Image();
     var blue0 = new Image();
@@ -16,44 +16,50 @@ block content
     var blue8 = new Image();
     var blue9 = new Image();
 
+
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
 
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+
     var action = 0;
 
-    window.onload = function() {    
+    window.onload = function() {
+
       //- ctx.drawImage(q_card,0,10,q_card.width*0.2, q_card.height*0.2);
     }
-      document.getElementById("back_card").addEventListener("click", function(){
+    document.getElementById("back_card").addEventListener("click", function(){
       if(action == 0) {
-        ctx.drawImage(blue0,10,385,blue0.width*0.15, blue0.height*0.15);
+        ctx.drawImage(blue0,10,canvas.height-120,blue0.width*0.15, blue0.height*0.15);
         action++;
       } else if(action == 1) {
-        ctx.drawImage(blue1,80,385,blue1.width*0.15, blue1.height*0.15);
+        ctx.drawImage(blue1,80,canvas.height-120,blue1.width*0.15, blue1.height*0.15);
         action++;
       } else if(action == 2) {
-        ctx.drawImage(blue2,150,385,blue2.width*0.15, blue2.height*0.15);
+        ctx.drawImage(blue2,150,canvas.height-120,blue2.width*0.15, blue2.height*0.15);
         action++;
       } else if(action == 3) {
-        ctx.drawImage(blue3,220,385,blue3.width*0.15, blue3.height*0.15);
+        ctx.drawImage(blue3,220,canvas.height-120,blue3.width*0.15, blue3.height*0.15);
         action++;
       } else if(action == 4) {
-        ctx.drawImage(blue4,290,385,blue4.width*0.15, blue4.height*0.15);
+        ctx.drawImage(blue4,290,canvas.height-120,blue4.width*0.15, blue4.height*0.15);
         action++;
       } else if(action == 5) {
-        ctx.drawImage(blue5,360,385,blue5.width*0.15, blue5.height*0.15);
+        ctx.drawImage(blue5,360,canvas.height-120,blue5.width*0.15, blue5.height*0.15);
         action++;
       } else if(action == 6) {
-        ctx.drawImage(blue6,430,385,blue6.width*0.15, blue6.height*0.15);
+        ctx.drawImage(blue6,430,canvas.height-120,blue6.width*0.15, blue6.height*0.15);
         action++;
       } else if(action == 7) {
-        ctx.drawImage(blue7,500,385,blue7.width*0.15, blue7.height*0.15);
+        ctx.drawImage(blue7,500,canvas.height-120,blue7.width*0.15, blue7.height*0.15);
         action++;
       } else if(action == 8) {
-        ctx.drawImage(blue8,570,385,blue8.width*0.15, blue8.height*0.15);
+        ctx.drawImage(blue8,570,canvas.height-120,blue8.width*0.15, blue8.height*0.15);
         action++;
       } else if(action == 9) {
-        ctx.drawImage(blue9,640,385,blue9.width*0.15, blue9.height*0.15);
+        ctx.drawImage(blue9,640,canvas.height-120,blue9.width*0.15, blue9.height*0.15);
         action++;
       } 
     }, false);
@@ -73,5 +79,5 @@ block content
 
   //- #gameArea
   //-   #game_space.col-lg-9.container-fluid.bg-1.text-center
-  //- include chat.pug
+  
 
