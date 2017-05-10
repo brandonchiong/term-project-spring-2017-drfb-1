@@ -1,9 +1,13 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { Games } = require('../db')
 
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
-  res.render('gameLobby', { title: 'gameLobby' });
+  Games.all()
+      .then(games => {
+           res.render( 'gameLobby', {games})
+      })
 });
 
 module.exports = router;

@@ -1,6 +1,15 @@
 extends layout
 
 block content
-  h1 Lobby page
+  h3 Game Lobby page
   include chat.pug
+
+  table 
+    thread 
+      tr
+        th id
+    tbody
+      each game in games
+       tr
+         td= game.id
 
