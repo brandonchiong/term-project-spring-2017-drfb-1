@@ -13,7 +13,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	res.render('game', { title: 'Game' });
+
+	console.log('creating game')
+	Games.create(-1, true, 0)
+		.then(games => {
+			var gameid = games.id;
+			console.log('game created');
+			res.render('game', { title: 'Game' });
+		})
+
 });
 
 module.exports = router;
