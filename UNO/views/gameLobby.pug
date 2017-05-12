@@ -1,23 +1,29 @@
 extends layout
 
 block content
-  h1 Lobby page
-  //include chat.pug
+  include chat.pug
 
   table
-    thead
-      tr
-        th Games:
-    tbody
-      each game in games
-        tr
-          td= game.id
+     thead
+       tr
+         th Games:
+     tbody
+       each game in games
+         tr
+           td= game.id
 
-  #host-button.main.container
-    .row.text-center
-      form(method='POST' action='/gameLobby')
-            
-      div.form-group
-        input#name.form-control(type='text', placeholder='name' name='name')
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h3.display-4.m-b-2 Host Game
 
-      button.btn.btn-primary(type='submit') Host Game
+        // Host Game form
+        form(method='POST' action='/gameLobby')
+          div.form-group
+
+          button.btn.btn-primary(type='submit') Host Game
+        
+        if errors 
+          ul
+            for error in errors
+              li!= error.msg
