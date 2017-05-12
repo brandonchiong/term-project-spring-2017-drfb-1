@@ -9,5 +9,5 @@ module.exports = {
    all: () => db.any( ALL ),
    find_by_ids: ( game_id, user_id ) => db.oneOrNone( FIND_BY_IDS, [ game_id, user_id ]),
    create: ( game_id, user_id, uno, num_cards ) => db.none( CREATE, [ game_id, user_id, uno, num_cards ] ),
-   delete: ( game_id, user_id ) => db.none( DELETE, [ game_id, user_id ] )
+   delete: ( game_id, user_id ) => db.none( DELETE, [ game_id, user_id ] ),
 }

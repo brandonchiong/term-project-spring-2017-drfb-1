@@ -1,6 +1,29 @@
 extends layout
 
 block content
-  h1 Lobby page
   include chat.pug
 
+  table
+     thead
+       tr
+         th Games:
+     tbody
+       each game in games
+         tr
+           td= game.id
+
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h3.display-4.m-b-2 Host Game
+
+        // Host Game form
+        form(method='POST' action='/gameLobby')
+          div.form-group
+
+          button.btn.btn-primary(type='submit') Host Game
+        
+        if errors 
+          ul
+            for error in errors
+              li!= error.msg
