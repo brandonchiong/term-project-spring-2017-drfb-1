@@ -7,19 +7,16 @@ block content
 
   include chat.pug
   
-  h3 Card Listing
-    table
-      thead
-        tr 
-          th Card ID
-          th Image Path
-      tbody
-        each card in cards
-          tr
-            td= card.id
-            td= card.image
+//-   h3 Card Listing
+//-     table
+//-       thead
+//-         tr 
+//-           th Card ID
+//-           th Image Path
+//-       tbody
+//-         each card in cards
+//-           tr
+//-             td= card.id
+//-             td= card.image
 block scripts
   script(src='/javascripts/game.js')
-
-  
-
