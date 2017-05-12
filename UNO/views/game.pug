@@ -3,7 +3,54 @@ extends layout
 block content
   h1 Game
   include chat.pug
-  
+ 
+  body
+    .container
+      .row
+        #playarea.col-md-8.col-md-offset-2
+          .row.text.center
+            .col-md-3 col
+                  .card
+                    img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                    .card-block
+                      h4.card-title Player 3
+                      p.card-text
+                        | Cards in Hand 0 
+          .row
+            .left.col-md-3
+                  .card
+                    img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                    .card-block
+                      h4.card-title Player 2
+                      p.card-text
+                        | Cards in Hand 0 
+            .middle.col-md-6
+              .card-group
+                .card
+                  img.img-responsive.center-block(src='/images/UnoCard/Q.png', alt='Card image cap')
+                  .card-block
+                    button#drawFromDeck.btn.btn-primary.btn-group-justified DrawDeck
+                .card
+                  img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                  .card-block
+                    button#drawFromDiscard.btn.btn-primary.btn-group-justified DrawDiscard
+            .left.col-md-3
+             .card
+                img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                .card-block
+                  h4.card-title Player 4
+                  p.card-text
+                    | Cards in Hand 0 
+          .row.text-center
+            button#start.btn.btn-success Start
+            button#UNO.btn.btn-danger Uno
+            button#ready.btn.btn-info Ready
+          .row
 
+                img.img-responsive.center-block(src='/images/UnoCard/blue3.png' width=73.05 height=119.25, alt='Card image cap')
+                img.img-responsive.center-block(src='/images/UnoCard/red6.png' width=73.05 height=119.25, alt='Card image cap')
+                img.img-responsive.center-block(src='/images/UnoCard/wildDraw4.png' width=73.05 height=119.25, alt='Card image cap')
+                img.img-responsive.center-block(src='/images/UnoCard/wildDraw4.png' width=73.05 height=119.25, alt='Card image cap')
+  
   script(src='/socket.io/socket.io.js')
   script(src='/javascripts/game.js')

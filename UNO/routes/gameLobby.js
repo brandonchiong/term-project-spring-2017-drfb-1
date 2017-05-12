@@ -7,9 +7,9 @@ const { Games } = require('../db');
 router.get('/', function(req, res, next) {
 
 	Games.all()
-  		.then(games => {
-  			res.render('gameLobby', {games})
-  	})
+		.then(games => {
+			res.render('gameLobby', {games})
+	})
 });
 
 router.post('/', function(req, res, next) {
@@ -21,6 +21,7 @@ router.post('/', function(req, res, next) {
 			console.log('GAME CREATED');
 			res.redirect('game');
 		})
+
 
 });
 
