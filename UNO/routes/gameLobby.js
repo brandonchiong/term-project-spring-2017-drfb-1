@@ -14,12 +14,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-	console.log('creating game')
-	Games.create(-1, true, 0)
+	console.log('CREATING GAME')
+	Games.create(0, true, 1)
 		.then(games => {
 			var gameid = games.id;
-			console.log('game created');
-			res.render('game', { title: 'Game' });
+			console.log('GAME CREATED');
+			res.redirect('game');
 		})
 
 });
