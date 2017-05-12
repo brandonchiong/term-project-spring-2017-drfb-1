@@ -20,6 +20,8 @@ var context = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+
+// card object which stores location of of card on canvas
 var Card = function(x_coordinate, y_coordinate, width, height) {
   this.left = x_coordinate;
   this.top = y_coordinate;
@@ -27,6 +29,8 @@ var Card = function(x_coordinate, y_coordinate, width, height) {
   this.bottom = y_coordinate + height;
 };
 
+
+// draws card on canvas
 var renderCard = function (context, x_coordinate, y_coordinate, card, cards) {
   context.drawImage(card, x_coordinate, y_coordinate, 
     card.width*0.15, card.height*0.15);
