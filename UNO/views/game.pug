@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  h1 Game
+  include chat.pug
+ 
   body
     .container
       .row
@@ -48,3 +51,6 @@ block content
                 img.img-responsive.center-block(src='/images/UnoCard/red6.png' width=73.05 height=119.25, alt='Card image cap')
                 img.img-responsive.center-block(src='/images/UnoCard/wildDraw4.png' width=73.05 height=119.25, alt='Card image cap')
                 img.img-responsive.center-block(src='/images/UnoCard/wildDraw4.png' width=73.05 height=119.25, alt='Card image cap')
+  
+  script(src='/socket.io/socket.io.js')
+  script(src='/javascripts/game.js')
