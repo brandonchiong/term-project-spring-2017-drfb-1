@@ -23,6 +23,19 @@ html, body {
   /*width: 50%;*/
 }
 
+
+#host-button {
+  position: fixed;
+  bottom: 0;
+}
+
+/*#game_space {
+    background-color: #000000; 
+    color: #ffffff;
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 120px;
+
 #canvas {
   background-color: green;
   margin-left: 0;
@@ -30,6 +43,7 @@ html, body {
   display: block;
   width: 100%;
   height: 70%;
+
 }
 
 /*#initial-form {
