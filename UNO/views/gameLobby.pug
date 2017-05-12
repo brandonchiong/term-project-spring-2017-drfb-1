@@ -1,6 +1,7 @@
 extends layout
 
 block content
+
   include chat.pug
 
   table
@@ -27,3 +28,14 @@ block content
           ul
             for error in errors
               li!= error.msg
+
+
+	#host-button.main.container
+		.row.text-center
+			form(method='POST' action='/gameLobby')
+						
+			div.form-group
+				input#name.form-control(type='text', placeholder='name' name='name')
+
+			button.btn.btn-primary(type='submit') Host Game
+
