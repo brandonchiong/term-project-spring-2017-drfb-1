@@ -24,42 +24,50 @@ var topCard;
 // // }
 
 // $(function () {
-// 	$('#start').hide();
-// 	$('#ready').hide();
-// 	$('#drawFromDeck').hide();
-// 	$('#drawFromDiscardPile').hide();
-// 	$('#UNO').hide();
+// // 	$('#start').hide();
+// // 	$('#ready').hide();
+// // 	$('#drawFromDeck').hide();
+// // 	$('#drawFromDiscardPile').hide();
+// // 	$('#UNO').hide();
 
-// 	//Game Canvas buttons
-// 	$('#start').click(function() {
-// 		if($('#start').prop('disabled')) {
-// 			return false;
-// 		}else{
-// 		socket.emit('start', playerInfo);
-// 		}
-// 	})
+// // 	//Game Canvas buttons
+// // 	$('#start').click(function() {
+// // 		if($('#start').prop('disabled')) {
+// // 			return false;
+// // 		}else{
+// // 		socket.emit('start', playerInfo);
+// // 		}
+// // 	})
 
-// 	$('#drawFromDeck').click(function() {
-// 		$('#drawFromDeck').hide();
+// // 	$('#drawFromDeck').click(function() {
+// // 		$('#drawFromDeck').hide();
+// // 		//socket.emit('draw-cards', playerInfo);
+// // 	})
+
+// 	$('#drawFromDiscard').click(function() {
+// 		alert ("hi");
+// 		//$('#drawFromDiscardPile').hide();
 // 		//socket.emit('draw-cards', playerInfo);
 // 	})
 
-// 	$('#drawFromDiscardPile').click(function() {
-// 		$('#drawFromDiscardPile').hide();
-// 		//socket.emit('draw-cards', playerInfo);
-// 	})
 
 
+// // 	$('#UNO').click(function() {
+// // 		if($('UNO').prop('disabled')) {
+// // 	}else{
+// // 	socket.emit('UNO', myInfo, gameState);
+// // 	}
+// // 	return false;
+// // 	})
 
-// 	$('#UNO').click(function() {
-// 		if($('UNO').prop('disabled')) {
-// 	}else{
-// 	socket.emit('UNO', myInfo, gameState);
-// 	}
-// 	return false;
-// 	})
+// // })
 
-// })
+
+// document.getElementById("drawFromDeck").addEventListener("click", function(){
+// 		alert ("hi");
+// });
+
+
 
 function getNextPlayerTurn(){
 	if (isCardTurnReversed == true){
