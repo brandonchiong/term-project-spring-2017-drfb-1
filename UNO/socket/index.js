@@ -1,4 +1,5 @@
 const socketIo = require( 'socket.io' )
+
 const { USER_JOINED, MESSAGE_SEND } = require( '../src/constants/events' )
 
 const init = ( app, server ) => {
@@ -15,6 +16,11 @@ const init = ( app, server ) => {
 
     socket.on( USER_JOINED, data => io.emit( USER_JOINED, data ))
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
+
+    socket.on('join_game', data => {
+      console.log('Player joined the game!')
+    })
+
   })
 }
 
