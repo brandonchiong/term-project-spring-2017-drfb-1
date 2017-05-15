@@ -7,13 +7,16 @@ const { Cards } = require('../db');
 
 router.get('/', function(req, res, next) {
 
-	var username = req.user.alias;
+	if(req.user) {
+		var username = req.user.alias;
+		console.log(username + ' joined the game');
 
-	console.log(username + ' joined the game');
-
-  Cards.all().then(cards => {
-    res.render('game', {cards} );
-  })
+  	Cards.all().then(cards => {
+      res.render('game', {cards} );
+    })
+  } else {
+  	res.redirect('/');
+  }
 
 });
 
