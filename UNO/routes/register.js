@@ -22,7 +22,7 @@ router.post('/', function(req, res) {
         return;
     } else {
 
-
+        res.redirect('gameLobby');
         Users.create(username, email, password)
             .then(users => {
                 console.log('User id: ' + users.id + ' inserted.')
