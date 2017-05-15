@@ -56,6 +56,7 @@ app.use('/login', login);
 app.use('/game', game);
 app.use('/chat', chat);
 app.use('/gameLobby', gameLobby);
+app.use('/joinGame', gameLobby)
 app.use('/rules', rules);
 app.use('/forgotPassword', forgotPassword);
 app.use('/test', test);
