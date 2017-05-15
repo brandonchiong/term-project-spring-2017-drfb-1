@@ -1,7 +1,6 @@
-var express = require('express');
-var router = express.Router();
-
-const { Games } = require('../db');
+const express = require('express');
+const router = express.Router();
+const { Games } = require('../db')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,8 +33,6 @@ router.post('/', function(req, res, next) {
 			console.log('GAME CREATED by ' + username);
 			res.redirect('game');
 		})
-
-
 });
 
 module.exports = router;
