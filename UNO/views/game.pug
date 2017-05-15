@@ -12,7 +12,7 @@ block content
                 h6 Player 3
               .row Cards in Hand 0 
             .col-md-3
-      .row
+      .row(style="background-color:yellow")
         #playarea.col-md-8.col-md-offset-2
           .row
             .col-md-1
@@ -42,22 +42,21 @@ block content
           .row.text-center
             button#start.btn.btn-success Start
             button#ready.btn.btn-info Ready
-      .row
+      .row(style="background-color:green")
         .col-sm-2
           //- include chat.pug
         .col-lg-8
-          .row
-            .col
+          .row(style="background-color:blue")
+            //- .col
               // for each card in player hand
-              img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
-              img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
-              img.pull-left.img-responsive(src='/images/UnoCard/red1.png', width='72', height='120')
-              img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
-              img.pull-left.img-responsive(src='/images/UnoCard/red2.png', width='72', height='120')
-              img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
-              img.pull-left.img-responsive(src='/images/UnoCard/red5.png', width='72', height='120')
-        .col-sm-2
-  
-  include chat.pug
+            img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
+            img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
+            img.pull-left.img-responsive(src='/images/UnoCard/red1.png', width='72', height='120')
+            img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
+            img.pull-left.img-responsive(src='/images/UnoCard/red2.png', width='72', height='120')
+            img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
+            img.pull-left.img-responsive(src='/images/UnoCard/red5.png', width='72', height='120')
+    .row(style="background-color:red")
+      include chat.pug
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/game.js')

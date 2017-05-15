@@ -2,12 +2,14 @@ var socket = io();
 
 socket.emit('join_game');
 
+var initializeDeck 
+
 document.getElementById("drawFromDeck").addEventListener("click", function(){
   console.log('Draw from Deck');
 });
 
 document.getElementById("drawFromDiscard").addEventListener("click", function(){
-  console.log('Draw from Discard');
+  console.log('Uno');
 })
 
 //Game Logic Start
