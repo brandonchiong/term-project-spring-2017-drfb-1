@@ -44,7 +44,7 @@ block content
             button#ready.btn.btn-info Ready
       .row
         .col-sm-2
-          include chat.pug
+          //- include chat.pug
         .col-lg-8
           .row
             .col
@@ -57,6 +57,7 @@ block content
               img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
               img.pull-left.img-responsive(src='/images/UnoCard/red5.png', width='72', height='120')
         .col-sm-2
-
-      script(src='/socket.io/socket.io.js')
-      script(src='/javascripts/game.js')
+  
+  include chat.pug
+    script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/game.js')

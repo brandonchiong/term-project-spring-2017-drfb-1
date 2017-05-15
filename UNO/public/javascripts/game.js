@@ -2,6 +2,14 @@ var socket = io();
 
 socket.emit('join_game');
 
+document.getElementById("drawFromDeck").addEventListener("click", function(){
+  console.log('Draw from Deck');
+});
+
+document.getElementById("drawFromDiscard").addEventListener("click", function(){
+  console.log('Draw from Discard');
+})
+
 //Game Logic Start
 //const socket = io();
 
