@@ -1,56 +1,85 @@
 extends layout
 
 block content
-  h1 Game
-  include chat.pug
- 
-  body
+  body 
     .container
-      .row
+      #player3.row.text.center
+            .col-md-3
+            .col-md-3
+              img.img-responsive.center-block(src='/images/user.png' width='72' height='120')
+            .col-md-3
+              .row.text.center
+                h6 Player 3
+              .row Cards in Hand 0 
+            .col-md-3
+      .row(style="background-color:yellow")
         #playarea.col-md-8.col-md-offset-2
-          .row.text.center
-            .col-md-3 col
-                  .card
-                    img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
-                    .card-block
-                      h4.card-title Player 3
-                      p.card-text
-                        | Cards in Hand 0 
           .row
-            .left.col-md-3
-                  .card
-                    img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
-                    .card-block
-                      h4.card-title Player 2
-                      p.card-text
-                        | Cards in Hand 0 
-            .middle.col-md-6
+            .col-md-1
+            .col-md-2
+              .row
+                img.img-responsive.center-block(src='/images/user.png')
+              .row.text.center
+                h6 Player 2
+              .row Cards in Hand 0 
+            #cardpile.middle.col-md-6
               .card-group
                 .card
-                  img.img-responsive.center-block(src='/images/UnoCard/Q.png', alt='Card image cap')
+                  img.img-responsive.center-block(src='/images/UnoCard/Q.png')
                   .card-block
-                    button#drawFromDeck.btn.btn-primary.btn-group-justified DrawDeck
+                    button#drawFromDeck.btn.btn-primary.btn-group-justified Draw
                 .card
-                  img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                  img.img-responsive.center-block(src='/images/UnoCard/wild.png')
                   .card-block
-                    button#drawFromDiscard.btn.btn-primary.btn-group-justified DrawDiscard
-            .left.col-md-3
-             .card
-                img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
-                .card-block
-                  h4.card-title Player 4
-                  p.card-text
-                    | Cards in Hand 0 
+                    button#drawFromDiscard.btn.btn-danger.btn-group-justified Uno
+            .col-md-2
+              .row
+                img.img-responsive.center-block(src='/images/user.png')
+              .row.text.center
+                h6 Player 4
+              .row Cards in Hand 0 
+            .col-md-1
           .row.text-center
             button#start.btn.btn-success Start
-            button#UNO.btn.btn-danger Uno
             button#ready.btn.btn-info Ready
-          .row
+      .row(style="background-color:green")
+        .col-sm-2
+          //- include chat.pug
+        .col-lg-8
+          .row(style="background-color:blue; height:120px;")
+            #card-area
+            //- p hellow
+            //- .col
+              // for each card in player hand
+            //- img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
+            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
+            //- img.pull-left.img-responsive(src='/images/UnoCard/red1.png', width='72', height='120')
+            //- img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
+            //- img.pull-left.img-responsive(src='/images/UnoCard/red2.png', width='72', height='120')
+            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
+            //- img.pull-left.img-responsive(src='/images/UnoCard/red5.png', width='72', height='120')
+            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
 
-                img.img-responsive.center-block(src='/images/UnoCard/blue3.png' width=73.05 height=119.25, alt='Card image cap')
-                img.img-responsive.center-block(src='/images/UnoCard/red6.png' width=73.05 height=119.25, alt='Card image cap')
-                img.img-responsive.center-block(src='/images/UnoCard/wildDraw4.png' width=73.05 height=119.25, alt='Card image cap')
-                img.img-responsive.center-block(src='/images/UnoCard/wildDraw4.png' width=73.05 height=119.25, alt='Card image cap')
-  
-  script(src='/socket.io/socket.io.js')
-  script(src='/javascripts/game.js')
+      //- .row(style="background-color:red")
+  include chat.pug
+        
+    table
+      thead
+        tr
+        th card_id
+        th card_type
+        th card_color
+        th card_number
+        th card_source
+      tbody
+        each card in cards
+          tr
+            td= card.id
+            td= card.card_type
+            td= card.color
+            td= card.number
+            td= card.image
+
+    script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/game.js')
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
