@@ -2,15 +2,27 @@ var socket = io();
 
 socket.emit('join_game');
 
-var initializeDeck 
+var card_area = document.getElementById('card-area');
 
 document.getElementById("drawFromDeck").addEventListener("click", function(){
   console.log('Draw from Deck');
+  renderCard(0);
+
+
 });
 
 document.getElementById("drawFromDiscard").addEventListener("click", function(){
   console.log('Uno');
 })
+
+function renderCard(card_id) {
+  var node = document.getElementById("card-area");
+  var card = new Image(72, 120);
+  card.src = '/images/UnoCard/red1.png';
+  node.appendChild(card);
+  document.getElementById("card-area").appendChild(node);
+
+}
 
 //Game Logic Start
 //const socket = io();
