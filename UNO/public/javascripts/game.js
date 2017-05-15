@@ -3,11 +3,18 @@ var socket = io();
 socket.emit('join_game');
 
 var card_area = document.getElementById('card-area');
+var card_id = null;
 
 document.getElementById("drawFromDeck").addEventListener("click", function(){
   console.log('Draw from Deck');
   renderCard(0);
-
+  renderCard(1);
+  renderCard(2);
+  renderCard(3);
+  renderCard(4);
+  renderCard(5);
+  renderCard(6);
+  renderCard(7);
 
 });
 
@@ -17,10 +24,33 @@ document.getElementById("drawFromDiscard").addEventListener("click", function(){
 
 function renderCard(card_id) {
   var node = document.getElementById("card-area");
+  console.log(node);
   var card = new Image(72, 120);
-  card.src = '/images/UnoCard/red1.png';
+  if (card_id == 0)
+    card.src = '/images/UnoCard/red0.png';
+  if (card_id == 1)
+    card.src = '/images/UnoCard/red1.png';
+  if (card_id == 2)
+    card.src = '/images/UnoCard/red1.png';
+  if (card_id == 3)
+    card.src = '/images/UnoCard/red2.png';
+  if (card_id == 4)
+    card.src = '/images/UnoCard/red2.png';
+  if (card_id == 5)
+    card.src = '/images/UnoCard/red3.png';
+  if (card_id == 6)
+    card.src = '/images/UnoCard/red3.png';
+  if (card_id == 7)
+    card.src = '/images/UnoCard/red4.png';
+  if (card_id == 8)
+    card.src = '/images/UnoCard/red4.png';
+  if (card_id == 9)
+    card.src = '/images/UnoCard/red5.png';
+  if (card_id == 10)
+    card.src = '/images/UnoCard/red5.png';
   node.appendChild(card);
-  document.getElementById("card-area").appendChild(node);
+  // console.log(node);
+  // document.getElementById("card-area").appendChild(node);
 
 }
 
