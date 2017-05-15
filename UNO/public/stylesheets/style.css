@@ -17,10 +17,7 @@ html, body {
 }
 
 #chat-area {
-  /*display: none;  */
-  /*position: fixed;*/
   bottom: 0;
-  /*width: 50%;*/
 }
 
 #canvas {
@@ -31,11 +28,6 @@ html, body {
   width: 100%;
   height: 70%;
 }
-
-/*#initial-form {
-  position: fixed;
-  bottom: 0;
-}*/
 
 .messages {
   min-height: 100px;
