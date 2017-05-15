@@ -25,9 +25,9 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
 	var username = req.user.alias;
-
-	console.log('CREATING GAME');
-	Games.create(0, true, 1)
+	console.log('CREATING GAME')
+  
+	Games.create(1)
 		.then(games => {
 			var gameid = games.id;
 			console.log('GAME CREATED by ' + username);
