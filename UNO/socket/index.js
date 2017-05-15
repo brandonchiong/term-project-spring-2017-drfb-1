@@ -18,7 +18,7 @@ const init = ( app, server ) => {
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
 
     socket.on('join_game', data => {
-      console.log('Player joined the game!')
+      console.log('SOCKET: Player joined the game!')
     })
 
   })
