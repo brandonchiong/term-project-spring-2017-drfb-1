@@ -24,7 +24,7 @@ CREATE DATABASE Uno;
 
 
 CREATE TABLE IF NOT EXISTS Users (
-  id SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY, 
   alias VARCHAR(32) UNIQUE NOT NULL,
   email VARCHAR(32) UNIQUE NOT NULL,
   pw VARCHAR(32) NOT NULL
@@ -40,7 +40,6 @@ CREATE TABLE IF NOT EXISTS Cards (
 
 CREATE TABLE IF NOT EXISTS Games (
   id SERIAL PRIMARY KEY,
-  top_card_id INTEGER REFERENCES Cards(id),
   direction BOOLEAN DEFAULT TRUE,
   player_turn INTEGER REFERENCES Users(id)
 );
@@ -54,11 +53,12 @@ CREATE TABLE IF NOT EXISTS GameUsers (
 );
 
 CREATE TABLE IF NOT EXISTS GameCards (
-  game_id INTEGER REFERENCES Games(id),
+  game_id INTEGER REFERENCES Games(id) ON DELETE CASCADE,
   card_id INTEGER REFERENCES Cards(id),
   user_id INTEGER REFERENCES Users(id),
   discarded_at TIME WITH TIME ZONE,
   discarded BOOLEAN,
+  top_card_id INTEGER REFERENCES Cards(id),
   PRIMARY KEY (game_id, card_id, user_id)
 );
 
