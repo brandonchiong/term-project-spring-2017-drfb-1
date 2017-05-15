@@ -34,13 +34,4 @@ router.post('/', function(req, res, next) {
 		})
 });
 
-router.post('/joinGame', function(req, res, next) {
-
-	var username = req.user.alias;
-	console.log(username + 'joined the game');
-
-	res.redirect('game');
-});
-
-
 module.exports = router;

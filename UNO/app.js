@@ -20,6 +20,7 @@ const login = require('./routes/login');
 const game = require('./routes/game');
 const chat = require('./routes/chat');
 const gameLobby = require('./routes/gameLobby');
+const joinGame = require('./routes/joinGame')
 const rules = require('./routes/rules');
 const forgotPassword = require('./routes/forgotPassword');
 const test = require('./routes/test');
@@ -56,7 +57,7 @@ app.use('/login', login);
 app.use('/game', game);
 app.use('/chat', chat);
 app.use('/gameLobby', gameLobby);
-app.use('/joinGame', gameLobby)
+app.use('/joinGame', joinGame);
 app.use('/rules', rules);
 app.use('/forgotPassword', forgotPassword);
 app.use('/test', test);
