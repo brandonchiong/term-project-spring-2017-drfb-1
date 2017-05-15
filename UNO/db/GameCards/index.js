@@ -13,7 +13,7 @@ const DRAWCARDBYPLAYERID = 'UPDATE GameCards SET user_id=$1 ' +
                            'GameCards WHERE game_id =$2 AND user_id=1 AND discarded=false ORDER BY random() LIMIT 1) RETURNING *'
 const PLAYCARD = 'UPDATE GameCards SET discarded=true, discarded_at=$4, user_id=1 ' + 
                  'WHERE game_id=$1 AND user_id=$2 AND card_id=$3'
-const RESET = 'UPDATE GameCards SET discarded=false, discarded_at=0, user_id=1 WHERE game_id=$1 AND discarded=true AND user_id=1'
+const RESET = 'UPDATE GameCards SET discarded=false, discarded_at=\'2017-05-17 00:00:00\', user_id=1 WHERE game_id=$1 AND discarded=true AND user_id=1'
 const SETTOPCARD = 'UPDATE GameCards discarded =true, user_id=1, top_card=card_id, discarded_at=$3, '+ 
                    'WHERE game_id=$1 AND card_id ' + 
                    'IN (SELECT card_id FROM GameCards WHERE game_id =$1 AND user_id=1 AND discarded=false ORDER BY random() LIMIT 1) RETURNING *'
