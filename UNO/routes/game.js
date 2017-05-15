@@ -11,7 +11,10 @@ router.get('/', function(req, res, next) {
 
 	console.log(username + ' joined the game');
 
-  res.render('game', { title: 'Game' });
+  Cards.all().then(cards => {
+    res.render('game', {cards} );
+  })
+
 });
 
 module.exports = router;

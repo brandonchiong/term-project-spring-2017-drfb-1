@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  body
+  body 
     .container
       #player3.row.text.center
             .col-md-3
@@ -62,6 +62,24 @@ block content
 
     .row(style="background-color:red")
       include chat.pug
+    
+    table
+      thead
+        tr
+        th card_id
+        th card_type
+        th card_color
+        th card_number
+        th card_source
+      tbody
+        each card in cards
+          tr
+            td= card.id
+            td= card.card_type
+            td= card.color
+            td= card.number
+            td= card.image
+
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/game.js')
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")

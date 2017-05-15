@@ -3,18 +3,17 @@ var socket = io();
 socket.emit('join_game');
 
 var card_area = document.getElementById('card-area');
-var card_id = null;
 
-document.getElementById("drawFromDeck").addEventListener("click", function(){
+var deck = [];
+
+document.getElementById("drawFromDeck").addEventListener("click", function(cards){
   console.log('Draw from Deck');
+  // deck = Cards.all();
+  // for (var i = 0; i <= 107; i++) {
+  //   console.log(deck[i].id);
+  // }
   renderCard(0);
-  renderCard(1);
-  renderCard(2);
-  renderCard(3);
-  renderCard(4);
-  renderCard(5);
-  renderCard(6);
-  renderCard(7);
+  // renderCard(1);
 
 });
 
@@ -27,7 +26,7 @@ function renderCard(card_id) {
   console.log(node);
   var card = new Image(72, 120);
   if (card_id == 0)
-    card.src = '/images/UnoCard/red0.png';
+    card.src =  '/images/UnoCard/red0.png';
   if (card_id == 1)
     card.src = '/images/UnoCard/red1.png';
   if (card_id == 2)
