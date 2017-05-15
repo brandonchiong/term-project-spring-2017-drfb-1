@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
 	console.log('CREATING GAME')
-	Games.create(true, 1)
+	Games.create(1)
 		.then(games => {
 			var gameid = games.id;
 			console.log('GAME CREATED');
