@@ -7,11 +7,16 @@ const { Cards } = require('../db');
 
 router.get('/', function(req, res, next) {
 
-	var username = req.user.alias;
+	if(req.user) {
+		var username = req.user.alias;
+		console.log(username + ' joined the game');
 
-	console.log(username + ' joined the game');
+  	res.render('game', { title: 'Game' });
+  } else {
+  	res.redirect('/');
+  }
 
-  res.render('game', { title: 'Game' });
+
 });
 
 module.exports = router;
