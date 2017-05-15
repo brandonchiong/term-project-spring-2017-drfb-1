@@ -11,5 +11,4 @@ module.exports = {
    create: ( game_id, user_id, uno, num_cards ) => db.none( CREATE, [ game_id, user_id, uno, num_cards ] ),
    delete: ( game_id, user_id ) => db.none( DELETE, [ game_id, user_id ] ),
    getPlayersByGameId: game_id => db.manyOrNone( GETPLAYERSBYGAMEID, game_id),
-
 }

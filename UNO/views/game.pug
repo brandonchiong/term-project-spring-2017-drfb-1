@@ -1,77 +1,56 @@
 extends layout
+
 block content
   h1 Game
-  canvas#canvas(height=500, width=725, style="border:1px solid;")
-  img#back_card(src="/images/UnoCard/Q.png" width=97.4 height=159)
-  script.
-    var q_card = new Image();
-    var blue0 = new Image();
-    var blue1 = new Image();
-    var blue2 = new Image();
-    var blue3 = new Image();
-    var blue4 = new Image();
-    var blue5 = new Image();
-    var blue6 = new Image();
-    var blue7 = new Image();
-    var blue8 = new Image();
-    var blue9 = new Image();
+  include chat.pug
+ 
+  body
+    .container
+      .row
+        #playarea.col-md-8.col-md-offset-2
+          .row.text.center
+            .col-md-3 col
+                  .card
+                    img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                    .card-block
+                      h4.card-title Player 3
+                      p.card-text
+                        | Cards in Hand 0 
+          .row
+            .left.col-md-3
+                  .card
+                    img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                    .card-block
+                      h4.card-title Player 2
+                      p.card-text
+                        | Cards in Hand 0 
+            .middle.col-md-6
+              .card-group
+                .card
+                  img.img-responsive.center-block(src='/images/UnoCard/Q.png', alt='Card image cap')
+                  .card-block
+                    button#drawFromDeck.btn.btn-primary.btn-group-justified DrawDeck
+                .card
+                  img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                  .card-block
+                    button#drawFromDiscard.btn.btn-primary.btn-group-justified DrawDiscard
+            .left.col-md-3
+             .card
+                img.img-responsive.center-block(src='/images/UnoCard/wild.png', alt='Card image cap')
+                .card-block
+                  h4.card-title Player 4
+                  p.card-text
+                    | Cards in Hand 0 
+          .row.text-center
+            button#start.btn.btn-success Start
+            button#UNO.btn.btn-danger Uno
+            button#ready.btn.btn-info Ready
+          .row
 
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-
-    var action = 0;
-
-    window.onload = function() {    
-      //- ctx.drawImage(q_card,0,10,q_card.width*0.2, q_card.height*0.2);
-    }
-      document.getElementById("back_card").addEventListener("click", function(){
-      if(action == 0) {
-        ctx.drawImage(blue0,10,385,blue0.width*0.15, blue0.height*0.15);
-        action++;
-      } else if(action == 1) {
-        ctx.drawImage(blue1,80,385,blue1.width*0.15, blue1.height*0.15);
-        action++;
-      } else if(action == 2) {
-        ctx.drawImage(blue2,150,385,blue2.width*0.15, blue2.height*0.15);
-        action++;
-      } else if(action == 3) {
-        ctx.drawImage(blue3,220,385,blue3.width*0.15, blue3.height*0.15);
-        action++;
-      } else if(action == 4) {
-        ctx.drawImage(blue4,290,385,blue4.width*0.15, blue4.height*0.15);
-        action++;
-      } else if(action == 5) {
-        ctx.drawImage(blue5,360,385,blue5.width*0.15, blue5.height*0.15);
-        action++;
-      } else if(action == 6) {
-        ctx.drawImage(blue6,430,385,blue6.width*0.15, blue6.height*0.15);
-        action++;
-      } else if(action == 7) {
-        ctx.drawImage(blue7,500,385,blue7.width*0.15, blue7.height*0.15);
-        action++;
-      } else if(action == 8) {
-        ctx.drawImage(blue8,570,385,blue8.width*0.15, blue8.height*0.15);
-        action++;
-      } else if(action == 9) {
-        ctx.drawImage(blue9,640,385,blue9.width*0.15, blue9.height*0.15);
-        action++;
-      } 
-    }, false);
-
-
-    q_card.src = 'images/UnoCard/Q.png';
-    blue0.src= 'images/UnoCard/blue0.png';
-    blue1.src= 'images/UnoCard/blue1.png';
-    blue2.src= 'images/UnoCard/blue2.png';
-    blue3.src= 'images/UnoCard/blue3.png';
-    blue4.src= 'images/UnoCard/blue4.png';
-    blue5.src= 'images/UnoCard/blue5.png';
-    blue6.src= 'images/UnoCard/blue6.png';
-    blue7.src= 'images/UnoCard/blue7.png';
-    blue8.src= 'images/UnoCard/blue8.png';
-    blue9.src= 'images/UnoCard/blue9.png';
-
-  //- #gameArea
-  //-   #game_space.col-lg-9.container-fluid.bg-1.text-center
-  //- include chat.pug
-
+                img.img-responsive.center-block(src='/images/UnoCard/blue3.png' width=73.05 height=119.25, alt='Card image cap')
+                img.img-responsive.center-block(src='/images/UnoCard/red6.png' width=73.05 height=119.25, alt='Card image cap')
+                img.img-responsive.center-block(src='/images/UnoCard/wildDraw4.png' width=73.05 height=119.25, alt='Card image cap')
+                img.img-responsive.center-block(src='/images/UnoCard/wildDraw4.png' width=73.05 height=119.25, alt='Card image cap')
+  
+  script(src='/socket.io/socket.io.js')
+  script(src='/javascripts/game.js')
