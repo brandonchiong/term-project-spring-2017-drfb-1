@@ -25,14 +25,24 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
 	var username = req.user.alias;
+	console.log('CREATING GAME')
+  
+	Games.create(1)
 
-	console.log('CREATING GAME');
-	Games.create(0, true, 1)
 		.then(games => {
 			var gameid = games.id;
 			console.log('GAME CREATED by ' + username);
 			res.redirect('game');
 		})
 });
+
+router.post('/joinGame', function(req, res, next) {
+
+	var username = req.user.alias;
+	console.log(username + 'joined the game');
+
+	res.redirect('game');
+});
+
 
 module.exports = router;

@@ -21,9 +21,7 @@ router.post('/', function(req, res) {
         res.render('register', { title: 'Register' });
         return;
     } else {
-
-
-        Users.create(username, email, password)
+        Users.createUser(username, email, password)
             .then(users => {
                 console.log('User id: ' + users.id + ' inserted.')
                 res.redirect('gameLobby');
