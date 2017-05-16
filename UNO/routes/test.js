@@ -8,10 +8,10 @@ const { GameUsers } = require('../db')
 
 router.get('/', (request, response) => {
     
-    Games.num_players(1)
+    Cards.getCardColor(1)
        .then(results => {
-           console.log(results + " results found!")
-           response.redirect('gameLobby')
+           console.log("Result of pg-promise: " + results.color)
+           response.render('index')
        })
        .catch( error => {
            response.render('gameLobby')
