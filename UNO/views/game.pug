@@ -62,24 +62,23 @@ block content
 
       //- .row(style="background-color:red")
   include chat.pug
-
         
-    table
+    //- table
       thead
         tr
         th card_id
-        th card_type
-        th card_color
-        th card_number
-        th card_source
+        //- th card_type
+        //- th card_color
+        //- th card_number
+        //- th card_source
       tbody
         each card in cards
           tr
-            td= card.id
-            td= card.card_type
-            td= card.color
-            td= card.number
-            td= card.image
+            td= card.card_id
+            // td= card.card_type
+            // td= card.color
+            // td= card.number
+            // td= card.image
 
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/game.js')
