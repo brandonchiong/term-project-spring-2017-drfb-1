@@ -8,9 +8,9 @@ const { GameUsers } = require('../db')
 
 router.get('/', (request, response) => {
     
-    Cards.getCardColor(1)
+    Cards.all()
        .then(results => {
-           console.log("Result of pg-promise: " + results.color)
+           console.log("Result of pg-promise: " + results[0].image)
            response.render('index')
        })
        .catch( error => {
