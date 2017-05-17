@@ -2,6 +2,8 @@ extends layout
 
 block content
   body 
+    .hidden#userid #{userid}
+    .hidden#username #{username}
     .container
       #player3.row.text.center
             .col-md-3
@@ -42,6 +44,7 @@ block content
           .row.text-center
             button#start.btn.btn-success Start
             button#ready.btn.btn-info Ready
+            h6 #{username}
       .row(style="background-color:green")
         .col-sm-2
           //- include chat.pug
