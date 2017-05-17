@@ -5,31 +5,43 @@ const GETCARDSBYPLAYER = `SELECT * FROM GameCards WHERE game_id=$1 AND user_id=$
 const DELETEPLAYER = `DELETE FROM GameCards WHERE game_id=$1 AND user_id=$2 RETURNING *`
 const DELETEGAME = 'DELETE FROM GameCards WHERE game_id=$1 RETURNING *'
 const CARDTOPLAYER = 'UPDATE GameCards SET user_id=$1 WHERE game_id=$2 AND card_id=$3'
-const GETNUMCARDSINDECK = 'SELECT COUNT (*) AS numCards FROM GameCards WHERE game_id=$1 AND user_id=1'
-const GETNUMCARDSBYPLAYER = 'SELECT COUNT (*) AS numCards FROM GameCards WHERE game_id=$1 AND user_id=$2'
+const GETNUMCARDSINDECK = 'SELECT COUNT (*) AS num FROM GameCards WHERE game_id=$1 AND user_id=1'
+const GETNUMCARDSBYPLAYER = 'SELECT COUNT (*) AS num FROM GameCards WHERE game_id=$1 AND user_id=$2'
+
 const DRAWCARDBYPLAYERID = 'UPDATE GameCards SET user_id=$1 ' + 
                            'WHERE game_id=$2 AND card_id '+ 
                            'IN (SELECT card_id FROM ' +
                            'GameCards WHERE game_id =$2 AND user_id=1 AND discarded=false '+
-                           'ORDER BY random() LIMIT 1) RETURNING *'
+                           'ORDER BY random() LIMIT 1) '+
+                           'RETURNING *'
+
 const DRAW2CARDSBYPLAYERID = 'UPDATE GameCards SET user_id=$1 ' + 
                              'WHERE game_id=$2 AND card_id '+ 
                              'IN (SELECT card_id FROM ' +
                              'GameCards WHERE game_id =$2 AND user_id=1 AND discarded=false '+
-                             'ORDER BY random() LIMIT 2) RETURNING *'
+                             'ORDER BY random() LIMIT 2) '+
+                             'RETURNING *'
+
 const DRAW4CARDSBYPLAYERID = 'UPDATE GameCards SET user_id=$1 ' + 
                              'WHERE game_id=$2 AND card_id '+ 
                              'IN (SELECT card_id FROM ' +
                              'GameCards WHERE game_id =$2 AND user_id=1 AND discarded=false '+
-                             'ORDER BY random() LIMIT 4) RETURNING *'
+                             'ORDER BY random() LIMIT 4) '+
+                             'RETURNING *'
+
 const PLAYCARD = 'UPDATE GameCards SET discarded=true, discarded_at=$4, user_id=1 ' + 
-                 'WHERE game_id=$1 AND user_id=$2 AND card_id=$3 RETURNING card_id'
-const RESET = 'UPDATE GameCards SET discarded=false, discarded_at=\'2017-05-17 00:00:00\', user_id=1 WHERE game_id=$1 AND discarded=true AND user_id=1'
+                 'WHERE game_id=$1 AND user_id=$2 AND card_id=$3 '+
+                 'RETURNING card_id'
+
+const RESET = 'UPDATE GameCards SET discarded=false, discarded_at=\'2017-05-17 00:00:00-00\', user_id=1 '+
+              'WHERE game_id=$1 AND discarded=true AND user_id=1'
+
 const DRAWTOPCARD = 'UPDATE GameCards SET discarded = true, user_id = 1, discarded_at = $2 '+ 
                    'WHERE game_id = $1 AND card_id ' + 
                    'IN (SELECT card_id FROM GameCards ' + 
                    'WHERE game_id = $1 AND user_id = 1 '+
                    'AND discarded = false ORDER BY random() LIMIT 1) RETURNING *'
+
 const NEWDECK = 'INSERT INTO GameCards (game_id, card_id, user_id, discarded_at, discarded) VALUES ' +
                 '($1, 0, 1, \'2017-05-17 00:00:00\', false), '+
                 '($1, 1, 1, \'2017-05-17 00:00:00\', false), '+
@@ -167,11 +179,11 @@ module.exports = {
    //Recommend a check on number of cards in deck before calling
    draw4CardsByPlayerId: (user_id, game_id) => db.many(DRAW4CARDSBYPLAYERID,[ user_id, game_id ] ),
   
-   //Call this after playCard ---> Games.setTopCard(result.card_id)
+   //Call this after playCard ---> Games.setTopCard(result.card_id) --> then games.setPlayerTurn( ... ) to update Games table.
    playCard: (game_id, user_id, card_id, time) => db.one(PLAYCARD, [ game_id, user_id, card_id, time ]) ,
    
    //Recommend a reset when number of cards in deck == 4 or some number close to but higher. 
-   reset: game_id => db.any(RESET, game_id), 
+   reset: game_id => db.none(RESET, game_id), 
    
    //Call this after newDeck() ---> Games.setTopCard(result.card_id)
    drawTopCard :(game_id, time)=> db.one(DRAWTOPCARD, [ game_id, time ]) 
