@@ -25,4 +25,27 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.get('/:id', function(req, res, next) {
+
+  console.log('URL: ' + req.originalUrl);
+
+  if(req.user) {
+    var userid = req.user.id;
+    var username = req.user.alias;
+    console.log(userid + ':' + username + ' joined the game');
+
+    Cards.all().then(cards => {
+      res.render('game', {
+        cards, 
+        userid : userid, 
+        username : username
+      });
+    })
+
+  } else {
+    res.redirect('/');
+  }
+
+});
+
 module.exports = router;
