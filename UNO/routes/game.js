@@ -8,18 +8,17 @@ const { Cards } = require('../db/Cards/index.js');
 router.get('/', function(req, res, next) {
 
 	if(req.user) {
+		var userid = req.user.id;
 		var username = req.user.alias;
-		console.log(username + ' joined the game');
+		console.log(userid + ':' + username + ' joined the game');
 
-  	// GameCards.newDeck(1).then(cards => {
-      res.render('game', {title: 'Game' } );
-      consol.log('New Deck initalized');
-
-    // })
-    // .catch( error => {
-    //   console.log(error);
-    // })
-
+  	Cards.all().then(cards => {
+      res.render('game', {
+      	cards, 
+      	userid : userid, 
+      	username : username
+      });
+    })
   } else {
   	res.redirect('/');
   }

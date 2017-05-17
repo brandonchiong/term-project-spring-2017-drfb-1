@@ -19,13 +19,10 @@ const init = ( app, server ) => {
     socket.on( USER_JOINED, data => io.emit( USER_JOINED, data ))
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
 
-    socket.on('join_game', data => {
-      console.log('SOCKET: Player joined the game!')
+    socket.on('join_game', function(userData) {
+      console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined the game!')
     })
-
-    // socket.on( 'get-deck', function())
-
-  })
+  })  
 }
 
 module.exports = { init }

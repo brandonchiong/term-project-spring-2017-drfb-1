@@ -42,8 +42,9 @@ block content
           .row.text-center
             button#start.btn.btn-success Start
             button#ready.btn.btn-info Ready
-      //- .row(style="background-color:green")
-      //-   .col-sm-2
+            h6 #{username}
+      .row(style="background-color:green")
+        .col-sm-2
           //- include chat.pug
       .col-lg-12
         .row(style="background-color:blue; height:120px;")
@@ -75,5 +76,5 @@ block content
 
 
     script(src='/socket.io/socket.io.js')
-    script(src='/javascripts/game.js')
+    script(src='/javascripts/game.js' userid = userid, username = username)
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
