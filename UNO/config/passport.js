@@ -25,11 +25,12 @@ module.exports = function(passport) {
           return done(err); 
         }
         if (!user) {
+          console.log("Unregistered user detected.")
           return done(null, false, { message: 'Incorrect username.' });
         }
         if (user.pw != password) {
-          return done(null, false, { message: 'Incorrect password.' });
           console.log('Incorrect password');
+          return done(null, false, { message: 'Incorrect password.' });
         }
         return done(null, user);
       });

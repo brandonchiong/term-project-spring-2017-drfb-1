@@ -24,7 +24,7 @@
 
 
 CREATE TABLE IF NOT EXISTS Users (
-  id SERIAL PRIMARY KEY, 
+  id SERIAL PRIMARY KEY ON DELETE CASCADE, 
   alias VARCHAR(32) UNIQUE NOT NULL,
   email VARCHAR(32) UNIQUE NOT NULL,
   pw VARCHAR(32) NOT NULL
@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS Cards (
 CREATE TABLE IF NOT EXISTS Games (
   id SERIAL PRIMARY KEY,
   direction BOOLEAN DEFAULT TRUE,
-  player_turn INTEGER REFERENCES Users(id)
+  player_turn INTEGER REFERENCES Users(id),
+  top_card INTEGER REFERENCES Cards( id )
 );
 
 CREATE TABLE IF NOT EXISTS GameUsers (
@@ -58,7 +59,6 @@ CREATE TABLE IF NOT EXISTS GameCards (
   user_id INTEGER REFERENCES Users(id),
   discarded_at TIME WITH TIME ZONE,
   discarded BOOLEAN,
-  top_card_id INTEGER REFERENCES Cards(id),
   PRIMARY KEY (game_id, card_id, user_id)
 );
 
@@ -69,6 +69,9 @@ CREATE TABLE IF NOT EXISTS Messages (
   time_stamp TIME WITH TIME ZONE,
   PRIMARY KEY (game_id, user_id)
 );
+
+INSERT INTO Users (id, alias, email, pw) VALUES
+  (1, 'DEFAULT', 'DEFAULT@UNO', 'PASSWORD');
 
 INSERT INTO Cards (id, card_type, color, number, image) VALUES
   (0, 'number', 'r', 0, '/images/UnoCard/red0.png'),
