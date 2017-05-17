@@ -145,9 +145,10 @@ const NEWDECK = 'INSERT INTO GameCards (game_id, card_id, user_id, discarded_at,
 module.exports = {
    all: () => db.any( ALL ),
    getCardsByPlayer: ( game_id, user_id ) => db.any( GETCARDSBYPLAYER, [ game_id, user_id ] ),
-   
+
    /*Called when a new game is starting to set all game cards into the deck belonging to the default user=1.
      Call drawTopCard after this.*/
+  
    newDeck: (game_id) => db.any( NEWDECK, game_id ),
    deletePlayer: ( game_id, user_id ) => db.one( DELETEPLAYER, [ game_id, user_id ] ),
    deleteGame: game_id => db.one( DELETEGAME, game_id),
