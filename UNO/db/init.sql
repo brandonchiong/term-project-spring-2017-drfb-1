@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS Messages (
   PRIMARY KEY (game_id, user_id)
 );
 
-INSERT INTO Users (id, alias, email, pw) VALUES
-  (1, 'DEFAULT', 'DEFAULT@UNO', 'PASSWORD');
+INSERT INTO Users (alias, email, pw) VALUES
+  ('DEFAULT', 'DEFAULT@UNO', 'PASSWORD');
 
 INSERT INTO Cards (id, card_type, color, number, image) VALUES
   (0, 'number', 'r', 0, '/images/UnoCard/red0.png'),

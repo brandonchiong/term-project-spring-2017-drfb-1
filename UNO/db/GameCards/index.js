@@ -159,9 +159,11 @@ module.exports = {
    drawCardByPlayerId: (user_id, game_id) => db.one(DRAWCARDBYPLAYERID,[ user_id, game_id ] ),
    
    //Player plays a draw 2 card on next player| user_id == the player receiving.
+   //Recommend checking number of cards in deck prior to call.
    draw2CardsByPlayerId: (user_id, game_id) => db.one(DRAW2CARDSBYPLAYERID,[ user_id, game_id ] ),
    
    //Player plays a draw 4 card on the next player| user_id == the player receiving.
+   //Recommend a check on number of cards in deck before calling
    draw4CardsByPlayerId: (user_id, game_id) => db.one(DRAW4CARDSBYPLAYERID,[ user_id, game_id ] ),
   
    //Call this after playCard ---> Games.setTopCard(result.card_id)
