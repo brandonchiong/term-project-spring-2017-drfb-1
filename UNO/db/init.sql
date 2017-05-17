@@ -49,7 +49,6 @@ CREATE TABLE IF NOT EXISTS GameUsers (
   game_id INTEGER REFERENCES Games(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES Users(id), 
   uno BOOLEAN DEFAULT FALSE,
-  num_cards INTEGER,
   PRIMARY KEY (game_id, user_id)
 );
 

@@ -15,5 +15,4 @@ module.exports = {
    getPlayersByGameId: game_id => db.manyOrNone( GETPLAYERSBYGAMEID, game_id),
    declareUno: (game_id, user_id) => db.one( DECLAREUNO, [game_id, user_id]),
    addPlayer: (game_id, user_id) => db.one( ADDPLAYER, [game_id, user_id])
-
 }
