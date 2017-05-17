@@ -3,7 +3,7 @@ var router = express.Router();
 
 const { GameUsers } = require('../db');
 const { GameCards } = require('../db');
-const { Cards } = require('../db');
+const { Cards } = require('../db/Cards/index.js');
 
 router.get('/', function(req, res, next) {
 
@@ -19,7 +19,6 @@ router.get('/', function(req, res, next) {
       	username : username
       });
     })
-
   } else {
   	res.redirect('/');
   }

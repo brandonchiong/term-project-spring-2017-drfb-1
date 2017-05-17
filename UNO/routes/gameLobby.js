@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Games } = require('../db')
+const { Games } = require('../db');
+const { GameCards } = require('../db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -28,7 +29,10 @@ router.post('/', function(req, res, next) {
 	console.log('CREATING GAME')
   
 	Games.create(1)
-
+  GameCards.newDeck(1).then(cards => {
+      res.render('game', { cards } );
+      consol.log('New Deck initalized');
+    })
 		.then(games => {
 			var gameid = games.id;
 			console.log('GAME CREATED by ' + username);
