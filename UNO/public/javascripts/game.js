@@ -2,13 +2,23 @@ var socket = io();
 
 var userid = document.currentScript.getAttribute('userid')
 var username = document.currentScript.getAttribute('username')
+var gameid = 1
 
 var userData = {
   userid : userid,
   username : username
 }
 
+var gameData = {
+  gameid : gameid
+}
+
+console.log("userid: " + userid);
+console.log("gameid: " + gameid);
+
 socket.emit('join_game', userData);
+
+
 
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
@@ -29,6 +39,10 @@ document.getElementById("drawFromDeck").addEventListener("click", function(cards
 document.getElementById("drawFromDiscard").addEventListener("click", function(){
   console.log('Uno');
 })
+
+function drawFromDeck() {
+
+}
 
 function renderCard(card_id) {
   var node = document.getElementById("card-area");
