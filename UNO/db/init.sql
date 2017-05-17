@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Games (
   id SERIAL PRIMARY KEY,
   direction BOOLEAN DEFAULT TRUE,
   player_turn INTEGER REFERENCES Users(id),
-  top_card INTEGER REFERENCES Cards(id)
+  top_card INTEGER REFERENCES Cards( id )
 );
 
 CREATE TABLE IF NOT EXISTS GameUsers (
