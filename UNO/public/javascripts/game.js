@@ -1,7 +1,16 @@
 var socket = io();
 
-socket.emit('join_game');
+var userid = document.currentScript.getAttribute('userid')
+var username = document.currentScript.getAttribute('username')
 
+var userData = {
+  userid : userid,
+  username : username
+}
+
+socket.emit('join_game', userData);
+
+//GAME LOGIC 
 var card_area = document.getElementById('card-area');
 
 var deck = [];
