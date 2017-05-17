@@ -15,8 +15,8 @@ router.get('/', function(req, res, next) {
   	Cards.all().then(cards => {
       res.render('game', {
       	cards, 
-      	userid : req.user.id, 
-      	username : req.user.alias
+      	userid : userid, 
+      	username : username
       });
     })
 
