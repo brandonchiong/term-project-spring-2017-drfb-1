@@ -2,6 +2,7 @@ const socketIo = require( 'socket.io' )
 
 const { USER_JOINED, MESSAGE_SEND } = require( '../src/constants/events' )
 
+const { Cards } = require('../db');
 const { GameCards } = require('../db');
 
 const init = ( app, server ) => {
@@ -28,8 +29,13 @@ const init = ( app, server ) => {
       
       GameCards.drawCardByPlayerId(userData.userid, 1)
         .then(gamecards => {
-          socket.emit('draw_card', gamecards);
-          console.log(gamecards);
+          Cards.getCardImg(gamecards.card_id)
+          .then(cardpaths => {
+            socket.emit('draw_card', gamecards, cardpaths);
+            console.log(cardpaths);
+          })
+          
+          console.log(gamecards.card_id);
         })
         .catch(err => {
           console.log(err)
