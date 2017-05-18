@@ -25,8 +25,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-    var username = req.user.alias,
-        gameid
+    var username = req.user.alias
     console.log('CREATING GAME')
 
     /*  Games.create(1)
@@ -41,18 +40,19 @@ router.post('/', function(req, res, next) {
         })
         
 */
-    Games.create(req.user.id)
-        .then(game => {
-            console.log('GAME CREATED by ' + username + ' with game id: ' + game.id);
-            GameCards.newDeck(game.id).then(cards => {
-                    res.render('game', { cards });
-                    console.log('New Deck initalized');
-                })
-                .then(() => {
-                    res.redirect('game')
-                })
+    Games.create(req.user.id).then(games => {
+        var gameid = games.id;
+        console.log('GAME CREATED by ' + username + ' with game id: ' + games.id);
+        res.redirect('game')
 
+        GameCards.newDeck(games.id).then(cards => {
+            res.render('game', { cards });
+            console.log('New Deck initalized');
         })
+
+    })
+
+
 });
 
 module.exports = router;
