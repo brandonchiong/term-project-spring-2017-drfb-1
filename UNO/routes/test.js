@@ -20,7 +20,73 @@ router.get('/', (request, response) => {
        .catch( error => {
            response.render('gameLobby')
        })
+/*
+      //Gets the current number of cards the player with id 2 has in the game with id 1
+      GameCards.getNumCardsByPlayer(1, 2)
+        .then( results => {
+            console.log('Joker has ' + results[0].num + ' cards')
+        })
+*/
 
+/*
+        //Gets the number of cards in the deck that players will draw from.
+        GameCards.getNumCardsInDeck(1)
+          .then( results => {
+              console.log( 'Deck has ' + results[0].num + ' cards')
+          })
+*/
+
+/*
+    //Returns the number of players in game having id 1
+    Games.getNumPlayers(1)
+       .then( results => {
+           console.log('There are ' + results[0].num + ' players in this game')
+       })
+ */     
+      /*
+      //All cards currently indiscard pile are put back in the deck proper.
+       GameCards.reset(1)
+          .then( () => {
+              console.log('cards reset')
+          })
+      */
+
+       /*
+       //A player in game 1 with id 2 plays card with id 47
+       GameCards.playCard(1,2,47)
+          .then( results => {
+              console.log('Joker played ', results.card_id)
+              Games.setTopCard(1, results.card_id)
+          })
+       */
+
+       /*
+       //User with id 4 is added to game with id 1 
+       GameUsers.addPlayer(1, 4)
+            .then(results => {
+                console.log('Added player: ' + 4)
+            })
+       */
+
+  /*  
+   //Created a fake user and added to game with id 1
+   Users.createUser("faker4", "fake@faker4", "password")
+        .then( results => {
+            console.log ('created user with id: ' , results.id)
+            GameUsers.addPlayer(1, results.id)
+              .then( results => {
+                  console.log("Successfully added player to game.")
+              })
+        })
+    */
+/*
+    //Deletes user with id 8 from game with id 1
+    GameUsers.delete(1, 8)
+       .then( results => {
+           console.log('Deleted user from game')
+       })  
+*/
+/*
     //Create a new user
     Users.createUser('Joker', 'mrJay@arkham.gov', 'PASSWORD')
         .then(results => {
@@ -61,7 +127,8 @@ router.get('/', (request, response) => {
                                 })   
                       })
            })
-   })     
+   })   
+   */  
 })
 
 module.exports = router
