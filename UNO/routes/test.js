@@ -20,6 +20,10 @@ router.get('/', (request, response) => {
        .catch( error => {
            response.render('gameLobby')
        })
+   var timeStamp, date = new Date()
+            timeStamp = ( date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay() + ' ' + 
+                          date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds())
+            console.log('Time: ',CURRENT_TIMESTAMP)
 /*
       //Gets the current number of cards the player with id 2 has in the game with id 1
       GameCards.getNumCardsByPlayer(1, 2)
