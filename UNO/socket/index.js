@@ -22,6 +22,19 @@ const init = ( app, server ) => {
     socket.on('join_game', function(userData) {
       console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined the game!')
     })
+
+    socket.on('draw_card', function(userData) {
+      console.log(userData.username + " drew a card!" )
+      
+      GameCards.drawCardByPlayerId(userData.userid, 1)
+        .then(gamecards => {
+          socket.emit('draw_card', gamecards);
+          console.log(gamecards);
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
   })  
 }
 

@@ -6,11 +6,9 @@ var gameid = 1
 
 var userData = {
   userid : userid,
-  username : username
-}
-
-var gameData = {
-  gameid : gameid
+  username : username,
+  gameid : gameid,
+  numberOfCardsInHand : 5
 }
 
 console.log("userid: " + userid);
@@ -18,31 +16,28 @@ console.log("gameid: " + gameid);
 
 socket.emit('join_game', userData);
 
-
-
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
 
 var deck = [];
 
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
-  console.log('Draw from Deck');
-  // deck = Cards.all();
-  // for (var i = 0; i <= 107; i++) {
-  //   console.log(deck[i].id);
-  // }
-  renderCard(0);
-  // renderCard(1);
-
+  console.log( userData.username + " drew a card!");
+  socket.emit('draw_card', userData);
 });
 
 document.getElementById("drawFromDiscard").addEventListener("click", function(){
   console.log('Uno');
 })
 
-function drawFromDeck() {
-
-}
+socket.on('draw_card', function(gamecards) {
+  deck = gamecards;
+  console.log(deck[0]);
+  // console.log(deck[]);
+  // for (var i = 0; i < userData.numberOfCardsInHand; i++) {
+  //   renderCard(deck[i].card_id);
+  // }
+})
 
 function renderCard(card_id) {
   var node = document.getElementById("card-area");
@@ -69,6 +64,28 @@ function renderCard(card_id) {
   if (card_id == 9)
     card.src = '/images/UnoCard/red5.png';
   if (card_id == 10)
+    card.src = '/images/UnoCard/red5.png';
+  if (card_id == 11)
+    card.src =  '/images/UnoCard/red0.png';
+  if (card_id == 12)
+    card.src = '/images/UnoCard/red1.png';
+  if (card_id == 13)
+    card.src = '/images/UnoCard/red1.png';
+  if (card_id == 14)
+    card.src = '/images/UnoCard/red2.png';
+  if (card_id == 15)
+    card.src = '/images/UnoCard/red2.png';
+  if (card_id == 16)
+    card.src = '/images/UnoCard/red3.png';
+  if (card_id == 17)
+    card.src = '/images/UnoCard/red3.png';
+  if (card_id == 18)
+    card.src = '/images/UnoCard/red4.png';
+  if (card_id == 19)
+    card.src = '/images/UnoCard/red4.png';
+  if (card_id == 20)
+    card.src = '/images/UnoCard/red5.png';
+  if (card_id == 21)
     card.src = '/images/UnoCard/red5.png';
   node.appendChild(card);
   // console.log(node);
