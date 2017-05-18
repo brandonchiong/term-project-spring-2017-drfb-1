@@ -5,24 +5,28 @@ const { GameUsers } = require('../db');
 const { GameCards } = require('../db');
 const { Cards } = require('../db');
 
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
 
-	if(req.user) {
-		var userid = req.user.id;
-		var username = req.user.alias;
-		console.log(userid + ':' + username + ' joined the game');
+  console.log('JOIN GAMEID: ' + req.body.gameid);
 
-  	Cards.all().then(cards => {
-      res.render('game', {
-      	cards, 
-      	userid : userid, 
-      	username : username
-      });
-    })
+  res.redirect("game/" + req.body.gameid);
 
-  } else {
-  	res.redirect('/');
-  }
+	// if(req.user) {
+	// 	var userid = req.user.id;
+	// 	var username = req.user.alias;
+	// 	console.log(userid + ':' + username + ' joined the game');
+
+ //  	Cards.all().then(cards => {
+ //      res.render('game', {
+ //      	cards, 
+ //      	userid : userid, 
+ //      	username : username
+ //      });
+ //    })
+
+ //  } else {
+ //  	res.redirect('/');
+ //  }
 });
 
 router.get('/:id', function(req, res, next) {
