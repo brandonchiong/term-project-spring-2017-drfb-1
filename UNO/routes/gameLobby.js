@@ -51,12 +51,10 @@ router.post('/', function(req, res, next) {
         GameCards.newDeck(games.id).then(cards => {
             res.render('game', { cards });
             console.log('New Deck initalized');
-            var timeStamp, date = new Date()
-            timeStamp = ( date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay() + ' ' + 
-                          date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds())
-            console.log('Time: ',timeStamp)
-            GameCards.drawTopCard(games.id, timeStamp).then(topcard => {
-                console.log('Topcard : ', topcard.top_card)
+            
+            GameCards.drawTopCard(games.id).then(topcard => {
+                console.log('Topcard : ', topcard.card_id)
+                Games.setTopCard(games.id, topcard.card_id).then(() => { console.log('Top card set in games')})
             })
         })
 
