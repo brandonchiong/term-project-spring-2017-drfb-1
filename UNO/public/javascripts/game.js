@@ -11,6 +11,12 @@ var userData = {
   numberOfCardsInHand : 100
 }
 
+var gameData = {
+  gameid : gameid,
+  cardTurnClockwise: false,
+  currentPlayerTurn: 0
+}
+
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
 
@@ -24,8 +30,9 @@ document.getElementById("drawFromDeck").addEventListener("click", function(cards
   socket.emit('draw_card', userData);
 });
 
-document.getElementById("drawFromDiscard").addEventListener("click", function(){
+document.getElementById("UNO").addEventListener("click", function(){
   console.log('Uno');
+  console.log("cardturn" + gameData.cardTurnClockwise);
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
@@ -149,24 +156,22 @@ function renderCard(card_id, cardpath) {
 
 
 
-// function getNextPlayerTurn(){
-//   if (isCardTurnReversed == true){
-//     currentPlayerTurn--;
-//     if (currentPlayerTurn < 0){
-//       currentPlayerTurn = 4;
-//     }
-//   }
-//   else{
-//     currentPlayerTurn++;
-//     if (currentPlayerTurn >= 4){
-//       currentPlayerTurn = 0;
-//     }
-//   }
-// }
+function getNextPlayerTurn(){
+  if (gameData.cardTurnClockwise){
+    gameData.currentPlayerTurn--;
+    if (gameData.currentPlayerTurn < 0){
+      gameData.currentPlayerTurn = 3;
+    }
+  }
+  else{
+    gameData.currentPlayerTurn++;
+    if (gameData.currentPlayerTurn > 3){
+      gameData.currentPlayerTurn = 0;
+    }
+  }
+}
 
-// function isCardTurnReversed(){
-//   return cardTurn;
-// }
+
 
 // function isCurrentPlayerTurn(){
 //   if (true){
