@@ -2,64 +2,53 @@ var socket = io();
 
 var userid = document.currentScript.getAttribute('userid')
 var username = document.currentScript.getAttribute('username')
+var gameid = 1
 
 var userData = {
   userid : userid,
-  username : username
+  username : username,
+  gameid : gameid,
+  numberOfCardsInHand : 100
 }
+
+var gameData = {
+  gameid : gameid,
+  cardTurnClockwise: false,
+  currentPlayerTurn: 0
+}
+
+console.log("userid: " + userid);
+console.log("gameid: " + gameid);
 
 socket.emit('join_game', userData);
 
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
 
-var deck = [];
-
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
-  console.log('Draw from Deck');
-  // deck = Cards.all();
-  // for (var i = 0; i <= 107; i++) {
-  //   console.log(deck[i].id);
-  // }
-  renderCard(0);
-  // renderCard(1);
-
+  console.log( userData.username + " drew a card!");
+  socket.emit('draw_card', userData);
 });
 
-document.getElementById("drawFromDiscard").addEventListener("click", function(){
+document.getElementById("UNO").addEventListener("click", function(){
   console.log('Uno');
+  console.log("cardturn" + gameData.cardTurnClockwise);
 })
 
-function renderCard(card_id) {
+socket.on('draw_card', function(gamecards, cardpath) {
+  var card = gamecards.card_id;
+  var path = cardpath.image;
+  console.log(card);
+  console.log("PATH: " + path);
+  renderCard(card, path);
+})
+
+function renderCard(card_id, cardpath) {
   var node = document.getElementById("card-area");
   console.log(node);
   var card = new Image(72, 120);
-  if (card_id == 0)
-    card.src =  '/images/UnoCard/red0.png';
-  if (card_id == 1)
-    card.src = '/images/UnoCard/red1.png';
-  if (card_id == 2)
-    card.src = '/images/UnoCard/red1.png';
-  if (card_id == 3)
-    card.src = '/images/UnoCard/red2.png';
-  if (card_id == 4)
-    card.src = '/images/UnoCard/red2.png';
-  if (card_id == 5)
-    card.src = '/images/UnoCard/red3.png';
-  if (card_id == 6)
-    card.src = '/images/UnoCard/red3.png';
-  if (card_id == 7)
-    card.src = '/images/UnoCard/red4.png';
-  if (card_id == 8)
-    card.src = '/images/UnoCard/red4.png';
-  if (card_id == 9)
-    card.src = '/images/UnoCard/red5.png';
-  if (card_id == 10)
-    card.src = '/images/UnoCard/red5.png';
+  card.src = cardpath;
   node.appendChild(card);
-  // console.log(node);
-  // document.getElementById("card-area").appendChild(node);
-
 }
 
 //Game Logic Start
@@ -120,24 +109,22 @@ function renderCard(card_id) {
 
 
 
-// function getNextPlayerTurn(){
-//   if (isCardTurnReversed == true){
-//     currentPlayerTurn--;
-//     if (currentPlayerTurn < 0){
-//       currentPlayerTurn = 4;
-//     }
-//   }
-//   else{
-//     currentPlayerTurn++;
-//     if (currentPlayerTurn >= 4){
-//       currentPlayerTurn = 0;
-//     }
-//   }
-// }
+function getNextPlayerTurn(){
+  if (gameData.cardTurnClockwise){
+    gameData.currentPlayerTurn--;
+    if (gameData.currentPlayerTurn < 0){
+      gameData.currentPlayerTurn = 3;
+    }
+  }
+  else{
+    gameData.currentPlayerTurn++;
+    if (gameData.currentPlayerTurn > 3){
+      gameData.currentPlayerTurn = 0;
+    }
+  }
+}
 
-// function isCardTurnReversed(){
-//   return cardTurn;
-// }
+
 
 // function isCurrentPlayerTurn(){
 //   if (true){
