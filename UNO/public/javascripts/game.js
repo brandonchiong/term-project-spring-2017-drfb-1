@@ -6,7 +6,9 @@ var gameid = 1
 
 var userData = {
   userid : userid,
-  username : username
+  username : username,
+  gameid : gameid,
+  numberOfCardsInHand : 100
 }
 
 var gameData = {
@@ -20,24 +22,12 @@ console.log("gameid: " + gameid);
 
 socket.emit('join_game', userData);
 
-
-
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
 
-var deck = [];
-
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
-  console.log('Draw from Deck');
-  // deck = Cards.all();
-  // for (var i = 0; i <= 107; i++) {
-  //   console.log(deck[i].id);
-  // }
-  renderCard(0);
-  // renderCard(1);
-  getNextPlayerTurn();
-  console.log ("current turn" + gameData.currentPlayerTurn);
-
+  console.log( userData.username + " drew a card!");
+  socket.emit('draw_card', userData);
 });
 
 document.getElementById("UNO").addEventListener("click", function(){
@@ -45,36 +35,63 @@ document.getElementById("UNO").addEventListener("click", function(){
   console.log("cardturn" + gameData.cardTurnClockwise);
 })
 
-function drawFromDeck() {
+socket.on('draw_card', function(gamecards, cardpath) {
+  var card = gamecards;
+  var path = cardpath.image;
+  console.log(card);
+  console.log("PATH: " + path);
+  renderCard(card.card_id, path);
+})
 
-}
-
-function renderCard(card_id) {
+function renderCard(card_id, cardpath) {
   var node = document.getElementById("card-area");
   console.log(node);
   var card = new Image(72, 120);
-  if (card_id == 0)
-    card.src =  '/images/UnoCard/red0.png';
-  if (card_id == 1)
-    card.src = '/images/UnoCard/red1.png';
-  if (card_id == 2)
-    card.src = '/images/UnoCard/red1.png';
-  if (card_id == 3)
-    card.src = '/images/UnoCard/red2.png';
-  if (card_id == 4)
-    card.src = '/images/UnoCard/red2.png';
-  if (card_id == 5)
-    card.src = '/images/UnoCard/red3.png';
-  if (card_id == 6)
-    card.src = '/images/UnoCard/red3.png';
-  if (card_id == 7)
-    card.src = '/images/UnoCard/red4.png';
-  if (card_id == 8)
-    card.src = '/images/UnoCard/red4.png';
-  if (card_id == 9)
-    card.src = '/images/UnoCard/red5.png';
-  if (card_id == 10)
-    card.src = '/images/UnoCard/red5.png';
+  card.src = cardpath;
+  // if (card_id == 0)
+  //   card.src =  '/images/UnoCard/red0.png';
+  // if (card_id == 1)
+  //   card.src = '/images/UnoCard/red1.png';
+  // if (card_id == 2)
+  //   card.src = '/images/UnoCard/red1.png';
+  // if (card_id == 3)
+  //   card.src = '/images/UnoCard/red2.png';
+  // if (card_id == 4)
+  //   card.src = '/images/UnoCard/red2.png';
+  // if (card_id == 5)
+  //   card.src = '/images/UnoCard/red3.png';
+  // if (card_id == 6)
+  //   card.src = '/images/UnoCard/red3.png';
+  // if (card_id == 7)
+  //   card.src = '/images/UnoCard/red4.png';
+  // if (card_id == 8)
+  //   card.src = '/images/UnoCard/red4.png';
+  // if (card_id == 9)
+  //   card.src = '/images/UnoCard/red5.png';
+  // if (card_id == 10)
+  //   card.src = '/images/UnoCard/red5.png';
+  // if (card_id == 11)
+  //   card.src =  '/images/UnoCard/red6.png';
+  // if (card_id == 12)
+  //   card.src = '/images/UnoCard/red6.png';
+  // if (card_id == 13)
+  //   card.src = '/images/UnoCard/red7.png';
+  // if (card_id == 14)
+  //   card.src = '/images/UnoCard/red7.png';
+  // if (card_id == 15)
+  //   card.src = '/images/UnoCard/red8.png';
+  // if (card_id == 16)
+  //   card.src = '/images/UnoCard/red8.png';
+  // if (card_id == 17)
+  //   card.src = '/images/UnoCard/red9.png';
+  // if (card_id == 18)
+  //   card.src = '/images/UnoCard/red9.png';
+  // if (card_id == 19)
+  //   card.src = '/images/UnoCard/redStop.png';
+  // if (card_id == 20)
+  //   card.src = '/images/UnoCard/redStop.png';
+  // if (card_id == 21)
+  //   card.src = '/images/UnoCard/redReverse.png';
   node.appendChild(card);
   // console.log(node);
   // document.getElementById("card-area").appendChild(node);
