@@ -33,6 +33,13 @@ document.getElementById("drawFromDeck").addEventListener("click", function(cards
 document.getElementById("UNO").addEventListener("click", function(){
   console.log('Uno');
   console.log("cardturn" + gameData.cardTurnClockwise);
+  if(userData.numberOfCardsInHand != 1){
+    var i
+    for(i = 0; i<2; i++ ){
+      socket.emit('draw_card', userData)
+      userData.numberOfCardsInHand++;
+    }
+  }
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
