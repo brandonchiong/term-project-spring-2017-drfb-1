@@ -36,11 +36,11 @@ document.getElementById("UNO").addEventListener("click", function(){
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
-  var card = gamecards;
+  var card = gamecards.card_id;
   var path = cardpath.image;
   console.log(card);
   console.log("PATH: " + path);
-  renderCard(card.card_id, path);
+  renderCard(card, path);
 })
 
 function renderCard(card_id, cardpath) {
@@ -48,54 +48,7 @@ function renderCard(card_id, cardpath) {
   console.log(node);
   var card = new Image(72, 120);
   card.src = cardpath;
-  // if (card_id == 0)
-  //   card.src =  '/images/UnoCard/red0.png';
-  // if (card_id == 1)
-  //   card.src = '/images/UnoCard/red1.png';
-  // if (card_id == 2)
-  //   card.src = '/images/UnoCard/red1.png';
-  // if (card_id == 3)
-  //   card.src = '/images/UnoCard/red2.png';
-  // if (card_id == 4)
-  //   card.src = '/images/UnoCard/red2.png';
-  // if (card_id == 5)
-  //   card.src = '/images/UnoCard/red3.png';
-  // if (card_id == 6)
-  //   card.src = '/images/UnoCard/red3.png';
-  // if (card_id == 7)
-  //   card.src = '/images/UnoCard/red4.png';
-  // if (card_id == 8)
-  //   card.src = '/images/UnoCard/red4.png';
-  // if (card_id == 9)
-  //   card.src = '/images/UnoCard/red5.png';
-  // if (card_id == 10)
-  //   card.src = '/images/UnoCard/red5.png';
-  // if (card_id == 11)
-  //   card.src =  '/images/UnoCard/red6.png';
-  // if (card_id == 12)
-  //   card.src = '/images/UnoCard/red6.png';
-  // if (card_id == 13)
-  //   card.src = '/images/UnoCard/red7.png';
-  // if (card_id == 14)
-  //   card.src = '/images/UnoCard/red7.png';
-  // if (card_id == 15)
-  //   card.src = '/images/UnoCard/red8.png';
-  // if (card_id == 16)
-  //   card.src = '/images/UnoCard/red8.png';
-  // if (card_id == 17)
-  //   card.src = '/images/UnoCard/red9.png';
-  // if (card_id == 18)
-  //   card.src = '/images/UnoCard/red9.png';
-  // if (card_id == 19)
-  //   card.src = '/images/UnoCard/redStop.png';
-  // if (card_id == 20)
-  //   card.src = '/images/UnoCard/redStop.png';
-  // if (card_id == 21)
-  //   card.src = '/images/UnoCard/redReverse.png';
   node.appendChild(card);
-  // console.log(node);
-  // document.getElementById("card-area").appendChild(node);
-
 }
 
 //Game Logic Start
