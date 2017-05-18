@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
 	Games.create(1)
 		.then(games => {
 			var gameid = games.id;
-			console.log('GAME CREATED by ' + username);
+			console.log('GAME ' + gameid +' CREATED by ' + username);
 			res.redirect('game');
 		})
 });

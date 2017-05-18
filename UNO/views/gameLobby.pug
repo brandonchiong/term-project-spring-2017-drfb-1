@@ -3,14 +3,14 @@ extends layout
 block content
   include chat.pug
 
-  table
-     thead
-       tr
-         th Games:
-     tbody
-       each game in games
-         tr
-           td= game.id
+  //- table
+  //-    thead
+  //-      tr
+  //-        th Games:
+  //-    tbody
+  //-      each game in games
+  //-        tr
+  //-          td= game.id
 
   .main.container
     .row
@@ -23,10 +23,16 @@ block content
 
           button.btn.btn-primary(type='submit') Host Game
         
-        form(method='POST' action='/joinGame')
-          div.form-group
+        h5 Games in Progess
 
-          button.btn.btn-primary(type='submit') Join Game
+        table
+           tbody
+             each game in games
+               tr
+                 input.checkbox(type='checkbox', name='check[]', value= game.id)
+                 labeltd= game.id
+               
+        button.btn.btn-primary(method='GET' onclick= "location.href='/game/1'" ) Join Game
 
         if errors 
           ul

@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
 
   console.log('URL: ' + req.originalUrl);
-  var gameid = req.originalUrl.split("/")[2]
+  var gameid = req.originalUrl.split("/")[2];
   console.log('GAME ID: ' + gameid);
 
   if(req.user) {
