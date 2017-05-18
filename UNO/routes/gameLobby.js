@@ -6,38 +6,40 @@ const { GameCards } = require('../db');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-	if(req.user) {
-		
-		var username = req.user.alias;
+    if (req.user) {
 
-		console.log(username + ' joined the lobby');
+        var username = req.user.alias;
 
-		Games.all()
-  			.then(games => {
-  				res.render('gameLobby', {games});
-  		})
+        console.log(username + ' joined the lobby');
 
-  } else {
-  	res.redirect('/');
-  }
+        Games.all()
+            .then(games => {
+                res.render('gameLobby', { games });
+            })
+
+    } else {
+        res.redirect('/');
+    }
 
 });
 
 router.post('/', function(req, res, next) {
 
-	var username = req.user.alias;
-	console.log('CREATING GAME')
-  
-	Games.create(1)
-  GameCards.newDeck(1).then(cards => {
-      res.render('game', { cards } );
-      consol.log('New Deck initalized');
-    })
-		.then(games => {
-			var gameid = games.id;
-			console.log('GAME CREATED by ' + username);
-			res.redirect('game');
-		})
+    var username = req.user.alias;
+    console.log('CREATING GAME')
+
+    Games.create(req.user.id)
+        .then(game => {
+            var gameid = game.id;
+            console.log('GAME CREATED by ' + username + ' with game id: ' + gameid);
+            GameCards.newDeck(game.id).then(cards => {
+                //res.render('game', { cards });
+                console.log('New Deck initalized');
+                res.redirect('game')
+            })
+
+        })
+
 });
 
 module.exports = router;
