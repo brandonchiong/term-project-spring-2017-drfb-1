@@ -76,7 +76,7 @@ document.getElementById("start").addEventListener("click", function(){
   }
 })
 
-socket.on('draw_card', function(gamecards, cardpath) {f
+socket.on('draw_card', function(gamecards, cardpath) {
 
   console.log("TOP CARD: " + gameData.topCard);
   var card = gamecards.card_id;
@@ -114,18 +114,19 @@ function playCard(){
 
   if (isValidPlay(playerCards[card])){
     gameData.topCard = playerCards[card];
-
+    var cardPlayed = playerCards[card];
+    
     renderTopCard();
     console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
     removeCardFromPlayerHandAndBoard(card);
 
-      if (playerCards[card].card_type != 'number'){
-        if (playerCards[card].card_type == 'skip'){
+      if (cardPlayed.card_type != 'number'){
+        if (cardPlayed.card_type == 'skip'){
           // getNextPlayerTurn();
           // getNextPlayerTurn();
           return;
         }
-        if (playerCards[card].card_type == 'reverse'){
+        if (cardPlayed.card_type == 'reverse'){
           if (gameData.cardTurnClockwise == true){
             gameData.cardTurnClockwise == false;
           }
@@ -133,14 +134,13 @@ function playCard(){
             gameData.cardTurnClockwise == true;
           }
         }
-        if (playerCards[card].card_type == 'wild4'){
+        if (cardPlayed.card_type == 'wild4'){
             // getNextPlayerTurn();
 		    for(i = 0; i<4; i++){
 		      socket.emit('draw_card', userData)
 		    }
-		    return;
         }
-        if (playerCards[card].card_type == 'wild'){
+        if (cardPlayed.card_type == 'wild'){
           
         }
       }
