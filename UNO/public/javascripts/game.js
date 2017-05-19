@@ -5,7 +5,9 @@ var username = document.currentScript.getAttribute('username')
 var gameid = document.currentScript.getAttribute('gameid')
 
 var playerCards = [];
+var players = [username];
 var num_starting_cards = 7;
+
 var userData = {
   userid : userid,
   username : username,
@@ -22,11 +24,14 @@ var gameData = {
   topCard: {id:null, card_type:null, color:null, number:null, image:null}
 };
 
-
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
 
-socket.emit('join_game', userData, gameData);
+socket.emit('join_game', userData, gameData, players);
+
+socket.on('update_players', function(socketPlayers) {
+  players = socketPlayers;
+});
 
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
