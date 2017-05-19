@@ -78,6 +78,7 @@ document.getElementById("start").addEventListener("click", function(){
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
+  console.log("TOP CARD: " + gameData.topCard);
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
@@ -85,36 +86,66 @@ socket.on('draw_card', function(gamecards, cardpath) {
   console.log(card);
   console.log("PATH: " + path);
   renderCard();
-  playerCards.forEach(function(index){
-    // console.log("PLAYERCARD LEN" + playerCards.length);
-    // console.log("PLAYERCARD Number: " + index.number);
-    // console.log("PLAYERCARD ID: " + index.id);
-    // console.log("PLAYERCARD Type: " + index.card_type);
-  });
+  // playerCards.forEach(function(index){
+  //   console.log("PLAYERCARD LEN" + playerCards.length);
+  //   console.log("PLAYERCARD Number: " + index.number);
+  //   console.log("PLAYERCARD ID: " + index.id);
+  //   console.log("PLAYERCARD Type: " + index.card_type);
+  // });
 
-  if (playerCards.length > 6){
-    removeCardFromPlayerHandAndBoard(0);
-  }
+  //getNextPlayerTurn();
+
 })
 //Value -1 for Player Handindex
 function playCard(){
   console.log("inside PLAYCARD");
   if (document.getElementById("cardToPlay").value > playerCards.length){
-    alert ("Number is greater than cards held")
+
+    alert ("Number is greater than cards held");
+    return;
   }
 
   if (document.getElementById("cardToPlay").value < 1){
-    alert ("Please don't break me, choose a number greater or equal to 1")
+    alert ("Please don't break me, choose a number greater or equal to 1");
+    return;
   }
   var card = document.getElementById("cardToPlay").value -1;
   console.log("inside PLAYCARD input : " + card);
 
-  isValidPlay(playerCards[card]);
+  if (isValidPlay(playerCards[card])){
+
+    gameData.topCard = playerCards[card];
+    removeCardFromPlayerHandAndBoard(card);
+    console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
+
+      if (playerCards[card].card_type != 'number'){
+        if (playerCards[card].card_type == 'skip'){
+          // getNextPlayerTurn();
+          // getNextPlayerTurn();
+          return;
+        }
+        if (playerCards[card].card_type == 'reverse'){
+          if (gameData.cardTurnClockwise == true){
+            gameData.cardTurnClockwise == false;
+          }
+          else if (gameData.cardTurnClockwise == false){
+            gameData.cardTurnClockwise == true;
+          }
+        }
+        if (playerCards[card].card_type == 'wild4'){
+          
+        }
+        if (playerCards[card].card_type == 'wild'){
+          
+        }
+      }
+    //getNextPlayerTurn();
+  }
 }
 
 socket.on('init_topcard', function(tmpcard){
-  gameData.topcard = tmpcard
-  console.log('client set topcard')
+  gameData.topCard.id = tmpcard
+  console.log('client set topcard to ' + gameData.topCard.id)
 })
 
 function renderCard() {
@@ -127,14 +158,14 @@ function renderCard() {
     card.src = index.image;
     card.id = index.id;
     node.appendChild(card);
-    // console.log("inside loop: card id: " + card.id);
+
+    console.log("inside loop: card id: " + card.id);
   });
 }
 
 function renderTopCard() {
   document.getElementById("top-card").src = gameData.topCard.image;
 }
-
 
 
 function getNextPlayerTurn(){
