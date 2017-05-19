@@ -42,20 +42,10 @@ block content
           .row.text-center
             button#start.btn.btn-success Start
             button#ready.btn.btn-info Ready
-            button#playCardfromHand.btn.btn-success(onclick='isValidPlay(playerCards[0], gameData.topCard)') PlayCard
           .row
-            .dropdown
-              button.btn.btn-primary.dropdown-toggle(type='button', data-toggle='dropdown')
-                | -- Select a Card --
-                span.caret
-              ul#playCardfromHand.dropdown-menu
-                li
-                  1
-                li
-                  2
-                li
-                  3
-            h6 #{username}
+            input#cardToPlay(type='text', value ='')
+            button.btn.btn-primary(onclick='playCard()') PlayCard
+
       .row(style="background-color:green")
         .col-sm-2
           //- include chat.pug

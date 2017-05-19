@@ -20,6 +20,7 @@ var gameData = {
   currentPlayerTurn: 0,
   start: false,
   topCard: {id:35, card_type:'number', color:'y', number:4}
+  //topCard: null
 };
 
 
@@ -30,7 +31,6 @@ socket.emit('join_game', userData, gameData);
 
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
-
 
 
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
@@ -76,12 +76,6 @@ document.getElementById("start").addEventListener("click", function(){
   }
 })
 
-// document.getElementById("playCardFromHand").addEventListener("click", function(){
-//   if(isValidPlay(playerCards[0], topCard)){
-//     console.log("true play");
-//   }
-// });
-
 socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
   var path = cardpath.image;
@@ -96,9 +90,26 @@ socket.on('draw_card', function(gamecards, cardpath) {
     console.log("PLAYERCARD ID: " + index.id);
     console.log("PLAYERCARD Type: " + index.card_type);
   });
+
+  if (playerCards.length > 6){
+    removeCardFromPlayerHandAndBoard(0);
+  }
 })
+//Value -1 for Player Handindex
+function playCard(){
+  console.log("inside PLAYCARD");
+  if (document.getElementById("cardToPlay").value > playerCards.length){
+    alert ("Number is greater than cards held")
+  }
 
+  if (document.getElementById("cardToPlay").value < 1){
+    alert ("Please don't break me, choose a number greater or equal to 1")
+  }
+  var card = document.getElementById("cardToPlay").value -1;
+  console.log("inside PLAYCARD input : " + card);
 
+  isValidPlay(playerCards[card]);
+}
 socket.on('init_topcard', function(tmpcard){
   gameData.topcard = tmpcard
   console.log('client set topcard')
@@ -106,73 +117,17 @@ socket.on('init_topcard', function(tmpcard){
 
 function renderCard() {
   var node = document.getElementById("card-area");
-  //clear card area
-  node.innterHTML = '';
 
 //  console.log(node);
   var card = new Image(72, 120);
 
   playerCards.forEach(function(index){
     card.src = index.image;
+    card.id = index.id;
     node.appendChild(card);
+    console.log("inside loop: card id: " + card.id);
   });
 }
-
-//Game Logic Start
-//const socket = io();
-
-// var cardTurnClockwise = false; //clockwise if true, counter clockwise if false
-// var currentPlayerTurn = 0;
-// var cardPlayed;
-// var topCard;
-
-// var playerInfo {
-
-// // }
-
-// $(function () {
-// //   $('#start').hide();
-// //   $('#ready').hide();
-// //   $('#drawFromDeck').hide();
-// //   $('#drawFromDiscardPile').hide();
-// //   $('#UNO').hide();
-
-// //   //Game Canvas buttons
-// //   $('#start').click(function() {
-// //     if($('#start').prop('disabled')) {
-// //       return false;
-// //     }else{
-// //     socket.emit('start', playerInfo);
-// //     }
-// //   })
-
-// //   $('#drawFromDeck').click(function() {
-// //     $('#drawFromDeck').hide();
-// //     //socket.emit('draw-cards', playerInfo);
-// //   })
-
-//  $('#drawFromDiscard').click(function() {
-//    alert ("hi");
-//    //$('#drawFromDiscardPile').hide();
-//    //socket.emit('draw-cards', playerInfo);
-//  })
-
-
-
-// //   $('#UNO').click(function() {
-// //     if($('UNO').prop('disabled')) {
-// //   }else{
-// //   socket.emit('UNO', myInfo, gameState);
-// //   }
-// //   return false;
-// //   })
-
-// // })
-
-
-// document.getElementById("drawFromDeck").addEventListener("click", function(){
-//    alert ("hi");
-// });
 
 
 
@@ -191,7 +146,16 @@ function getNextPlayerTurn(){
   }
 }
 
-
+function removeCardFromPlayerHandAndBoard(index){
+  if (index < playerCards.length){
+    var itemToRemove = document.getElementById(playerCards[index].id);
+    itemToRemove.parentNode.removeChild(itemToRemove);
+    console.log("Removed :" + playerCards[index].id);
+    playerCards.splice(index,1);
+  }
+  else
+    console.log("index is out of Range:" + index);
+}
 
 // function isCurrentPlayerTurn(){
 //   if (true){
@@ -200,13 +164,22 @@ function getNextPlayerTurn(){
 //   else alert ("Its not your turn");
 // }
 
-function isValidPlay(playerCard, topCard){
-  console.log ("VALID PLAY: " + playerCard.color + " " + topCard.color );
-  if (playerCard.color == topCard.color ){
+function isValidPlay(playerCard){
+  console.log ("inside VALID PLAY: ");
+  console.log ("inside VALID PLAY: card Type " + playerCard.card_type);
+  console.log ("inside VALID PLAY: card Number" + playerCard.number);
+
+  if (playerCard.card_type == 'wild' || playerCard.card_type == 'wild4'){
     console.log ("VALID PLAY: true");
     return true;
   }
-  if (playerCard.number == topCard.number){
+  if (playerCard.color == gameData.topCard.color ){
+    console.log ("VALID PLAY: " + playerCard.color + " " + gameData.topCard.color );
+    console.log ("VALID PLAY: true");
+    return true;
+  }
+  if (playerCard.number == gameData.topCard.number){
+    console.log ("VALID PLAY: " + playerCard.number + " " + gameData.topCard.number );
     console.log ("VALID PLAY: true");
     return true;
   }
@@ -217,10 +190,6 @@ function isValidPlay(playerCard, topCard){
 }
 
 
-// //TODO: maybe not needed?
-// function cardAction(){
-
-// }
 // function Update(){
 //   getNextPlayerTurn();
 
