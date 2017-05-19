@@ -65,7 +65,9 @@ const io = socketIo( server )
        .catch(err => { console.log(err)})
     })
 
-
+    socket.on('uno_called', function(msg){
+      socket.emit('uno_msg', msg);
+    })
   })  
 }
 

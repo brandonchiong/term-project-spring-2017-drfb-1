@@ -5,7 +5,7 @@ var username = document.currentScript.getAttribute('username')
 var gameid = document.currentScript.getAttribute('gameid')
 
 var playerCards = [];
-
+var num_starting_cards = 7;
 var userData = {
   userid : userid,
   username : username,
@@ -43,14 +43,18 @@ document.getElementById("UNO").addEventListener("click", function(){
   if(gameData.start){ 
     console.log('Uno');
     console.log("cardturn " + gameData.cardTurnClockwise);
-    if(userData.numberOfCardsInHand != 1){
-      console.log('Uno check failed. Penalty incurred!')
+    if(playerCards.length != 1){
+      console.log('Uno check failed. Penalty incurred!\n' + playerCards.length + " cards in hand.")
       alert("You have more than one card!\n2 Card penalty!")
       var i
       for(i = 0; i<2; i++ ){
         socket.emit('draw_card', userData)
         userData.numberOfCardsInHand++;
       }
+    }
+    else{
+      socket.emit('uno_called', "You called Uno!!")
+      socket.broadcast.emit('uno_called', userData.username + " has one card left!!!")
     }
   }
 });
@@ -66,7 +70,7 @@ document.getElementById("start").addEventListener("click", function(){
     console.log('Game ready to start')
     var i
     console.log('Drawing initial hand')
-    for(i = 0; i<7; i++){
+    for(i = 0; i<num_starting_cards; i++){
       socket.emit('draw_card', userData)
       userData.numberOfCardsInHand++;
     }
@@ -153,6 +157,9 @@ socket.on('init_topcard', function(tmpcard){
   console.log(gameData.topCard);
 })
 
+socket.on('uno_msg', function(msg){
+  alert(msg)
+})
 function renderCard() {
   var node = document.getElementById("card-area");
 
