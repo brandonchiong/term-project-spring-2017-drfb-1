@@ -72,12 +72,6 @@ $(document).ready(function () {
   });
 });
 
-function scrollToBottom() {
-  message.scrollTop = message.scrollHeight;
-}
-
-scrollToBottom();
-
 },{"../src/constants/events":3,"moment":2}],2:[function(require,module,exports){
 //! moment.js
 //! version : 2.18.1
