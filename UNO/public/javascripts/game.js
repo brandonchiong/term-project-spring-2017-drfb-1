@@ -63,12 +63,6 @@ document.getElementById("start").addEventListener("click", function(){
   console.log('Game ready to start')
 })
 
-// document.getElementById("playCardFromHand").addEventListener("click", function(){
-//   if(isValidPlay(playerCards[0], topCard)){
-//     console.log("true play");
-//   }
-// });
-
 socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
   var path = cardpath.image;
@@ -83,79 +77,35 @@ socket.on('draw_card', function(gamecards, cardpath) {
     console.log("PLAYERCARD ID: " + index.id);
     console.log("PLAYERCARD Type: " + index.card_type);
   });
+
+  if (playerCards.length > 6){
+    removeCardFromPlayerHandAndBoard(0);
+  }
 })
 
 function renderCard() {
+  //clearCardArea();
   var node = document.getElementById("card-area");
   //clear card area
-  node.innterHTML = '';
 
 //  console.log(node);
   var card = new Image(72, 120);
 
   playerCards.forEach(function(index){
     card.src = index.image;
+    card.id = index.id;
     node.appendChild(card);
+    console.log("inside loop: card id: " + card.id);
   });
 }
 
-//Game Logic Start
-//const socket = io();
-
-// var cardTurnClockwise = false; //clockwise if true, counter clockwise if false
-// var currentPlayerTurn = 0;
-// var cardPlayed;
-// var topCard;
-
-// var playerInfo {
-
-// // }
-
-// $(function () {
-// //   $('#start').hide();
-// //   $('#ready').hide();
-// //   $('#drawFromDeck').hide();
-// //   $('#drawFromDiscardPile').hide();
-// //   $('#UNO').hide();
-
-// //   //Game Canvas buttons
-// //   $('#start').click(function() {
-// //     if($('#start').prop('disabled')) {
-// //       return false;
-// //     }else{
-// //     socket.emit('start', playerInfo);
-// //     }
-// //   })
-
-// //   $('#drawFromDeck').click(function() {
-// //     $('#drawFromDeck').hide();
-// //     //socket.emit('draw-cards', playerInfo);
-// //   })
-
-//  $('#drawFromDiscard').click(function() {
-//    alert ("hi");
-//    //$('#drawFromDiscardPile').hide();
-//    //socket.emit('draw-cards', playerInfo);
-//  })
-
-
-
-// //   $('#UNO').click(function() {
-// //     if($('UNO').prop('disabled')) {
-// //   }else{
-// //   socket.emit('UNO', myInfo, gameState);
-// //   }
-// //   return false;
-// //   })
-
-// // })
-
-
-// document.getElementById("drawFromDeck").addEventListener("click", function(){
-//    alert ("hi");
-// });
-
-
+function clearCardArea(){
+  var node = document.getElementById("card-area");
+  //clear card area
+  while (node.firstChild){
+    node.removeChild(node.firstChild);
+  }
+}
 
 function getNextPlayerTurn(){
   if (gameData.cardTurnClockwise){
@@ -172,8 +122,16 @@ function getNextPlayerTurn(){
   }
 }
 
-
-
+function removeCardFromPlayerHandAndBoard(index){
+  if (index < playerCards.length){
+    var itemToRemove = document.getElementById(playerCards[index].id);
+    itemToRemove.parentNode.removeChild(itemToRemove);
+    console.log("Removed :" + playerCards[index].id);
+    playerCards.splice(index,1);
+  }
+  else
+    console.log("index is out of Range:" + index);
+}
 // function isCurrentPlayerTurn(){
 //   if (true){
 //     //TODO: turn action
