@@ -16,13 +16,14 @@ var gameData = {
   gameid : gameid,
   cardTurnClockwise: false,
   currentPlayerTurn: 0,
-  start: false
+  start: false,
+  topcard: null
 }
 
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
 
-socket.emit('join_game', userData);
+socket.emit('join_game', userData, gameData);
 
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
@@ -60,7 +61,17 @@ document.getElementById("ready").addEventListener("click", function(){
 
 document.getElementById("start").addEventListener("click", function(){
   gameData.start = ( userData.ready )? true:false;
-  console.log('Game ready to start')
+  if(gameData.start){ 
+    console.log('Game ready to start')
+    var i
+    console.log('Drawing initial hand')
+    for(i = 0; i<7; i++){
+      socket.emit('draw_card', userData)
+      userData.numberOfCardsInHand++;
+    }
+    document.getElementById("ready").style.visibility = "hidden"
+    document.getElementById("start").style.visibility = "hidden"
+  }
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
@@ -69,6 +80,11 @@ socket.on('draw_card', function(gamecards, cardpath) {
   console.log(card);
   console.log("PATH: " + path);
   renderCard(card, path);
+})
+
+socket.on('init_topcard', function(tmpcard){
+  gameData.topcard = tmpcard
+  console.log('client set topcard')
 })
 
 function renderCard(card_id, cardpath) {

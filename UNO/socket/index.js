@@ -20,8 +20,12 @@ const init = ( app, server ) => {
     socket.on( USER_JOINED, data => io.emit( USER_JOINED, data ))
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
 
-    socket.on('join_game', function(userData) {
+    socket.on('join_game', function(userData, gameData) {
       console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined the game!')
+      Games.getTopCard(gameData.gameid).then(games =>{ 
+        tmpcard = games.top_card
+        socket.emit('init_topcard', tmpcard)
+      })
     })
 
     socket.on('draw_card', function(userData) {
@@ -54,6 +58,8 @@ const init = ( app, server ) => {
       })
        .catch(err => { console.log(err)})
     })
+
+
   })  
 }
 
