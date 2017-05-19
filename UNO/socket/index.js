@@ -64,7 +64,18 @@ const io = socketIo( server )
       })
        .catch(err => { console.log(err)})
     })
-
+    
+    socket.on('reset', function(gameData){
+      var numCardsInDeck
+      GameCards.getNumCardsInDeck(gameData.gameid).then(results =>{
+         numCardsInDeck = results[0].num
+         if(numCardsInDeck == 0){
+           GameCards.reset(gameData.gameid)
+           console.log("Discard pile reshuffled into deck")
+         }
+      })
+    })
+    
     socket.on('uno_called', function(msg){
       socket.emit('uno_msg', msg);
     })

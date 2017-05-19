@@ -35,6 +35,7 @@ var card_area = document.getElementById('card-area');
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
   if(gameData.start){ 
     console.log( userData.username + " drew a card!");
+    socket.emit('reset', gameData);
     socket.emit('draw_card', userData);
   }
 });
