@@ -6,7 +6,7 @@ const { Cards } = require('../db');
 const { GameCards } = require('../db');
 const gameid = 1
 const init = ( app, server ) => {
-  const io = socketIo( server )
+const io = socketIo( server )
 
   app.set( 'io', io )
 
@@ -22,9 +22,15 @@ const init = ( app, server ) => {
 
     socket.on('join_game', function(userData, gameData) {
       console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined game ' + userData.gameid)
-      Games.getTopCard(gameData.gameid).then(games =>{ 
-        tmpcard = games.top_card
-        socket.emit('init_topcard', tmpcard)
+      Games.getTopCard(gameData.gameid).then(games => { 
+        tmpcard = games.top_card;
+        Cards.find(tmpcard)
+        .then(topcard => {
+          console.log('TOP CARD: ' + topcard.id);
+          socket.emit('init_topcard', topcard);
+        })
+        // console.log('TOP CARD: ' + tmpcard);
+        // socket.emit('init_topcard', tmpcard);
       })
     })
 
