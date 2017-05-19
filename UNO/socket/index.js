@@ -4,7 +4,9 @@ const { USER_JOINED, MESSAGE_SEND } = require( '../src/constants/events' )
 const { Games } = require('../db')
 const { Cards } = require('../db');
 const { GameCards } = require('../db');
-const gameid = 1
+
+const socketPlayers = []
+
 const init = ( app, server ) => {
 const io = socketIo( server )
 
@@ -20,8 +22,20 @@ const io = socketIo( server )
     socket.on( USER_JOINED, data => io.emit( USER_JOINED, data ))
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
 
-    socket.on('join_game', function(userData, gameData) {
+    socket.on('join_game', function(userData, gameData, players) {
       console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined game ' + userData.gameid)
+
+      if(socketPlayers == null) {
+        socketPlayers = players;
+      } else {
+        socketPlayers.push(players[0]);
+      }
+      socketPlayers.forEach(function(index){
+        console.log('SOCKET PLAYERS: ' + index);
+      })
+
+      socket.broadcast.emit('update_players', socketPlayers);
+
       Games.getTopCard(gameData.gameid).then(games => { 
         tmpcard = games.top_card;
         Cards.find(tmpcard)
