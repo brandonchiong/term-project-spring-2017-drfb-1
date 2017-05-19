@@ -93,7 +93,7 @@ socket.on('draw_card', function(gamecards, cardpath) {
   //   console.log("PLAYERCARD Type: " + index.card_type);
   // });
 
-  //getNextPlayerTurn();
+  // getNextPlayerTurn();
 
 })
 //Value -1 for Player Handindex
@@ -115,6 +115,7 @@ function playCard(){
   if (isValidPlay(playerCards[card])){
 
     gameData.topCard = playerCards[card];
+    renderTopCard();
     removeCardFromPlayerHandAndBoard(card);
     console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
 
