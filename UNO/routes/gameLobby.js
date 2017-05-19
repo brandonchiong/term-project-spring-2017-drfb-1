@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
         Games.all()
             .then(games => {
-                res.render('gameLobby', { games });
+                res.render('gameLobby', { games, username : username });
             })
 
     } else {
