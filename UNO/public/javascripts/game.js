@@ -10,7 +10,7 @@ var userData = {
   userid : userid,
   username : username,
   gameid : gameid,
-  numberOfCardsInHand : 100,
+  numberOfCardsInHand : 7,
   ready: false
 };
 
@@ -116,7 +116,7 @@ function playCard(){
 
 socket.on('init_topcard', function(tmpcard){
   gameData.topcard = tmpcard
-  console.log('client set topcard')
+  console.log('client set topcard to ' + gameData.topcard)
 })
 
 function renderCard() {
