@@ -21,7 +21,7 @@ const init = ( app, server ) => {
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
 
     socket.on('join_game', function(userData, gameData) {
-      console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined the game!')
+      console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined game ' + userData.gameid)
       Games.getTopCard(gameData.gameid).then(games =>{ 
         tmpcard = games.top_card
         socket.emit('init_topcard', tmpcard)

@@ -2,7 +2,8 @@ var socket = io();
 
 var userid = document.currentScript.getAttribute('userid')
 var username = document.currentScript.getAttribute('username')
-var gameid = 1
+var gameid = document.currentScript.getAttribute('gameid')
+
 var playerCards = [];
 
 var userData = {
