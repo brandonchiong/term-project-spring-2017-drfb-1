@@ -182,12 +182,18 @@ function getNextPlayerTurn(){
 // }
 
 function isValidPlay(playerCard, topCard){
-  console.log ("VALID PLAY: " + playerCard.color + " " + topCard.color );
+  console.log ("inside VALID PLAY: ");
+  if (playerCard.card_type == 'wild' || playerCard.card_type == 'wild4'){
+    return true;
+  }
   if (playerCard.color == topCard.color ){
+    console.log ("VALID PLAY: " + playerCard.color + " " + topCard.color );
     console.log ("VALID PLAY: true");
     return true;
   }
   if (playerCard.number == topCard.number){
+    console.log ("VALID PLAY: " + playerCard.number + " " + topCard.number );
+
     console.log ("VALID PLAY: true");
     return true;
   }
