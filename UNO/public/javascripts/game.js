@@ -38,7 +38,7 @@ document.getElementById("UNO").addEventListener("click", function(){
 socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
   var path = cardpath.image;
-  console.log(card);
+  console.log("CARD ID: " + card);
   console.log("PATH: " + path);
   renderCard(card, path);
 })

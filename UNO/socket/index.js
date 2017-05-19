@@ -32,7 +32,6 @@ const init = ( app, server ) => {
           Cards.getCardImg(gamecards.card_id)
           .then(cardpaths => {
             socket.emit('draw_card', gamecards, cardpaths);
-            console.log(cardpaths);
           })
           
           console.log(gamecards.card_id);
