@@ -22,9 +22,13 @@ block content
           div.form-group
 
           button.btn.btn-primary(type='submit') Host Game
-        
-        form(method='POST' action='/joinGame')
+
+        h4 Enter the Game Number to join:
+
+        form(method='POST' action='/game')
           div.form-group
+            label(for='name') Game Number:
+            input#name.form-control(type='text', placeholder='' name='gameid' required='true')
 
           button.btn.btn-primary(type='submit') Join Game
 
