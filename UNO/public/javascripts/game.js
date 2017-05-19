@@ -113,8 +113,8 @@ function playCard(){
   if (isValidPlay(playerCards[card])){
 
     gameData.topCard = playerCards[card];
-    removeCardFromPlayerHandAndBoard(card);
     console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
+    removeCardFromPlayerHandAndBoard(card);
 
       if (playerCards[card].card_type != 'number'){
         if (playerCards[card].card_type == 'skip'){
@@ -199,7 +199,10 @@ function isValidPlay(playerCard){
   console.log ("inside VALID PLAY: ");
   console.log ("inside VALID PLAY: card Type " + playerCard.card_type);
   console.log ("inside VALID PLAY: card Number" + playerCard.number);
-
+  if (gameData.topCard.card_type == 'wild' || gameData.topCard.card_type == 'wild4'){
+    console.log ("VALID PLAY: true");
+    return true;
+  }
   if (playerCard.card_type == 'wild' || playerCard.card_type == 'wild4'){
     console.log ("VALID PLAY: true");
     return true;
