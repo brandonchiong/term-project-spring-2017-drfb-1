@@ -77,7 +77,7 @@ document.getElementById("start").addEventListener("click", function(){
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
-  console.log(gameData.topCard);
+  console.log("TOP CARD: " + gameData.topCard);
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
@@ -91,6 +91,8 @@ socket.on('draw_card', function(gamecards, cardpath) {
   //   console.log("PLAYERCARD ID: " + index.id);
   //   console.log("PLAYERCARD Type: " + index.card_type);
   // });
+
+  //getNextPlayerTurn();
 
 })
 //Value -1 for Player Handindex
@@ -109,7 +111,32 @@ function playCard(){
   console.log("inside PLAYCARD input : " + card);
 
   if (isValidPlay(playerCards[card])){
+
+    gameData.topCard = playerCards[card];
     removeCardFromPlayerHandAndBoard(card);
+    console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
+
+      if (playerCards[card].card_type != 'number'){
+        if (playerCards[card].card_type == 'skip'){
+          // getNextPlayerTurn();
+          // getNextPlayerTurn();
+          return;
+        }
+        if (playerCards[card].card_type == 'reverse'){
+          if (gameData.cardTurnClockwise == true){
+            gameData.cardTurnClockwise == false;
+          }
+          else if (gameData.cardTurnClockwise == false){
+            gameData.cardTurnClockwise == true;
+          }
+        }
+        if (playerCards[card].card_type == 'wild4'){
+          
+        }
+        if (playerCards[card].card_type == 'wild'){
+          
+        }
+      }
     //getNextPlayerTurn();
   }
 }
