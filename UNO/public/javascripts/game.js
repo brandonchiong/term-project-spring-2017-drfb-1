@@ -10,7 +10,7 @@ var userData = {
   userid : userid,
   username : username,
   gameid : gameid,
-  numberOfCardsInHand : 100,
+  numberOfCardsInHand : 7,
   ready: false
 };
 
