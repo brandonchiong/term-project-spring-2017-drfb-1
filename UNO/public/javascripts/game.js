@@ -11,14 +11,15 @@ var userData = {
   gameid : gameid,
   numberOfCardsInHand : 100,
   ready: false
-}
+};
 
 var gameData = {
   gameid : gameid,
   cardTurnClockwise: false,
   currentPlayerTurn: 0,
-  start: false
-}
+  start: false,
+  topCard: {id:35, card_type:'number', color:'y', number:4}
+};
 
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
@@ -50,19 +51,23 @@ document.getElementById("UNO").addEventListener("click", function(){
       }
     }
   }
-})
-
-
+});
 
 document.getElementById("ready").addEventListener("click", function(){
-  console.log("User is ready to play!")
-  userData.ready= true
-})
+  console.log("User is ready to play!");
+  userData.ready= true;
+});
 
 document.getElementById("start").addEventListener("click", function(){
   gameData.start = ( userData.ready )? true:false;
   console.log('Game ready to start')
 })
+
+// document.getElementById("playCardFromHand").addEventListener("click", function(){
+//   if(isValidPlay(playerCards[0], topCard)){
+//     console.log("true play");
+//   }
+// });
 
 socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
@@ -84,7 +89,7 @@ function renderCard() {
   var node = document.getElementById("card-area");
   //clear card area
   node.innterHTML = '';
-  
+
 //  console.log(node);
   var card = new Image(72, 120);
 
@@ -176,13 +181,21 @@ function getNextPlayerTurn(){
 //   else alert ("Its not your turn");
 // }
 
-// function isValidPlay(){
-//   //cardPlayed == top card
-//   if (true){
-//     return true;
-//   }
-//   else return false;
-// }
+function isValidPlay(playerCard, topCard){
+  console.log ("VALID PLAY: " + playerCard.color + " " + topCard.color );
+  if (playerCard.color == topCard.color ){
+    console.log ("VALID PLAY: true");
+    return true;
+  }
+  if (playerCard.number == topCard.number){
+    console.log ("VALID PLAY: true");
+    return true;
+  }
+  else{
+    alert ("not valid play");
+    return false;
+  } 
+}
 
 
 // //TODO: maybe not needed?
