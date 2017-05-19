@@ -2,7 +2,8 @@ var socket = io();
 
 var userid = document.currentScript.getAttribute('userid')
 var username = document.currentScript.getAttribute('username')
-var gameid = 1
+var gameid = document.currentScript.getAttribute('gameid')
+
 var playerCards = [];
 
 var userData = {
@@ -21,10 +22,11 @@ var gameData = {
   topCard: {id:35, card_type:'number', color:'y', number:4}
 };
 
+
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
 
-socket.emit('join_game', userData);
+socket.emit('join_game', userData, gameData);
 
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
@@ -44,6 +46,7 @@ document.getElementById("UNO").addEventListener("click", function(){
     console.log("cardturn " + gameData.cardTurnClockwise);
     if(userData.numberOfCardsInHand != 1){
       console.log('Uno check failed. Penalty incurred!')
+      alert("You have more than one card!\n2 Card penalty!")
       var i
       for(i = 0; i<2; i++ ){
         socket.emit('draw_card', userData)
@@ -60,12 +63,16 @@ document.getElementById("ready").addEventListener("click", function(){
 
 document.getElementById("start").addEventListener("click", function(){
   gameData.start = ( userData.ready )? true:false;
-  if( gameData.start == true ) {
-    console.log('Game Started');
-    console.log('Dealing 7 Cards');
-    for (var i = 0; i < 7; i++) {
-      socket.emit('draw_card', userData);
+  if(gameData.start){ 
+    console.log('Game ready to start')
+    var i
+    console.log('Drawing initial hand')
+    for(i = 0; i<7; i++){
+      socket.emit('draw_card', userData)
+      userData.numberOfCardsInHand++;
     }
+    document.getElementById("ready").style.visibility = "hidden"
+    document.getElementById("start").style.visibility = "hidden"
   }
 })
 
@@ -89,6 +96,12 @@ socket.on('draw_card', function(gamecards, cardpath) {
     console.log("PLAYERCARD ID: " + index.id);
     console.log("PLAYERCARD Type: " + index.card_type);
   });
+})
+
+
+socket.on('init_topcard', function(tmpcard){
+  gameData.topcard = tmpcard
+  console.log('client set topcard')
 })
 
 function renderCard() {
