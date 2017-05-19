@@ -6,11 +6,11 @@ block content
   table
      thead
        tr
-         th Games:
+         h4 Game Rooms 
      tbody
        each game in games
          tr
-           td= game.id
+           h5= game.id
 
   .main.container
     .row
@@ -23,11 +23,14 @@ block content
 
           button.btn.btn-primary(type='submit') Host Game
 
-        h4 Enter the Game Number to join:
+        br
+        br
+
+        h4 Enter the Game Room Number to join:
 
         form(method='POST' action='/game')
           div.form-group
-            label(for='name') Game Number:
+            label(for='name') Game Room Number:
             input#name.form-control(type='text', placeholder='' name='gameid' required='true')
 
           button.btn.btn-primary(type='submit') Join Game
