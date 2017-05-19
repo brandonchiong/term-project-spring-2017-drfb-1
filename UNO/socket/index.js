@@ -49,8 +49,6 @@ const io = socketIo( server )
           console.log('TOP CARD: ' + topcard.id);
           socket.emit('init_topcard', topcard);
         })
-        // console.log('TOP CARD: ' + tmpcard);
-        // socket.emit('init_topcard', tmpcard);
       })
     })
 

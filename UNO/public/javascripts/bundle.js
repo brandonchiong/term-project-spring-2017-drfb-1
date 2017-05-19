@@ -51,7 +51,11 @@ var intializeSocket = function intializeSocket() {
 
 $(document).ready(function () {
   var user = 'anonymous';
+  user = document.getElementById('username').innerHTML;
+  console.log(user);
 
+  // user = $('#name').innerHTML;
+  
   // $('#initial-form button').click(function (event) {
   //   user = $('#who-are-you').val();
 
@@ -67,7 +71,6 @@ $(document).ready(function () {
   $('#chat-area button').click(function (event) {
     var message = $('#chat-area input').val();
     $('#chat-area input').val('');
-
     socket.emit(_events.MESSAGE_SEND, { user: user, timestamp: Date.now(), message: message });
   });
 });
