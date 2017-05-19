@@ -73,7 +73,7 @@ document.getElementById("start").addEventListener("click", function(){
     }
     document.getElementById("ready").style.visibility = "hidden"
     document.getElementById("start").style.visibility = "hidden"
-    // renderTopCard();
+    renderTopCard();
   }
 })
 
@@ -86,10 +86,10 @@ socket.on('draw_card', function(gamecards, cardpath) {
   console.log("PATH: " + path);
   renderCard();
   playerCards.forEach(function(index){
-    console.log("PLAYERCARD LEN" + playerCards.length);
-    console.log("PLAYERCARD Number: " + index.number);
-    console.log("PLAYERCARD ID: " + index.id);
-    console.log("PLAYERCARD Type: " + index.card_type);
+    // console.log("PLAYERCARD LEN" + playerCards.length);
+    // console.log("PLAYERCARD Number: " + index.number);
+    // console.log("PLAYERCARD ID: " + index.id);
+    // console.log("PLAYERCARD Type: " + index.card_type);
   });
 
   if (playerCards.length > 6){
@@ -127,15 +127,12 @@ function renderCard() {
     card.src = index.image;
     card.id = index.id;
     node.appendChild(card);
-    console.log("inside loop: card id: " + card.id);
+    // console.log("inside loop: card id: " + card.id);
   });
 }
 
 function renderTopCard() {
-  // var card = new Image();
-  // card.src = gameData.topCard.image;
-  // console.log( gameData.topCard.image );
-  // document.getElementById("top-card").innerHTML = card;
+  document.getElementById("top-card").src = gameData.topCard.image;
 }
 
 
@@ -180,16 +177,19 @@ function isValidPlay(playerCard){
 
   if (playerCard.card_type == 'wild' || playerCard.card_type == 'wild4'){
     console.log ("VALID PLAY: true");
+    renderTopCard();
     return true;
   }
   if (playerCard.color == gameData.topCard.color ){
     console.log ("VALID PLAY: " + playerCard.color + " " + gameData.topCard.color );
     console.log ("VALID PLAY: true");
+    renderTopCard();
     return true;
   }
   if (playerCard.number == gameData.topCard.number){
     console.log ("VALID PLAY: " + playerCard.number + " " + gameData.topCard.number );
     console.log ("VALID PLAY: true");
+    renderTopCard();
     return true;
   }
   else{
