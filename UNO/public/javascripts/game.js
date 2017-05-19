@@ -30,7 +30,6 @@ socket.emit('join_game', userData);
 var card_area = document.getElementById('card-area');
 
 
-
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
   if(gameData.start){ 
     console.log( userData.username + " drew a card!");
@@ -84,9 +83,7 @@ socket.on('draw_card', function(gamecards, cardpath) {
 })
 
 function renderCard() {
-  //clearCardArea();
   var node = document.getElementById("card-area");
-  //clear card area
 
 //  console.log(node);
   var card = new Image(72, 120);
@@ -99,13 +96,7 @@ function renderCard() {
   });
 }
 
-function clearCardArea(){
-  var node = document.getElementById("card-area");
-  //clear card area
-  while (node.firstChild){
-    node.removeChild(node.firstChild);
-  }
-}
+
 
 function getNextPlayerTurn(){
   if (gameData.cardTurnClockwise){
@@ -132,6 +123,7 @@ function removeCardFromPlayerHandAndBoard(index){
   else
     console.log("index is out of Range:" + index);
 }
+
 // function isCurrentPlayerTurn(){
 //   if (true){
 //     //TODO: turn action
@@ -162,10 +154,6 @@ function isValidPlay(playerCard, topCard){
 }
 
 
-// //TODO: maybe not needed?
-// function cardAction(){
-
-// }
 // function Update(){
 //   getNextPlayerTurn();
 
