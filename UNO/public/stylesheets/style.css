@@ -17,8 +17,13 @@ html, body {
 }
 
 #chat-area {
-  position: fixed;
+  position: absolute;
+  right: 0;
   bottom: 0;
+}
+
+#message-area {
+  overflow-y: scroll;
 }
 
 .messages {

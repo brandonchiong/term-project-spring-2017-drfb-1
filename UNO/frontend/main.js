@@ -61,3 +61,9 @@ $( '#chat-area button' ).click( event => {
     socket.emit( MESSAGE_SEND, { user, timestamp: Date.now(), message })
   })
 })
+
+function scrollToBottom() {
+  message.scrollTop = message.scrollHeight;
+}
+
+scrollToBottom();

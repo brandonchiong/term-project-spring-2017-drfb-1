@@ -46,36 +46,14 @@ block content
             input#cardToPlay(type='text', value ='')
             button.btn.btn-primary(onclick='playCard()') PlayCard
 
-      .row(style="background-color:green")
-        .col-sm-2
-          //- include chat.pug
+      //- .row(style="background-color:green")
+      //- include chat.pug
       .col-lg-12
         .row(style="background-color:blue; height:120px;")
           #card-area
-            //- p hellow
-            //- .col
-              // for each card in player hand
-            //- img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red1.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red2.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red5.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
 
-      //- .row(style="background-color:red")
-  include chat.pug
-        
-    //- table
-      thead
-        tr
-        th card_id
-
-      tbody
-        each card in cards
-          tr
-            td= card.card_id
+      //- .row(style="background-color:red") 
+    include chat.pug
 
 
     script(src='/socket.io/socket.io.js')

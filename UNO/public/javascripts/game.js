@@ -77,7 +77,7 @@ document.getElementById("start").addEventListener("click", function(){
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
-  console.log("TOP CARD: " + gameData.topCard);
+  // console.log("TOP CARD: " + gameData.topCard);
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
@@ -95,6 +95,14 @@ socket.on('draw_card', function(gamecards, cardpath) {
   // getNextPlayerTurn();
 
 })
+
+document.getElementById('cardToPlay').onkeypress = function(e) {
+  if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+      playCard();
+    }
+}
 //Value -1 for Player Handindex
 function playCard(){
   console.log("inside PLAYCARD");
