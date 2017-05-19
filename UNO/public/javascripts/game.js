@@ -20,6 +20,7 @@ var gameData = {
   currentPlayerTurn: 0,
   start: false,
   topCard: {id:35, card_type:'number', color:'y', number:4}
+  //topCard: null
 };
 
 
@@ -94,8 +95,21 @@ socket.on('draw_card', function(gamecards, cardpath) {
     removeCardFromPlayerHandAndBoard(0);
   }
 })
+//Value -1 for Player Handindex
+function playCard(){
+  console.log("inside PLAYCARD");
+  if (document.getElementById("cardToPlay").value > playerCards.length){
+    alert ("Number is greater than cards held")
+  }
 
+  if (document.getElementById("cardToPlay").value < 1){
+    alert ("Please don't break me, choose a number greater or equal to 1")
+  }
+  var card = document.getElementById("cardToPlay").value -1;
+  console.log("inside PLAYCARD input : " + card);
 
+  isValidPlay(playerCards[card]);
+}
 socket.on('init_topcard', function(tmpcard){
   gameData.topcard = tmpcard
   console.log('client set topcard')
@@ -150,19 +164,22 @@ function removeCardFromPlayerHandAndBoard(index){
 //   else alert ("Its not your turn");
 // }
 
-function isValidPlay(playerCard, topCard){
+function isValidPlay(playerCard){
   console.log ("inside VALID PLAY: ");
+  console.log ("inside VALID PLAY: card Type " + playerCard.card_type);
+  console.log ("inside VALID PLAY: card Number" + playerCard.number);
+
   if (playerCard.card_type == 'wild' || playerCard.card_type == 'wild4'){
-    return true;
-  }
-  if (playerCard.color == topCard.color ){
-    console.log ("VALID PLAY: " + playerCard.color + " " + topCard.color );
     console.log ("VALID PLAY: true");
     return true;
   }
-  if (playerCard.number == topCard.number){
-    console.log ("VALID PLAY: " + playerCard.number + " " + topCard.number );
-
+  if (playerCard.color == gameData.topCard.color ){
+    console.log ("VALID PLAY: " + playerCard.color + " " + gameData.topCard.color );
+    console.log ("VALID PLAY: true");
+    return true;
+  }
+  if (playerCard.number == gameData.topCard.number){
+    console.log ("VALID PLAY: " + playerCard.number + " " + gameData.topCard.number );
     console.log ("VALID PLAY: true");
     return true;
   }
