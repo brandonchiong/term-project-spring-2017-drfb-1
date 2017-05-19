@@ -51,7 +51,9 @@ var intializeSocket = function intializeSocket() {
 
 $(document).ready(function () {
   var user = 'anonymous';
-
+  user = document.getElementById('username').innerHTML;
+  // user = $('#name').innerHTML;
+  console.log(user);
   // $('#initial-form button').click(function (event) {
   //   user = $('#who-are-you').val();
 
