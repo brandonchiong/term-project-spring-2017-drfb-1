@@ -2,10 +2,12 @@ var socket = io();
 
 var userid = document.currentScript.getAttribute('userid')
 var username = document.currentScript.getAttribute('username')
+var gameid = document.currentScript.getAttribute('gameid')
 
 var userData = {
   userid : userid,
-  username : username
+  username : username,
+  gameid : gameid
 }
 
 socket.emit('join_game', userData);

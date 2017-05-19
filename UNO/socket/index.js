@@ -18,7 +18,7 @@ const init = ( app, server ) => {
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
 
     socket.on('join_game', function(userData) {
-      console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined the game!')
+      console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined game ' + userData.gameid)
     })
 
   })  
