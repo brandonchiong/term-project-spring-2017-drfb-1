@@ -9,7 +9,7 @@ var userData = {
   userid : userid,
   username : username,
   gameid : gameid,
-  numberOfCardsInHand : 100,
+  numberOfCardsInHand : 7,
   ready: false
 };
 
@@ -60,7 +60,13 @@ document.getElementById("ready").addEventListener("click", function(){
 
 document.getElementById("start").addEventListener("click", function(){
   gameData.start = ( userData.ready )? true:false;
-  console.log('Game ready to start')
+  if( gameData.start == true ) {
+    console.log('Game Started');
+    console.log('Dealing 7 Cards');
+    for (var i = 0; i < 7; i++) {
+      socket.emit('draw_card', userData);
+    }
+  }
 })
 
 // document.getElementById("playCardFromHand").addEventListener("click", function(){
