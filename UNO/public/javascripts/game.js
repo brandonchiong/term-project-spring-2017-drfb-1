@@ -99,16 +99,20 @@ socket.on('draw_card', function(gamecards, cardpath) {
 function playCard(){
   console.log("inside PLAYCARD");
   if (document.getElementById("cardToPlay").value > playerCards.length){
-    alert ("Number is greater than cards held")
+    alert ("Number is greater than cards held");
+    return;
   }
 
   if (document.getElementById("cardToPlay").value < 1){
-    alert ("Please don't break me, choose a number greater or equal to 1")
+    alert ("Please don't break me, choose a number greater or equal to 1");
+    return;
   }
   var card = document.getElementById("cardToPlay").value -1;
   console.log("inside PLAYCARD input : " + card);
 
-  isValidPlay(playerCards[card]);
+  if (isValidPlay(playerCards[card])){
+    removeCardFromPlayerHandAndBoard(card);
+  }
 }
 socket.on('init_topcard', function(tmpcard){
   gameData.topcard = tmpcard
