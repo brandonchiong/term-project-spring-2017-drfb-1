@@ -19,7 +19,7 @@ var gameData = {
   cardTurnClockwise: false,
   currentPlayerTurn: 0,
   start: false,
-  topCard: {id:35, card_type:'number', color:'y', number:4}
+  topCard: {id:35, card_type:'number', color:'y', number:4, image:'/images/UnoCard/yellow4.png'}
   //topCard: null
 };
 
@@ -73,6 +73,7 @@ document.getElementById("start").addEventListener("click", function(){
     }
     document.getElementById("ready").style.visibility = "hidden"
     document.getElementById("start").style.visibility = "hidden"
+    renderTopCard();
   }
 })
 
@@ -110,6 +111,7 @@ function playCard(){
 
   isValidPlay(playerCards[card]);
 }
+
 socket.on('init_topcard', function(tmpcard){
   gameData.topcard = tmpcard
   console.log('client set topcard')
@@ -127,6 +129,13 @@ function renderCard() {
     node.appendChild(card);
     console.log("inside loop: card id: " + card.id);
   });
+}
+
+function renderTopCard() {
+  var card = new Image();
+  card.src = gameData.topCard.image;
+  console.log( gameData.topCard.image );
+  document.getElementById("top-card").innerHTML = card;
 }
 
 
