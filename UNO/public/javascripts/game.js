@@ -73,7 +73,7 @@ document.getElementById("start").addEventListener("click", function(){
     }
     document.getElementById("ready").style.visibility = "hidden"
     document.getElementById("start").style.visibility = "hidden"
-    renderTopCard();
+    // renderTopCard();
   }
 })
 
@@ -132,10 +132,10 @@ function renderCard() {
 }
 
 function renderTopCard() {
-  var card = new Image();
-  card.src = gameData.topCard.image;
-  console.log( gameData.topCard.image );
-  document.getElementById("top-card").innerHTML = card;
+  // var card = new Image();
+  // card.src = gameData.topCard.image;
+  // console.log( gameData.topCard.image );
+  // document.getElementById("top-card").innerHTML = card;
 }
 
 
