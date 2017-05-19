@@ -31,7 +31,7 @@ block content
                 .card
                   img.img-responsive.center-block(src='/images/UnoCard/wild.png')
                   .card-block
-                    button#drawFromDiscard.btn.btn-danger.btn-group-justified Uno
+                    button#UNO.btn.btn-danger.btn-group-justified Uno
             .col-md-2
               .row
                 img.img-responsive.center-block(src='/images/user.png')
@@ -46,9 +46,9 @@ block content
       .row(style="background-color:green")
         .col-sm-2
           //- include chat.pug
-        .col-lg-8
-          .row(style="background-color:blue; height:120px;")
-            #card-area
+      .col-lg-12
+        .row(style="background-color:blue; height:120px;")
+          #card-area
             //- p hellow
             //- .col
               // for each card in player hand
@@ -64,22 +64,16 @@ block content
       //- .row(style="background-color:red")
   include chat.pug
         
-    table
+    //- table
       thead
         tr
         th card_id
-        th card_type
-        th card_color
-        th card_number
-        th card_source
+
       tbody
         each card in cards
           tr
-            td= card.id
-            td= card.card_type
-            td= card.color
-            td= card.number
-            td= card.image
+            td= card.card_id
+
 
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/game.js' userid = userid, username = username, gameid = gameid)
