@@ -5,7 +5,7 @@ var username = document.currentScript.getAttribute('username')
 var gameid = document.currentScript.getAttribute('gameid')
 
 var playerCards = [];
-var players = [username];
+var players = [];
 var num_starting_cards = 7;
 
 var userData = {
@@ -27,7 +27,7 @@ var gameData = {
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
 
-socket.emit('join_game', userData, gameData, players);
+socket.emit('join_game', userData, gameData, username);
 
 socket.on('update_players', function(socketPlayers) {
   players = socketPlayers;
