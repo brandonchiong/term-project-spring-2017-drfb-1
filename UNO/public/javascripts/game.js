@@ -95,7 +95,7 @@ socket.on('draw_card', function(gamecards, cardpath) {
 
 socket.on('init_topcard', function(tmpcard){
   gameData.topcard = tmpcard
-  console.log('client set topcard')
+  console.log('client set topcard to ' + gameData.topcard)
 })
 
 function renderCard(card_id, cardpath) {

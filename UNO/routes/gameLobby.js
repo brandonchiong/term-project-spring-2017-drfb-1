@@ -43,8 +43,8 @@ router.post('/', function(req, res, next) {
 */
     Games.create(req.user.id).then(games => {
        
-        console.log('GAME HOSTED by ' + username + ' with game id: ' + games.id);
-       alert("You are hosting game", games.id)
+       console.log('GAME HOSTED by ' + username + ' with game id: ' + games.id);
+      // alert("You are hosting game " + games.id)
        GameUsers.addPlayer(gameid, req.user.id).then( gameuser => {
             console.log('GameUser added: ' + req.user.id)
         })
