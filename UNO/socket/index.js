@@ -33,7 +33,7 @@ const init = ( app, server ) => {
       
       GameCards.drawCardByPlayerId(userData.userid, 1)
         .then(gamecards => {
-          Cards.getCardImg(gamecards.card_id)
+          Cards.find(gamecards.card_id)
           .then(cardpaths => {
             socket.emit('draw_card', gamecards, cardpaths);
             console.log(cardpaths);
