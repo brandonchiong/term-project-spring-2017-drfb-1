@@ -19,7 +19,7 @@ var gameData = {
   cardTurnClockwise: false,
   currentPlayerTurn: 0,
   start: false,
-  topCard: {id:35, card_type:'number', color:'y', number:4}
+  topCard: {id:35, card_type:'number', color:'y', number:4, image:'/images/UnoCard/yellow4.png'}
   //topCard: null
 };
 
@@ -73,6 +73,7 @@ document.getElementById("start").addEventListener("click", function(){
     }
     document.getElementById("ready").style.visibility = "hidden"
     document.getElementById("start").style.visibility = "hidden"
+    renderTopCard();
   }
 })
 
@@ -99,6 +100,7 @@ socket.on('draw_card', function(gamecards, cardpath) {
 function playCard(){
   console.log("inside PLAYCARD");
   if (document.getElementById("cardToPlay").value > playerCards.length){
+
     alert ("Number is greater than cards held");
     return;
   }
@@ -156,10 +158,14 @@ function renderCard() {
     card.src = index.image;
     card.id = index.id;
     node.appendChild(card);
+
     console.log("inside loop: card id: " + card.id);
   });
 }
 
+function renderTopCard() {
+  document.getElementById("top-card").src = gameData.topCard.image;
+}
 
 
 function getNextPlayerTurn(){
@@ -202,16 +208,19 @@ function isValidPlay(playerCard){
 
   if (playerCard.card_type == 'wild' || playerCard.card_type == 'wild4'){
     console.log ("VALID PLAY: true");
+    renderTopCard();
     return true;
   }
   if (playerCard.color == gameData.topCard.color ){
     console.log ("VALID PLAY: " + playerCard.color + " " + gameData.topCard.color );
     console.log ("VALID PLAY: true");
+    renderTopCard();
     return true;
   }
   if (playerCard.number == gameData.topCard.number){
     console.log ("VALID PLAY: " + playerCard.number + " " + gameData.topCard.number );
     console.log ("VALID PLAY: true");
+    renderTopCard();
     return true;
   }
   else{
