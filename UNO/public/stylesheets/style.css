@@ -21,10 +21,10 @@ html, body {
   max-width: 50%;
 }*/
 
-/*#chat-area {
+#chat-area {
   position: fixed;
   bottom: 0;
-}*/
+}
 
 #message-area {
   overflow-y: scroll;
@@ -33,8 +33,8 @@ html, body {
 .messages {
   min-height: 90px;
   max-height: 90px;
-/*  min-width: 500px;
-  max-width: 500px;*/
+  /*min-width: 500px;*/
+  /*max-width: 500px;*/
 }
 
 .message {
