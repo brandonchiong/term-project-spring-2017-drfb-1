@@ -3,6 +3,7 @@ var socket = io();
 var userid = document.currentScript.getAttribute('userid')
 var username = document.currentScript.getAttribute('username')
 var gameid = 1
+var playerCards = [];
 
 var userData = {
   userid : userid,
@@ -66,10 +67,17 @@ document.getElementById("start").addEventListener("click", function(){
 socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
   var path = cardpath.image;
+  playerCards.push(cardpath);
   console.log("CP: Type; " + cardpath.card_type);
   console.log(card);
   console.log("PATH: " + path);
   renderCard(card, path);
+  playerCards.forEach(function(index){
+    console.log("PLAYERCARD LEN" + playerCards.length);
+    console.log("PLAYERCARD Number: " + index.number);
+    console.log("PLAYERCARD ID: " + index.id);
+    console.log("PLAYERCARD Type: " + index.card_type);
+  });
 })
 
 function renderCard(card_id, cardpath) {
