@@ -77,6 +77,7 @@ document.getElementById("start").addEventListener("click", function(){
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
+  console.log(gameData.topCard);
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
@@ -84,16 +85,13 @@ socket.on('draw_card', function(gamecards, cardpath) {
   console.log(card);
   console.log("PATH: " + path);
   renderCard();
-  playerCards.forEach(function(index){
-    console.log("PLAYERCARD LEN" + playerCards.length);
-    console.log("PLAYERCARD Number: " + index.number);
-    console.log("PLAYERCARD ID: " + index.id);
-    console.log("PLAYERCARD Type: " + index.card_type);
-  });
+  // playerCards.forEach(function(index){
+  //   console.log("PLAYERCARD LEN" + playerCards.length);
+  //   console.log("PLAYERCARD Number: " + index.number);
+  //   console.log("PLAYERCARD ID: " + index.id);
+  //   console.log("PLAYERCARD Type: " + index.card_type);
+  // });
 
-  if (playerCards.length > 6){
-    removeCardFromPlayerHandAndBoard(0);
-  }
 })
 //Value -1 for Player Handindex
 function playCard(){
@@ -112,8 +110,10 @@ function playCard(){
 
   if (isValidPlay(playerCards[card])){
     removeCardFromPlayerHandAndBoard(card);
+    //getNextPlayerTurn();
   }
 }
+
 socket.on('init_topcard', function(tmpcard){
   gameData.topcard = tmpcard
   console.log('client set topcard')
