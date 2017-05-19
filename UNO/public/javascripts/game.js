@@ -76,7 +76,8 @@ document.getElementById("start").addEventListener("click", function(){
   }
 })
 
-socket.on('draw_card', function(gamecards, cardpath) {
+socket.on('draw_card', function(gamecards, cardpath) {f
+
   console.log("TOP CARD: " + gameData.topCard);
   var card = gamecards.card_id;
   var path = cardpath.image;
@@ -112,13 +113,9 @@ function playCard(){
   console.log("inside PLAYCARD input : " + card);
 
   if (isValidPlay(playerCards[card])){
-
     gameData.topCard = playerCards[card];
-<<<<<<< HEAD
-=======
+
     renderTopCard();
-    removeCardFromPlayerHandAndBoard(card);
->>>>>>> 9873274ac6b1e48dd857eb176e41f4330bbc206a
     console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
     removeCardFromPlayerHandAndBoard(card);
 
@@ -137,7 +134,11 @@ function playCard(){
           }
         }
         if (playerCards[card].card_type == 'wild4'){
-          
+            // getNextPlayerTurn();
+		    for(i = 0; i<4; i++){
+		      socket.emit('draw_card', userData)
+		    }
+		    return;
         }
         if (playerCards[card].card_type == 'wild'){
           
