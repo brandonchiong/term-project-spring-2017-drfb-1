@@ -42,12 +42,15 @@ socket.on('draw_card', function(gamecards, cardpath) {
   console.log("PATH: " + path);
   renderCard(card, path);
 })
-
+var id = 0;
 function renderCard(card_id, cardpath) {
+  id++;
   var node = document.getElementById("card-area");
   console.log(node);
   var card = new Image(72, 120);
+  card.id = id;
   card.src = cardpath;
+  console.log("card id: " + card.id);
   node.appendChild(card);
 }
 
