@@ -71,7 +71,7 @@ socket.on('draw_card', function(gamecards, cardpath) {
   console.log("CP: Type; " + cardpath.card_type);
   console.log(card);
   console.log("PATH: " + path);
-  renderCard(card, path);
+  renderCard();
   playerCards.forEach(function(index){
     console.log("PLAYERCARD LEN" + playerCards.length);
     console.log("PLAYERCARD Number: " + index.number);
@@ -80,12 +80,18 @@ socket.on('draw_card', function(gamecards, cardpath) {
   });
 })
 
-function renderCard(card_id, cardpath) {
+function renderCard() {
   var node = document.getElementById("card-area");
-  console.log(node);
+  //clear card area
+  node.innterHTML = '';
+  
+//  console.log(node);
   var card = new Image(72, 120);
-  card.src = cardpath;
-  node.appendChild(card);
+
+  playerCards.forEach(function(index){
+    card.src = index.image;
+    node.appendChild(card);
+  });
 }
 
 //Game Logic Start
