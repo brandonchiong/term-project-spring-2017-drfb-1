@@ -7,26 +7,10 @@ const { Cards } = require('../db');
 
 router.post('/', function(req, res, next) {
 
-  console.log('JOIN GAMEID: ' + req.body.gameid);
+  var gameid = req.body.gameid;
 
-  res.redirect("game/" + req.body.gameid);
+  res.redirect("game/" + gameid);
 
-	// if(req.user) {
-	// 	var userid = req.user.id;
-	// 	var username = req.user.alias;
-	// 	console.log(userid + ':' + username + ' joined the game');
-
- //  	Cards.all().then(cards => {
- //      res.render('game', {
- //      	cards, 
- //      	userid : userid, 
- //      	username : username
- //      });
- //    })
-
- //  } else {
- //  	res.redirect('/');
- //  }
 });
 
 router.get('/:id', function(req, res, next) {
@@ -38,13 +22,14 @@ router.get('/:id', function(req, res, next) {
   if(req.user) {
     var userid = req.user.id;
     var username = req.user.alias;
-    console.log(userid + ':' + username + ' joined the game');
+    console.log(userid + ':' + username + ' joined game ' + gameid);
 
     Cards.all().then(cards => {
       res.render('game', {
         cards, 
         userid : userid, 
-        username : username
+        username : username,
+        gameid : gameid
       });
     })
 
