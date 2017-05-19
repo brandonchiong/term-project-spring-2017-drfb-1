@@ -10,17 +10,18 @@ var userData = {
   userid : userid,
   username : username,
   gameid : gameid,
-  numberOfCardsInHand : 100,
+  numberOfCardsInHand : 7,
   ready: false
-}
+};
 
 var gameData = {
   gameid : gameid,
   cardTurnClockwise: false,
   currentPlayerTurn: 0,
   start: false,
-  topcard: null
-}
+  topCard: {id:35, card_type:'number', color:'y', number:4}
+};
+
 
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
@@ -53,14 +54,12 @@ document.getElementById("UNO").addEventListener("click", function(){
       }
     }
   }
-})
-
-
+});
 
 document.getElementById("ready").addEventListener("click", function(){
-  console.log("User is ready to play!")
-  userData.ready= true
-})
+  console.log("User is ready to play!");
+  userData.ready= true;
+});
 
 document.getElementById("start").addEventListener("click", function(){
   gameData.start = ( userData.ready )? true:false;
@@ -77,6 +76,12 @@ document.getElementById("start").addEventListener("click", function(){
   }
 })
 
+// document.getElementById("playCardFromHand").addEventListener("click", function(){
+//   if(isValidPlay(playerCards[0], topCard)){
+//     console.log("true play");
+//   }
+// });
+
 socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
   var path = cardpath.image;
@@ -84,7 +89,7 @@ socket.on('draw_card', function(gamecards, cardpath) {
   console.log("CP: Type; " + cardpath.card_type);
   console.log(card);
   console.log("PATH: " + path);
-  renderCard(card, path);
+  renderCard();
   playerCards.forEach(function(index){
     console.log("PLAYERCARD LEN" + playerCards.length);
     console.log("PLAYERCARD Number: " + index.number);
@@ -93,17 +98,24 @@ socket.on('draw_card', function(gamecards, cardpath) {
   });
 })
 
+
 socket.on('init_topcard', function(tmpcard){
   gameData.topcard = tmpcard
   console.log('client set topcard to ' + gameData.topcard)
 })
 
-function renderCard(card_id, cardpath) {
+function renderCard() {
   var node = document.getElementById("card-area");
-  console.log(node);
+  //clear card area
+  node.innterHTML = '';
+
+//  console.log(node);
   var card = new Image(72, 120);
-  card.src = cardpath;
-  node.appendChild(card);
+
+  playerCards.forEach(function(index){
+    card.src = index.image;
+    node.appendChild(card);
+  });
 }
 
 //Game Logic Start
@@ -188,13 +200,21 @@ function getNextPlayerTurn(){
 //   else alert ("Its not your turn");
 // }
 
-// function isValidPlay(){
-//   //cardPlayed == top card
-//   if (true){
-//     return true;
-//   }
-//   else return false;
-// }
+function isValidPlay(playerCard, topCard){
+  console.log ("VALID PLAY: " + playerCard.color + " " + topCard.color );
+  if (playerCard.color == topCard.color ){
+    console.log ("VALID PLAY: true");
+    return true;
+  }
+  if (playerCard.number == topCard.number){
+    console.log ("VALID PLAY: true");
+    return true;
+  }
+  else{
+    alert ("not valid play");
+    return false;
+  } 
+}
 
 
 // //TODO: maybe not needed?
