@@ -41,20 +41,22 @@ router.post('/', function(req, res, next) {
         })
         
 */
-    Games.createTest(req.user.id).then(games => {
+    Games.create(req.user.id).then(games => {
        
-        console.log('GAME CREATED by ' + username + ' with game id: ' + games.id);
-        res.redirect('game')
-        GameUsers.addPlayer(gameid, req.user.id).then( gameuser => {
+        console.log('GAME HOSTED by ' + username + ' with game id: ' + games.id);
+        //res.redirect('gameLobby')
+       GameUsers.addPlayer(gameid, req.user.id).then( gameuser => {
             console.log('GameUser added: ' + req.user.id)
         })
+        
         GameCards.newDeck(games.id).then(cards => {
-            res.render('game', { cards });
+           // res.render('game', { cards });
             console.log('New Deck initalized');
             
             GameCards.drawTopCard(games.id).then(topcard => {
                 console.log('Topcard : ', topcard.card_id)
                 Games.setTopCard(games.id, topcard.card_id).then(() => { console.log('Top card set in games')})
+                res.redirect('gameLobby')
             })
         })
 

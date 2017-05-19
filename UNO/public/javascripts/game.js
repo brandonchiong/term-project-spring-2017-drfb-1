@@ -45,6 +45,7 @@ document.getElementById("UNO").addEventListener("click", function(){
     console.log("cardturn " + gameData.cardTurnClockwise);
     if(userData.numberOfCardsInHand != 1){
       console.log('Uno check failed. Penalty incurred!')
+      alert("You have more than one card!\n2 Card penalty!")
       var i
       for(i = 0; i<2; i++ ){
         socket.emit('draw_card', userData)

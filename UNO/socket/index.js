@@ -31,7 +31,7 @@ const init = ( app, server ) => {
     socket.on('draw_card', function(userData) {
       console.log(userData.username + " drew a card!" )
       
-      GameCards.drawCardByPlayerId(userData.userid, 1)
+      GameCards.drawCardByPlayerId(userData.userid, userData.gameid)
         .then(gamecards => {
           Cards.find(gamecards.card_id)
           .then(cardpaths => {
