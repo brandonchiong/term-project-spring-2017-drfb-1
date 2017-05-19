@@ -19,8 +19,7 @@ var gameData = {
   cardTurnClockwise: false,
   currentPlayerTurn: 0,
   start: false,
-  topCard: {id:35, card_type:'number', color:'y', number:4, image:'/images/UnoCard/yellow4.png'}
-  //topCard: null
+  topCard: {id:null, card_type:null, color:null, number:null, image:null}
 };
 
 
@@ -145,8 +144,13 @@ function playCard(){
 }
 
 socket.on('init_topcard', function(tmpcard){
-  gameData.topCard.id = tmpcard
+  gameData.topCard.id = tmpcard.id;
+  gameData.topCard.card_type = tmpcard.card_type;
+  gameData.topCard.color = tmpcard.color;
+  gameData.topCard.number = tmpcard.number;
+  gameData.topCard.image = tmpcard.image;
   console.log('client set topcard to ' + gameData.topCard.id)
+  console.log(gameData.topCard);
 })
 
 function renderCard() {
