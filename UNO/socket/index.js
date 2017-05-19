@@ -1,10 +1,10 @@
 const socketIo = require( 'socket.io' )
 
 const { USER_JOINED, MESSAGE_SEND } = require( '../src/constants/events' )
-
+const { Games } = require('../db')
 const { Cards } = require('../db');
 const { GameCards } = require('../db');
-
+const gameid = 1
 const init = ( app, server ) => {
   const io = socketIo( server )
 
@@ -40,6 +40,19 @@ const init = ( app, server ) => {
         .catch(err => {
           console.log(err)
         })
+    })
+
+    
+    socket.on('play_card', function(userData){
+      GameCards.playCard(gameid, userData.userid, INSERT_CARD_ID).then( card =>{
+        console.log('Played card id: ', card.card_id)
+        Games.setTopCard(gameid, card.card_id).then( topcard => { console.log('Top card set to id:', card.card_id)})
+        
+        Cards.getCardImg(card.card_id).then(cardpaths => {
+          socket.emit('draw_top_card', card, cardpaths)
+        })
+      })
+       .catch(err => { console.log(err)})
     })
   })  
 }

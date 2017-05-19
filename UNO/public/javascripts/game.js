@@ -8,13 +8,15 @@ var userData = {
   userid : userid,
   username : username,
   gameid : gameid,
-  numberOfCardsInHand : 100
+  numberOfCardsInHand : 100,
+  ready: false
 }
 
 var gameData = {
   gameid : gameid,
   cardTurnClockwise: false,
-  currentPlayerTurn: 0
+  currentPlayerTurn: 0,
+  start: false
 }
 
 console.log("userid: " + userid);
@@ -25,21 +27,40 @@ socket.emit('join_game', userData);
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
 
+
+
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
-  console.log( userData.username + " drew a card!");
-  socket.emit('draw_card', userData);
+  if(gameData.start){ 
+    console.log( userData.username + " drew a card!");
+    socket.emit('draw_card', userData);
+  }
 });
 
 document.getElementById("UNO").addEventListener("click", function(){
-  console.log('Uno');
-  console.log("cardturn" + gameData.cardTurnClockwise);
-  if(userData.numberOfCardsInHand != 1){
-    var i
-    for(i = 0; i<2; i++ ){
-      socket.emit('draw_card', userData)
-      userData.numberOfCardsInHand++;
+  if(gameData.start){ 
+    console.log('Uno');
+    console.log("cardturn " + gameData.cardTurnClockwise);
+    if(userData.numberOfCardsInHand != 1){
+      console.log('Uno check failed. Penalty incurred!')
+      var i
+      for(i = 0; i<2; i++ ){
+        socket.emit('draw_card', userData)
+        userData.numberOfCardsInHand++;
+      }
     }
   }
+})
+
+
+
+document.getElementById("ready").addEventListener("click", function(){
+  console.log("User is ready to play!")
+  userData.ready= true
+})
+
+document.getElementById("start").addEventListener("click", function(){
+  gameData.start = ( userData.ready )? true:false;
+  console.log('Game ready to start')
 })
 
 socket.on('draw_card', function(gamecards, cardpath) {
