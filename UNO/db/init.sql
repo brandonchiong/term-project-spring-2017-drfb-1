@@ -56,7 +56,6 @@ CREATE TABLE IF NOT EXISTS GameCards (
   game_id INTEGER REFERENCES Games(id) ON DELETE CASCADE,
   card_id INTEGER REFERENCES Cards(id),
   user_id INTEGER REFERENCES Users(id),
-  discarded_at TIME WITH TIME ZONE,
   discarded BOOLEAN,
   PRIMARY KEY (game_id, card_id, user_id)
 );
@@ -65,12 +64,11 @@ CREATE TABLE IF NOT EXISTS Messages (
   game_id INTEGER REFERENCES Games(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES Users(id),
   message VARCHAR(100),
-  time_stamp TIME WITH TIME ZONE,
   PRIMARY KEY (game_id, user_id)
 );
 
--- INSERT INTO Users (alias, email, pw) VALUES
---   ('DEFAULT', 'DEFAULT@UNO', 'PASSWORD');
+INSERT INTO Users (alias, email, pw) VALUES
+   ('DEFAULT', 'DEFAULT@UNO', 'PASSWORD');
 
 INSERT INTO Cards (id, card_type, color, number, image) VALUES
   (0, 'number', 'r', 0, '/images/UnoCard/red0.png'),
