@@ -194,7 +194,7 @@ function playCard(){
 		    return;
         }
       }
-    if(gameData.numberOfCardsInHand == 0) {
+    if(playerCards.length == 0) {
       alert("YOU WIN!")
     }
 
