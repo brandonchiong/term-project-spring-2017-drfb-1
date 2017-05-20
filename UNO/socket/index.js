@@ -35,7 +35,7 @@ const io = socketIo( server )
       if(found == false) {
         socketPlayers.push(username);
       }
-
+      
       socketPlayers.forEach(function(index){
         console.log('SOCKET PLAYERS: ' + index);
       })
