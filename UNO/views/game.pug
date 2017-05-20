@@ -2,7 +2,7 @@ extends layout
 
 block content
   body 
-    .container
+    .container(style="background-color:green")
       #player3.row.text.center
             .col-md-3
             .col-md-3
@@ -18,7 +18,7 @@ block content
             .col-md-1
             .col-md-2
               .row
-                img.img-responsive.center-block(src='/images/user.png')
+                img.img-responsive.center-block(src='/images/user.png' width='72' height='120')
               .row.text.center
                 h6 Player 2
               .row Cards in Hand 0 
@@ -31,10 +31,10 @@ block content
                 .card
                   img#top-card.img-responsive.center-block(src='/images/UnoCard/Q.png')
                   .card-block
-                    button#UNO.btn.btn-danger.btn-group-justified Uno
+                    button#UNO.btn.btn-danger.btn-group-justified Uno    
             .col-md-2
               .row
-                img.img-responsive.center-block(src='/images/user.png')
+                img.img-responsive.center-block(src='/images/user.png' width='72' height='120')
               .row.text.center
                 h6 Player 4
               .row Cards in Hand 0 
@@ -42,42 +42,25 @@ block content
           .row.text-center
             button#start.btn.btn-success Start
             button#ready.btn.btn-info Ready
+
+            button#end.btn.btn-danger(href='game', role= 'button') End Game
+
+            #username.h6 #{username}
+
           .row
             input#cardToPlay(type='text', value ='')
             button.btn.btn-primary(onclick='playCard()') PlayCard
 
-      .row(style="background-color:green")
-        .col-sm-2
-          //- include chat.pug
+      //- .row(style="background-color:green")
+      //- include chat.pug
       .col-lg-12
         .row(style="background-color:blue; height:120px;")
           #card-area
-            //- p hellow
-            //- .col
-              // for each card in player hand
-            //- img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red1.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/blue3.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red2.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red5.png', width='72', height='120')
-            //- img.pull-left.img-responsive(src='/images/UnoCard/red6.png', width='72', height='120')
 
-      //- .row(style="background-color:red")
+    //- .row(style="background-color:red") 
   include chat.pug
-        
-    //- table
-      thead
-        tr
-        th card_id
 
-      tbody
-        each card in cards
-          tr
-            td= card.card_id
-
-
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/game.js' userid = userid, username = username, gameid = gameid)
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+    script(src='/javascripts/bundle.js')

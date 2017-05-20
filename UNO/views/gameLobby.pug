@@ -2,7 +2,7 @@ extends layout
 
 block content
   include chat.pug
-
+  
   table
      thead
        tr
@@ -11,12 +11,13 @@ block content
        each game in games
          tr
            h5= game.id
-
+  img.img-responsive.center-block(src='/images/Lobby.jpg')
   .main.container
     .row
       .col-md-6.col-md-offset-3
+        #username.h5 #{username}
+        
         h4 Host Game
-
         // Host Game form
         form(method='POST' action='/gameLobby')
           div.form-group
@@ -39,3 +40,6 @@ block content
           ul
             for error in errors
               li!= error.msg
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+  script(src='/socket.io/socket.io.js')
+  script(src='/javascripts/bundle.js')

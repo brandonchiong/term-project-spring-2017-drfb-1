@@ -4,7 +4,9 @@ const { USER_JOINED, MESSAGE_SEND } = require( '../src/constants/events' )
 const { Games } = require('../db')
 const { Cards } = require('../db');
 const { GameCards } = require('../db');
-const gameid = 1
+
+const socketPlayers = []
+
 const init = ( app, server ) => {
 const io = socketIo( server )
 
@@ -20,8 +22,26 @@ const io = socketIo( server )
     socket.on( USER_JOINED, data => io.emit( USER_JOINED, data ))
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
 
-    socket.on('join_game', function(userData, gameData) {
+    socket.on('join_game', function(userData, gameData, username) {
       console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined game ' + userData.gameid)
+
+      var found =  false;
+      socketPlayers.forEach(function(index) {
+        if (index == username) {
+          found = true;
+        }
+      })
+
+      if(found == false) {
+        socketPlayers.push(username);
+      }
+      
+      socketPlayers.forEach(function(index){
+        console.log('SOCKET PLAYERS: ' + index);
+      })
+
+      io.emit('update_players', socketPlayers);
+
       Games.getTopCard(gameData.gameid).then(games => { 
         tmpcard = games.top_card;
         Cards.find(tmpcard)
@@ -29,8 +49,6 @@ const io = socketIo( server )
           console.log('TOP CARD: ' + topcard.id);
           socket.emit('init_topcard', topcard);
         })
-        // console.log('TOP CARD: ' + tmpcard);
-        // socket.emit('init_topcard', tmpcard);
       })
     })
 
@@ -64,8 +82,35 @@ const io = socketIo( server )
       })
        .catch(err => { console.log(err)})
     })
+    
+    socket.on('reset', function(gameData){
+      var numCardsInDeck
+      GameCards.getNumCardsInDeck(gameData.gameid).then(results =>{
+         numCardsInDeck = results[0].num
+         console.log('There are ' + numCardsInDeck + " cards left in deck.")
+         if(numCardsInDeck == 1){
+           GameCards.reset(gameData.gameid)
+           console.log("Discard pile reshuffled into deck")
+         }
+      })
+    })
+    
+    socket.on('update_gameData', function(gameData) {
+      console.log('updating game data......');
+      console.log(gameData.currentPlayerTurn);
+      
+      socket.broadcast.emit('update_gameData2', gameData);
+    })
 
+    socket.on('end_game', function(gameData){
+      Games.delete(gameData.gameid).then( () =>{
+        console.log('Game id: ' + gameData.gameid + ' has been deleted')
+      })
+    })
 
+    socket.on('uno_called', function(msg){
+      socket.emit('uno_msg', msg);
+    })
   })  
 }
 

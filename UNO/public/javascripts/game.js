@@ -5,6 +5,8 @@ var username = document.currentScript.getAttribute('username')
 var gameid = document.currentScript.getAttribute('gameid')
 
 var playerCards = [];
+var players = [];
+var num_starting_cards = 7;
 
 var userData = {
   userid : userid,
@@ -22,11 +24,20 @@ var gameData = {
   topCard: {id:null, card_type:null, color:null, number:null, image:null}
 };
 
-
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
 
-socket.emit('join_game', userData, gameData);
+socket.emit('join_game', userData, gameData, username);
+
+socket.on('update_players', function(socketPlayers) {
+  players = socketPlayers;
+});
+
+socket.on('update_gameData2', function(data) {
+  console.log('updating game data for ' + username);
+  gameData.currentPlayerTurn = data.currentPlayerTurn;
+  gameData.cardTurnClockwise = data.cardTurnClockwise;
+})
 
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
@@ -35,6 +46,7 @@ var card_area = document.getElementById('card-area');
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
   if(gameData.start){ 
     console.log( userData.username + " drew a card!");
+    socket.emit('reset', gameData);
     socket.emit('draw_card', userData);
   }
 });
@@ -43,14 +55,18 @@ document.getElementById("UNO").addEventListener("click", function(){
   if(gameData.start){ 
     console.log('Uno');
     console.log("cardturn " + gameData.cardTurnClockwise);
-    if(userData.numberOfCardsInHand != 1){
-      console.log('Uno check failed. Penalty incurred!')
+    if(playerCards.length != 1){
+      console.log('Uno check failed. Penalty incurred!\n' + playerCards.length + " cards in hand.")
       alert("You have more than one card!\n2 Card penalty!")
       var i
       for(i = 0; i<2; i++ ){
         socket.emit('draw_card', userData)
         userData.numberOfCardsInHand++;
       }
+    }
+    else{
+      socket.emit('uno_called', "You called Uno!!")
+      socket.broadcast.emit('uno_called', userData.username + " has one card left!!!")
     }
   }
 });
@@ -66,7 +82,7 @@ document.getElementById("start").addEventListener("click", function(){
     console.log('Game ready to start')
     var i
     console.log('Drawing initial hand')
-    for(i = 0; i<7; i++){
+    for(i = 0; i<num_starting_cards; i++){
       socket.emit('draw_card', userData)
       userData.numberOfCardsInHand++;
     }
@@ -75,9 +91,13 @@ document.getElementById("start").addEventListener("click", function(){
     renderTopCard();
   }
 })
-
+document.getElementById("end").addEventListener("click", function(){
+  socket.emit('end_game', gameData)
+  console.log('Ending game.')
+})
 socket.on('draw_card', function(gamecards, cardpath) {
-  console.log("TOP CARD: " + gameData.topCard);
+  // console.log("TOP CARD: " + gameData.topCard);
+
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
@@ -95,8 +115,24 @@ socket.on('draw_card', function(gamecards, cardpath) {
   // getNextPlayerTurn();
 
 })
+
+document.getElementById('cardToPlay').onkeypress = function(e) {
+  if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+      playCard();
+      this.value='';
+    }
+}
 //Value -1 for Player Handindex
 function playCard(){
+	players.forEach(function(index){
+    console.log("PLAYERS IN GAME" + index);
+  });
+
+	if (isCurrentPlayerTurn() == false){
+		return;
+	}
   console.log("inside PLAYCARD");
   if (document.getElementById("cardToPlay").value > playerCards.length){
 
@@ -112,19 +148,23 @@ function playCard(){
   console.log("inside PLAYCARD input : " + card);
 
   if (isValidPlay(playerCards[card])){
-
     gameData.topCard = playerCards[card];
+    var cardPlayed = playerCards[card];
+    
     renderTopCard();
-    removeCardFromPlayerHandAndBoard(card);
-    console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
 
-      if (playerCards[card].card_type != 'number'){
-        if (playerCards[card].card_type == 'skip'){
-          // getNextPlayerTurn();
-          // getNextPlayerTurn();
+    document.getElementById('cardToPlay').value = '';
+
+    console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
+    removeCardFromPlayerHandAndBoard(card);
+
+      if (cardPlayed.card_type != 'number'){
+        if (cardPlayed.card_type == 'skip'){
+          getNextPlayerTurn();
+          getNextPlayerTurn();
           return;
         }
-        if (playerCards[card].card_type == 'reverse'){
+        else if (cardPlayed.card_type == 'reverse'){
           if (gameData.cardTurnClockwise == true){
             gameData.cardTurnClockwise == false;
           }
@@ -132,14 +172,25 @@ function playCard(){
             gameData.cardTurnClockwise == true;
           }
         }
-        if (playerCards[card].card_type == 'wild4'){
+        else if (cardPlayed.card_type == 'wild4'){
+            getNextPlayerTurn();
+		    for(i = 0; i<4; i++){
+		      socket.emit('draw_card', userData);
+		    }
+		    return;
+        }
+        else if (cardPlayed.card_type == 'wild'){
           
         }
-        if (playerCards[card].card_type == 'wild'){
-          
+        else if (cardPlayed.card_type == 'draw2'){
+            getNextPlayerTurn();
+		    for(i = 0; i<2; i++){
+		      socket.emit('draw_card', userData);
+		    }
+		    return;
         }
       }
-    //getNextPlayerTurn();
+    getNextPlayerTurn();
   }
 }
 
@@ -153,6 +204,9 @@ socket.on('init_topcard', function(tmpcard){
   console.log(gameData.topCard);
 })
 
+socket.on('uno_msg', function(msg){
+  alert(msg)
+})
 function renderCard() {
   var node = document.getElementById("card-area");
 
@@ -172,21 +226,35 @@ function renderTopCard() {
   document.getElementById("top-card").src = gameData.topCard.image;
 }
 
-
 function getNextPlayerTurn(){
   if (gameData.cardTurnClockwise){
     gameData.currentPlayerTurn--;
     if (gameData.currentPlayerTurn < 0){
-      gameData.currentPlayerTurn = 3;
+      gameData.currentPlayerTurn = players.length-1;
     }
   }
   else{
     gameData.currentPlayerTurn++;
-    if (gameData.currentPlayerTurn > 3){
+    if (gameData.currentPlayerTurn > players.length-1){
       gameData.currentPlayerTurn = 0;
     }
   }
+  socket.emit('update_gameData', gameData);
 }
+// function getNextPlayerTurn(){
+//   if (gameData.cardTurnClockwise){
+//     gameData.currentPlayerTurn--;
+//     if (gameData.currentPlayerTurn < 0){
+//       gameData.currentPlayerTurn = 3;
+//     }
+//   }
+//   else{
+//     gameData.currentPlayerTurn++;
+//     if (gameData.currentPlayerTurn > 3){
+//       gameData.currentPlayerTurn = 0;
+//     }
+//   }
+// }
 
 function removeCardFromPlayerHandAndBoard(index){
   if (index < playerCards.length){
@@ -199,18 +267,25 @@ function removeCardFromPlayerHandAndBoard(index){
     console.log("index is out of Range:" + index);
 }
 
-// function isCurrentPlayerTurn(){
-//   if (true){
-//     //TODO: turn action
-//   }
-//   else alert ("Its not your turn");
-// }
+function isCurrentPlayerTurn(){
+	console.log("players[gameData.currentPlayerTurn]" + players[gameData.currentPlayerTurn]);
+	console.log("username" + username);
+	  if (players[gameData.currentPlayerTurn] == username){
+	    return true;
+	  }
+	  else{
+	  	alert ("Its not your turn");
+	  	return false;
+	  } 
+}
 
 function isValidPlay(playerCard){
-  console.log ("inside VALID PLAY: ");
   console.log ("inside VALID PLAY: card Type " + playerCard.card_type);
   console.log ("inside VALID PLAY: card Number" + playerCard.number);
-
+  if (gameData.topCard.card_type == 'wild' || gameData.topCard.card_type == 'wild4'){
+    console.log ("VALID PLAY: true");
+    return true;
+  }
   if (playerCard.card_type == 'wild' || playerCard.card_type == 'wild4'){
     console.log ("VALID PLAY: true");
     renderTopCard();

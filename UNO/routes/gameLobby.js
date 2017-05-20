@@ -8,20 +8,17 @@ const { GameUsers } = require('../db');
 router.get('/', function(req, res, next) {
 
     if (req.user) {
-
         var username = req.user.alias;
-
         console.log(username + ' joined the lobby');
 
         Games.all()
             .then(games => {
-                res.render('gameLobby', { games });
+                res.render('gameLobby', { games, username : username });
             })
 
     } else {
         res.redirect('/');
     }
-
 });
 
 router.post('/', function(req, res, next) {
