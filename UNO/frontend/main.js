@@ -39,8 +39,8 @@ const intializeSocket = () => {
 }
 
 $( document ).ready( () => {
-  // let user = 'anonymous'
-   let user = require('../models/users.js');
+  // let user = 'test'
+   // let user = require('../models/users.js');
 
   // $( '#initial-form button' ).click( event => {
   //   user = $( '#who-are-you' ).val()

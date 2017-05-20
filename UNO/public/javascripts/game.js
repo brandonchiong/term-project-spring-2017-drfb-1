@@ -91,10 +91,13 @@ document.getElementById("start").addEventListener("click", function(){
     renderTopCard();
   }
 })
-
+document.getElementById("end").addEventListener("click", function(){
+  socket.emit('end_game', gameData)
+  console.log('Ending game.')
+})
 socket.on('draw_card', function(gamecards, cardpath) {
+  // console.log("TOP CARD: " + gameData.topCard);
 
-  console.log("TOP CARD: " + gameData.topCard);
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
@@ -112,6 +115,15 @@ socket.on('draw_card', function(gamecards, cardpath) {
   // getNextPlayerTurn();
 
 })
+
+document.getElementById('cardToPlay').onkeypress = function(e) {
+  if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+      playCard();
+      this.value='';
+    }
+}
 //Value -1 for Player Handindex
 function playCard(){
 	players.forEach(function(index){
@@ -140,6 +152,9 @@ function playCard(){
     var cardPlayed = playerCards[card];
     
     renderTopCard();
+
+    document.getElementById('cardToPlay').value = '';
+
     console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
     removeCardFromPlayerHandAndBoard(card);
 

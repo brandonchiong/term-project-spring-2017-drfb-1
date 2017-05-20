@@ -35,7 +35,7 @@ const io = socketIo( server )
       if(found == false) {
         socketPlayers.push(username);
       }
-
+      
       socketPlayers.forEach(function(index){
         console.log('SOCKET PLAYERS: ' + index);
       })
@@ -49,8 +49,6 @@ const io = socketIo( server )
           console.log('TOP CARD: ' + topcard.id);
           socket.emit('init_topcard', topcard);
         })
-        // console.log('TOP CARD: ' + tmpcard);
-        // socket.emit('init_topcard', tmpcard);
       })
     })
 
@@ -89,7 +87,8 @@ const io = socketIo( server )
       var numCardsInDeck
       GameCards.getNumCardsInDeck(gameData.gameid).then(results =>{
          numCardsInDeck = results[0].num
-         if(numCardsInDeck == 0){
+         console.log('There are ' + numCardsInDeck + " cards left in deck.")
+         if(numCardsInDeck == 1){
            GameCards.reset(gameData.gameid)
            console.log("Discard pile reshuffled into deck")
          }
@@ -101,6 +100,12 @@ const io = socketIo( server )
       console.log(gameData.currentPlayerTurn);
       
       socket.broadcast.emit('update_gameData2', gameData);
+    })
+
+    socket.on('end_game', function(gameData){
+      Games.delete(gameData.gameid).then( () =>{
+        console.log('Game id: ' + gameData.gameid + ' has been deleted')
+      })
     })
 
     socket.on('uno_called', function(msg){
