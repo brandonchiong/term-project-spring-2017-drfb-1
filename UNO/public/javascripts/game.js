@@ -164,7 +164,7 @@ function playCard(){
           getNextPlayerTurn();
           return;
         }
-        if (cardPlayed.card_type == 'reverse'){
+        else if (cardPlayed.card_type == 'reverse'){
           if (gameData.cardTurnClockwise == true){
             gameData.cardTurnClockwise == false;
           }
@@ -172,14 +172,22 @@ function playCard(){
             gameData.cardTurnClockwise == true;
           }
         }
-        if (cardPlayed.card_type == 'wild4'){
+        else if (cardPlayed.card_type == 'wild4'){
             getNextPlayerTurn();
 		    for(i = 0; i<4; i++){
-		      socket.emit('draw_card', userData)
+		      socket.emit('draw_card', userData);
 		    }
+		    return;
         }
-        if (cardPlayed.card_type == 'wild'){
+        else if (cardPlayed.card_type == 'wild'){
           
+        }
+        else if (cardPlayed.card_type == 'draw2'){
+            getNextPlayerTurn();
+		    for(i = 0; i<2; i++){
+		      socket.emit('draw_card', userData);
+		    }
+		    return;
         }
       }
     getNextPlayerTurn();
