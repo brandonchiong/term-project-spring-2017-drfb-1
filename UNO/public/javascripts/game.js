@@ -111,6 +111,7 @@ document.getElementById('cardToPlay').onkeypress = function(e) {
     var keyCode = e.keyCode || e.which;
     if (keyCode == '13'){
       playCard();
+      this.value='';
     }
 }
 //Value -1 for Player Handindex
@@ -134,6 +135,7 @@ function playCard(){
     gameData.topCard = playerCards[card];
     renderTopCard();
     removeCardFromPlayerHandAndBoard(card);
+    document.getElementById('cardToPlay').value = '';
     console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
 
       if (playerCards[card].card_type != 'number'){
