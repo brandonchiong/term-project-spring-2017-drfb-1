@@ -85,7 +85,10 @@ document.getElementById("start").addEventListener("click", function(){
     renderTopCard();
   }
 })
-
+document.getElementById("end").addEventListener("click", function(){
+  socket.emit('end_game', gameData)
+  console.log('Ending game.')
+})
 socket.on('draw_card', function(gamecards, cardpath) {
   console.log("TOP CARD: " + gameData.topCard);
   var card = gamecards.card_id;
