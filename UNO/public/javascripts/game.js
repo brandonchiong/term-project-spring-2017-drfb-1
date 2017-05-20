@@ -179,17 +179,6 @@ socket.on('uno_msg', function(msg){
 
 
 function renderCard() {
-//   var node = document.getElementById("card-area");
-//   var card = new Image(72, 120);
-
-//   playerCards.forEach(function(index){
-//     card.src = index.image;
-//     card.id = index.id;
-//     node.appendChild(card);
-
-//     console.log("inside loop: card id: " + card.id);
-//   });
-// }
   var tablebody = document.getElementById("table-body");
   var tablecard = document.createElement("td");
 
@@ -252,33 +241,27 @@ function removeTableCard(index) {
 function adjustTable() {
   var tableHead = document.getElementById("table-head");
   var tableNumber = document.createElement("th");
-  // console.log('cards in player hand: ' + playerCards.length);
-  for(var i = 0; i < playerCards.length; i++) {
+  tableHead.innerHTML = '';
+  for (var i = 0; i < playerCards.length; i++) {
+    console.log('ENTERED LOOP');
+    var tableHead = document.getElementById("table-head");
+    var tableNumber = document.createElement("th");
     tableNumber.setAttribute("id", "table-head-" + (playerCards.indexOf(i)+1));
-    tableNumber.innerHTML = playerCards.indexOf(i)+1;
+    tableNumber.innerHTML = i+1;
     tableHead.appendChild(tableNumber);
   }
-
-  console.log(tableHead);
 }
 
 function removeCardFromPlayerHandAndBoard(index){
 
   if (index < playerCards.length){
-    // var itemToRemove = document.getElementById(playerCards[index].id);
-    // var tableToRemove = document.getElementById("table-head-"+(index+1));
-    // tableToRemove.parentNode.removeChild(tableToRemove);
     removeTableNumber(index);
     removeTableCard(index);
-    adjustTable();
-    // itemToRemove.parentNode.removeChild(itemToRemove);
-    console.log("Removed : " + (index+1));
     playerCards.splice(index,1);
+    
+    adjustTable();
 
-    // for (var i = 1; i < playerCards.length+1; i++) {
-    //   document.getElementById("table-head-"+i).id = 'table-head-'+i;
-
-    // }
+    console.log("Removed : " + (index+1));
   }
   else
     console.log("index is out of Range:" + index);
