@@ -2,26 +2,26 @@ extends layout
 
 block content
   body 
-    .container(style="background-color:green")
+    .container(style="background-color:white")
       #player3.row.text.center
-            .col-md-3
-            .col-md-3
+            .col-md-4
+            .col-md-2
               img.img-responsive.center-block(src='/images/user.png' width='72' height='120')
             .col-md-3
               .row.text.center
                 h6 Player 3
-              .row Cards in Hand 0 
+              //.row Cards in Hand 0 
             .col-md-3
-      .row(style="background-color:yellow")
+      .row(style="background-color:white")
         #playarea.col-md-8.col-md-offset-2
           .row
             .col-md-1
             .col-md-2
               .row
-                img.img-responsive.center-block(src='/images/user.png')
+                img.img-responsive.center-block(src='/images/user.png' width='72' height='120')
               .row.text.center
                 h6 Player 2
-              .row Cards in Hand 0 
+              //.row Cards in Hand 0 
             #cardpile.middle.col-md-6
               .card-group
                 .card
@@ -31,25 +31,31 @@ block content
                 .card
                   img#top-card.img-responsive.center-block(src='/images/UnoCard/Q.png')
                   .card-block
-                    button#UNO.btn.btn-danger.btn-group-justified Uno
+                    button#UNO.btn.btn-danger.btn-group-justified UNO    
             .col-md-2
               .row
-                img.img-responsive.center-block(src='/images/user.png')
+                img.img-responsive.center-block(src='/images/user.png' width='72' height='120')
               .row.text.center
                 h6 Player 4
-              .row Cards in Hand 0 
+              //.row Cards in Hand 0 
             .col-md-1
           .row.text-center
             button#start.btn.btn-success Start
             button#ready.btn.btn-info Ready
             #username.h6 #{username}
+
           .row
             input#cardToPlay(type='text', value ='')
             button.btn.btn-primary(onclick='playCard()') PlayCard
 
-      //- .row(style="background-color:green")
-      //- include chat.pug
+            a#end.btn.btn-danger(href='/gameLobby') End Game
+
       .col-lg-12
+      
+        .row(style="background-color:white; height:120px;")
+          #card-area
+
+  include chat.pug
         .row
   
           table
@@ -75,9 +81,6 @@ block content
               tr#table-body
 
         .row#card-area
-
-    //- .row(style="background-color:red") 
-    //- include chat.pug
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script(src='/socket.io/socket.io.js')
