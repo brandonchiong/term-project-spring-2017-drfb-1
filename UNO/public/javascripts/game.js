@@ -175,11 +175,19 @@ function playCard(){
         if (cardPlayed.card_type == 'wild4'){
             getNextPlayerTurn();
 		    for(i = 0; i<4; i++){
-		      socket.emit('draw_card', userData)
+		      socket.emit('draw_card', userData);
 		    }
+		    return;
         }
         if (cardPlayed.card_type == 'wild'){
           
+        }
+        if (cardPlayed.card_type == 'draw2'){
+            getNextPlayerTurn();
+		    for(i = 0; i<2; i++){
+		      socket.emit('draw_card', userData);
+		    }
+		    return;
         }
       }
     getNextPlayerTurn();
