@@ -40,7 +40,7 @@ const io = socketIo( server )
         console.log('SOCKET PLAYERS: ' + index);
       })
 
-      socket.broadcast.emit('update_players', socketPlayers);
+      io.emit('update_players', socketPlayers);
 
       Games.getTopCard(gameData.gameid).then(games => { 
         tmpcard = games.top_card;
@@ -94,11 +94,20 @@ const io = socketIo( server )
          }
       })
     })
+    
+    socket.on('update_gameData', function(gameData) {
+      console.log('updating game data......');
+      console.log(gameData.currentPlayerTurn);
+      
+      socket.broadcast.emit('update_gameData2', gameData);
+    })
+
     socket.on('end_game', function(gameData){
       Games.delete(gameData.gameid).then( () =>{
         console.log('Game id: ' + gameData.gameid + ' has been deleted')
       })
     })
+
     socket.on('uno_called', function(msg){
       socket.emit('uno_msg', msg);
     })
