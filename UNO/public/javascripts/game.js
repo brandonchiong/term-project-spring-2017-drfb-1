@@ -111,6 +111,7 @@ document.getElementById('cardToPlay').onkeypress = function(e) {
     var keyCode = e.keyCode || e.which;
     if (keyCode == '13'){
       playCard();
+      this.value='';
     }
 }
 //Value -1 for Player Handindex
