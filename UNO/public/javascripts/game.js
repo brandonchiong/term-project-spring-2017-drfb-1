@@ -202,22 +202,35 @@ function renderTopCard() {
   document.getElementById("top-card").src = gameData.topCard.image;
 }
 
-
 function getNextPlayerTurn(){
   if (gameData.cardTurnClockwise){
     gameData.currentPlayerTurn--;
     if (gameData.currentPlayerTurn < 0){
-      gameData.currentPlayerTurn = 3;
+      gameData.currentPlayerTurn = players.length-1;
     }
   }
   else{
     gameData.currentPlayerTurn++;
-    if (gameData.currentPlayerTurn > 3){
+    if (gameData.currentPlayerTurn > players.length-1){
       gameData.currentPlayerTurn = 0;
     }
   }
   socket.emit('update_gameData', gameData);
 }
+// function getNextPlayerTurn(){
+//   if (gameData.cardTurnClockwise){
+//     gameData.currentPlayerTurn--;
+//     if (gameData.currentPlayerTurn < 0){
+//       gameData.currentPlayerTurn = 3;
+//     }
+//   }
+//   else{
+//     gameData.currentPlayerTurn++;
+//     if (gameData.currentPlayerTurn > 3){
+//       gameData.currentPlayerTurn = 0;
+//     }
+//   }
+// }
 
 function removeCardFromPlayerHandAndBoard(index){
   if (index < playerCards.length){
