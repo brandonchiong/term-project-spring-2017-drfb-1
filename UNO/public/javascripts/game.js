@@ -90,6 +90,7 @@ socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
+  // console.log('player card: ' + playerCards[0].image);
   // console.log("CP: Type; " + cardpath.card_type);
   // console.log(card);
   // console.log("PATH: " + path);
@@ -230,25 +231,49 @@ function getNextPlayerTurn(){
 function removeTableNumber(index) {
   var tableToRemove = document.getElementById("table-head-"+(index+1));
   console.log('remove: ' + tableToRemove);
-  tableToRemove.parentNode.removeChild(tableToRemove);
+  tableToRemove.remove();
 }
 
 function removeTableCard(index) {
   var tableToRemove = document.getElementById("table-body-"+(index+1));
-  tableToRemove.parentNode.removeChild(tableToRemove);
+  tableToRemove.remove();
 }
 
 function adjustTable() {
-  var tableHead = document.getElementById("table-head");
-  var tableNumber = document.createElement("th");
-  tableHead.innerHTML = '';
+  var tablehead = document.getElementById("table-head");
+  var tablenumber = document.createElement("th");
+  
+  var tablebody = document.getElementById("table-body");
+  var tablecard = document.createElement("td");
+  
+  
+  
+  tablehead.innerHTML = '';
+  tablebody.innerHTML = '';
+
   for (var i = 0; i < playerCards.length; i++) {
     console.log('ENTERED LOOP');
-    var tableHead = document.getElementById("table-head");
-    var tableNumber = document.createElement("th");
-    tableNumber.setAttribute("id", "table-head-" + (playerCards.indexOf(i)+1));
-    tableNumber.innerHTML = i+1;
-    tableHead.appendChild(tableNumber);
+    var tablehead = document.getElementById("table-head");
+    var tablenumber = document.createElement("th");
+    var tablebody = document.getElementById("table-body");
+    var tablecard = document.createElement("td");
+
+    var card = new Image(72, 120);
+
+    card.id = playerCards[i].id;
+    card.src = playerCards[i].image;
+
+    tablenumber.setAttribute("id", "table-head-" + (i+1));
+    tablecard.setAttribute("id", "table-body-" + (i+1));
+
+    tablenumber.innerHTML = i+1;
+    tablehead.appendChild(tablenumber);
+    tablecard.appendChild(card);
+    tablebody.appendChild(tablecard);
+    // if ((document.getElementById("table-body-" + (i+1))) == null) {
+    //   document.getElementById("table-body-" + i).id = ('table-body-'+i+1);
+    // }
+
   }
 }
 
