@@ -135,6 +135,7 @@ function playCard(){
     gameData.topCard = playerCards[card];
     renderTopCard();
     removeCardFromPlayerHandAndBoard(card);
+    document.getElementById('cardToPlay').value = '';
     console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
 
       if (playerCards[card].card_type != 'number'){
