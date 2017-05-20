@@ -44,8 +44,7 @@ socket.on('update_gameData2', function(data) {
 })
 
 //GAME LOGIC 
-var card_area = document.getElementById('card-area');
-
+var card_area = document.getElementById('table-body');
 
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
   if(gameData.start){ 
@@ -105,9 +104,10 @@ socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
-  console.log("CP: Type; " + cardpath.card_type);
-  console.log(card);
-  console.log("PATH: " + path);
+  // console.log('player card: ' + playerCards[0].image);
+  // console.log("CP: Type; " + cardpath.card_type);
+  // console.log(card);
+  // console.log("PATH: " + path);
   renderCard();
   // playerCards.forEach(function(index){
   //   console.log("PLAYERCARD LEN" + playerCards.length);
@@ -128,6 +128,7 @@ document.getElementById('cardToPlay').onkeypress = function(e) {
       this.value='';
     }
 }
+
 //Value -1 for Player Handindex
 function playCard(){
 	players.forEach(function(index){
@@ -215,18 +216,34 @@ socket.on('init_topcard', function(tmpcard){
 socket.on('uno_msg', function(msg){
   alert(msg)
 })
+
+
 function renderCard() {
-  var node = document.getElementById("card-area");
+  var tablebody = document.getElementById("table-body");
+  var tablecard = document.createElement("td");
 
-//  console.log(node);
+  var tablehead = document.getElementById("table-head");
+  var tablenumber = document.createElement("th");
+  
   var card = new Image(72, 120);
-
+  
   playerCards.forEach(function(index){
     card.src = index.image;
     card.id = index.id;
-    node.appendChild(card);
+    
+    tablenumber.setAttribute("id", "table-head-" + (playerCards.indexOf(index)+1));
+    tablecard.setAttribute("id", "table-body-" + (playerCards.indexOf(index)+1));
+    
+    console.log(document.getElementById("table-head-"+playerCards.indexOf(index)));
+    
+    tablenumber.innerHTML = playerCards.indexOf(index)+1;
+    
+    tablehead.appendChild(tablenumber);
+    tablecard.appendChild(card)
 
-    console.log("inside loop: card id: " + card.id);
+    tablebody.appendChild(tablecard);
+
+    // console.log("inside loop: card id: " + card.id);
   });
 }
 
@@ -250,12 +267,65 @@ function getNextPlayerTurn(){
   socket.emit('update_gameData', gameData);
 }
 
+function removeTableNumber(index) {
+  var tableToRemove = document.getElementById("table-head-"+(index+1));
+  console.log('remove: ' + tableToRemove);
+  tableToRemove.remove();
+}
+
+function removeTableCard(index) {
+  var tableToRemove = document.getElementById("table-body-"+(index+1));
+  tableToRemove.remove();
+}
+
+function adjustTable() {
+  var tablehead = document.getElementById("table-head");
+  var tablenumber = document.createElement("th");
+  
+  var tablebody = document.getElementById("table-body");
+  var tablecard = document.createElement("td");
+  
+  
+  
+  tablehead.innerHTML = '';
+  tablebody.innerHTML = '';
+
+  for (var i = 0; i < playerCards.length; i++) {
+    console.log('ENTERED LOOP');
+    var tablehead = document.getElementById("table-head");
+    var tablenumber = document.createElement("th");
+    var tablebody = document.getElementById("table-body");
+    var tablecard = document.createElement("td");
+
+    var card = new Image(72, 120);
+
+    card.id = playerCards[i].id;
+    card.src = playerCards[i].image;
+
+    tablenumber.setAttribute("id", "table-head-" + (i+1));
+    tablecard.setAttribute("id", "table-body-" + (i+1));
+
+    tablenumber.innerHTML = i+1;
+    tablehead.appendChild(tablenumber);
+    tablecard.appendChild(card);
+    tablebody.appendChild(tablecard);
+    // if ((document.getElementById("table-body-" + (i+1))) == null) {
+    //   document.getElementById("table-body-" + i).id = ('table-body-'+i+1);
+    // }
+
+  }
+}
+
 function removeCardFromPlayerHandAndBoard(index){
+
   if (index < playerCards.length){
-    var itemToRemove = document.getElementById(playerCards[index].id);
-    itemToRemove.parentNode.removeChild(itemToRemove);
-    console.log("Removed :" + playerCards[index].id);
+    removeTableNumber(index);
+    removeTableCard(index);
     playerCards.splice(index,1);
+    
+    adjustTable();
+
+    console.log("Removed : " + (index+1));
   }
   else
     console.log("index is out of Range:" + index);
