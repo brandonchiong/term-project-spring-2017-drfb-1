@@ -190,6 +190,10 @@ function playCard(){
 		    return;
         }
       }
+    if(gameData.numberOfCardsInHand == 0) {
+      alert("YOU WIN!")
+    }
+
     getNextPlayerTurn();
   }
 }
@@ -274,7 +278,7 @@ function isCurrentPlayerTurn(){
 	    return true;
 	  }
 	  else{
-	  	alert ("Its not your turn");
+	  	alert ("It's not your turn");
 	  	return false;
 	  } 
 }
