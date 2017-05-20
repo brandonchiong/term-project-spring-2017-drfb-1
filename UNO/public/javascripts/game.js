@@ -33,9 +33,9 @@ socket.on('update_players', function(socketPlayers) {
   players = socketPlayers;
 });
 
-socket.on('update_gameData', function(gameData) {
+socket.on('update_gameData2', function(data) {
   console.log('updating game data for ' + username);
-  this.gameData = gameData;
+  gameData.currentPlayerTurn = data.currentPlayerTurn;
 })
 
 //GAME LOGIC 

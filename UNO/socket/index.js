@@ -100,7 +100,7 @@ const io = socketIo( server )
       console.log('updating game data......');
       console.log(gameData.currentPlayerTurn);
       
-      socket.broadcast.emit('update_gameData', gameData);
+      socket.broadcast.emit('update_gameData2', gameData);
     })
 
     socket.on('uno_called', function(msg){
