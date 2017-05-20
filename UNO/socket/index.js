@@ -96,6 +96,13 @@ const io = socketIo( server )
       })
     })
     
+    socket.on('update_gameData', function(gameData) {
+      console.log('updating game data......');
+      console.log(gameData.currentPlayerTurn);
+      
+      socket.broadcast.emit('update_gameData', gameData);
+    })
+
     socket.on('uno_called', function(msg){
       socket.emit('uno_msg', msg);
     })

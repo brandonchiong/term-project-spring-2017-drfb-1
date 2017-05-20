@@ -33,6 +33,11 @@ socket.on('update_players', function(socketPlayers) {
   players = socketPlayers;
 });
 
+socket.on('update_gameData', function(gameData) {
+  console.log('updating game data for ' + username);
+  this.gameData = gameData;
+})
+
 //GAME LOGIC 
 var card_area = document.getElementById('card-area');
 
@@ -211,6 +216,7 @@ function getNextPlayerTurn(){
       gameData.currentPlayerTurn = 0;
     }
   }
+  socket.emit('update_gameData', gameData);
 }
 
 function removeCardFromPlayerHandAndBoard(index){
