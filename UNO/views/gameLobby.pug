@@ -2,7 +2,7 @@ extends layout
 
 block content
   include chat.pug
-
+  
   table
      thead
        tr
@@ -11,7 +11,7 @@ block content
        each game in games
          tr
            h5= game.id
-
+  img.img-responsive.center-block(src='/images/Lobby.jpg')
   .main.container
     .row
       .col-md-6.col-md-offset-3
