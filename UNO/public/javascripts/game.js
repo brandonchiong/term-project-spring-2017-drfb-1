@@ -35,6 +35,10 @@ socket.on('update_players', function(socketPlayers) {
 
 socket.on('update_gameData2', function(data) {
   console.log('updating game data for ' + username);
+    gameData.topCard = data.topCard;
+
+  renderTopCard();
+
   gameData.currentPlayerTurn = data.currentPlayerTurn;
   gameData.cardTurnClockwise = data.cardTurnClockwise;
 })
@@ -245,20 +249,6 @@ function getNextPlayerTurn(){
   }
   socket.emit('update_gameData', gameData);
 }
-// function getNextPlayerTurn(){
-//   if (gameData.cardTurnClockwise){
-//     gameData.currentPlayerTurn--;
-//     if (gameData.currentPlayerTurn < 0){
-//       gameData.currentPlayerTurn = 3;
-//     }
-//   }
-//   else{
-//     gameData.currentPlayerTurn++;
-//     if (gameData.currentPlayerTurn > 3){
-//       gameData.currentPlayerTurn = 0;
-//     }
-//   }
-// }
 
 function removeCardFromPlayerHandAndBoard(index){
   if (index < playerCards.length){
