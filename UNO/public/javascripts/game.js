@@ -36,6 +36,7 @@ socket.on('update_players', function(socketPlayers) {
 socket.on('update_gameData2', function(data) {
   console.log('updating game data for ' + username);
   gameData.currentPlayerTurn = data.currentPlayerTurn;
+  gameData.cardTurnClockwise = data.cardTurnClockwise;
 })
 
 //GAME LOGIC 
