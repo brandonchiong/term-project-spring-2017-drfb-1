@@ -50,24 +50,30 @@ var intializeSocket = function intializeSocket() {
 };
 
 $(document).ready(function () {
+
+    //var userid = document.currentScript.getAttribute('userid')
+    //var username = document.currentScript.getAttribute('username')
+
   var user = 'anonymous';
+  user = document.getElementById('username').innerHTML;
+  console.log(user);
 
-  $('#initial-form button').click(function (event) {
-    user = $('#who-are-you').val();
+  // user = $('#name').innerHTML;
+  // $('#initial-form button').click(function (event) {
+  //   user = $('#who-are-you').val();
 
-    $('#initial-form').hide();
-    $('#chat-area').show();
+  //   $('#initial-form').hide();
+  //   $('#chat-area').show();
 
     intializeSocket();
     socket.emit(_events.USER_JOINED, { user: user, timestamp: Date.now() });
 
-    return false;
-  });
+  //   return false;
+  // });
 
   $('#chat-area button').click(function (event) {
     var message = $('#chat-area input').val();
     $('#chat-area input').val('');
-
     socket.emit(_events.MESSAGE_SEND, { user: user, timestamp: Date.now(), message: message });
   });
 });

@@ -4,10 +4,10 @@ var router = express.Router();
 var passport = require('passport');
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Login' });
+  res.render('index', { messages: req.flash('info') });
 });
 
-router.post('/login',
+router.post('/',
   passport.authenticate('local', { successRedirect: '/gameLobby',
                                    failureRedirect: '/',
                                    failureFlash: true })

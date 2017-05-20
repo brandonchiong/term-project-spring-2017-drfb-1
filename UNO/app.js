@@ -1,38 +1,31 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var pgp = require('pg-promise')();
-var configDB = require('./db/configDB');
-var session = require('express-session');
-var passport = require('passport');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const expressValidator = require('express-validator');
 
-//require('./config/passport.js')(passport);
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+require('./config/passport.js')(passport);
+const flash = require('connect-flash');
+const db = require('./db/connect');
 
+const index = require('./routes/index');
+const users = require('./routes/users');
+const register = require('./routes/register');
+const login = require('./routes/login');
+const game = require('./routes/game');
+const chat = require('./routes/chat');
+const gameLobby = require('./routes/gameLobby');
+const joinGame = require('./routes/joinGame')
+const rules = require('./routes/rules');
+const forgotPassword = require('./routes/forgotPassword');
+const test = require('./routes/test');
+const app = express();
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var register = require('./routes/register');
-var login = require('./routes/login');
-var game = require('./routes/game');
-var chat = require('./routes/chat');
-var gameLobby = require('./routes/gameLobby');
-var rules = require('./routes/rules');
-var forgotPassword = require('./routes/forgotPassword');
-
-var app = express();
-
-var connection = {
-  host: configDB.host,
-  port: configDB.port,
-  database: configDB.name,
-  user: configDB.user,
-  password: configDB.pw
-};
-
-var db = pgp(process.env.DATABASE_URL || connection);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -45,16 +38,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(expressValidator());
 app.use(session({
-	secret: 'drfb',
-	resave: false,
-	saveUninitialized: false
+    secret: 'drfb',
+    resave: false,
+    saveUninitialized: false
 }));
 
 // Passport configuration
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use('/', index);
 app.use('/users', users);
@@ -63,25 +57,27 @@ app.use('/login', login);
 app.use('/game', game);
 app.use('/chat', chat);
 app.use('/gameLobby', gameLobby);
+app.use('/joinGame', joinGame);
 app.use('/rules', rules);
 app.use('/forgotPassword', forgotPassword);
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

@@ -3,27 +3,42 @@ a {
 }
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+html, body {
+  width:  100%;
+  height: 100%;
+  margin: 0px;
+}
+  
+.navbar {
+  margin-bottom: 0;
+}
+
+/*.container{
+  max-height: 50%;
+  max-width: 50%;
+}*/
+
 #chat-area {
-  display: none;
   position: fixed;
   bottom: 0;
 }
 
-#initial-form {
-  position: fixed;
-  bottom: 0;
+#message-area {
+  overflow-y: scroll;
 }
 
 .messages {
-  min-height: 300px;
+  min-height: 90px;
+  max-height: 90px;
+  /*min-width: 500px;*/
+  /*max-width: 500px;*/
 }
 
 .message {
-  padding-top: 2px;
+  padding-top: 0px;
   width: 100%;
   background-color: #ddd;
   border-radius: 3px;
