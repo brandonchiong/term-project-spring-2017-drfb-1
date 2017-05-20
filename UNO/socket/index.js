@@ -22,14 +22,20 @@ const io = socketIo( server )
     socket.on( USER_JOINED, data => io.emit( USER_JOINED, data ))
     socket.on( MESSAGE_SEND, data => io.emit( MESSAGE_SEND, data ))
 
-    socket.on('join_game', function(userData, gameData, players) {
+    socket.on('join_game', function(userData, gameData, username) {
       console.log('SOCKET: ' + userData.userid + ':' + userData.username + ' joined game ' + userData.gameid)
 
-      if(socketPlayers == null) {
-        socketPlayers = players;
-      } else {
-        socketPlayers.push(players[0]);
+      var found =  false;
+      socketPlayers.forEach(function(index) {
+        if (index == username) {
+          found = true;
+        }
+      })
+
+      if(found == false) {
+        socketPlayers.push(username);
       }
+      
       socketPlayers.forEach(function(index){
         console.log('SOCKET PLAYERS: ' + index);
       })
