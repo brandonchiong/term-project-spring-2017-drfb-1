@@ -34,8 +34,7 @@ socket.on('update_players', function(socketPlayers) {
 });
 
 //GAME LOGIC 
-var card_area = document.getElementById('card-area');
-
+var card_area = document.getElementById('table-body');
 
 document.getElementById("drawFromDeck").addEventListener("click", function(cards){
   if(gameData.start){ 
@@ -91,9 +90,9 @@ socket.on('draw_card', function(gamecards, cardpath) {
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
-  console.log("CP: Type; " + cardpath.card_type);
-  console.log(card);
-  console.log("PATH: " + path);
+  // console.log("CP: Type; " + cardpath.card_type);
+  // console.log(card);
+  // console.log("PATH: " + path);
   renderCard();
   // playerCards.forEach(function(index){
   //   console.log("PLAYERCARD LEN" + playerCards.length);
@@ -114,6 +113,7 @@ document.getElementById('cardToPlay').onkeypress = function(e) {
       this.value='';
     }
 }
+
 //Value -1 for Player Handindex
 function playCard(){
   console.log("inside PLAYCARD");
@@ -136,7 +136,7 @@ function playCard(){
     renderTopCard();
     removeCardFromPlayerHandAndBoard(card);
     document.getElementById('cardToPlay').value = '';
-    console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
+    // console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
 
       if (playerCards[card].card_type != 'number'){
         if (playerCards[card].card_type == 'skip'){
@@ -176,18 +176,45 @@ socket.on('init_topcard', function(tmpcard){
 socket.on('uno_msg', function(msg){
   alert(msg)
 })
+
+
 function renderCard() {
-  var node = document.getElementById("card-area");
+//   var node = document.getElementById("card-area");
+//   var card = new Image(72, 120);
 
-//  console.log(node);
+//   playerCards.forEach(function(index){
+//     card.src = index.image;
+//     card.id = index.id;
+//     node.appendChild(card);
+
+//     console.log("inside loop: card id: " + card.id);
+//   });
+// }
+  var tablebody = document.getElementById("table-body");
+  var tablecard = document.createElement("td");
+
+  var tablehead = document.getElementById("table-head");
+  var tablenumber = document.createElement("th");
+  
   var card = new Image(72, 120);
-
+  
   playerCards.forEach(function(index){
     card.src = index.image;
     card.id = index.id;
-    node.appendChild(card);
+    
+    tablenumber.setAttribute("id", "table-head-" + (playerCards.indexOf(index)+1));
+    tablecard.setAttribute("id", "table-body-" + (playerCards.indexOf(index)+1));
+    
+    console.log(document.getElementById("table-head-"+playerCards.indexOf(index)));
+    
+    tablenumber.innerHTML = playerCards.indexOf(index)+1;
+    
+    tablehead.appendChild(tablenumber);
+    tablecard.appendChild(card)
 
-    console.log("inside loop: card id: " + card.id);
+    tablebody.appendChild(tablecard);
+
+    // console.log("inside loop: card id: " + card.id);
   });
 }
 
@@ -211,12 +238,47 @@ function getNextPlayerTurn(){
   }
 }
 
+function removeTableNumber(index) {
+  var tableToRemove = document.getElementById("table-head-"+(index+1));
+  console.log('remove: ' + tableToRemove);
+  tableToRemove.parentNode.removeChild(tableToRemove);
+}
+
+function removeTableCard(index) {
+  var tableToRemove = document.getElementById("table-body-"+(index+1));
+  tableToRemove.parentNode.removeChild(tableToRemove);
+}
+
+function adjustTable() {
+  var tableHead = document.getElementById("table-head");
+  var tableNumber = document.createElement("th");
+  // console.log('cards in player hand: ' + playerCards.length);
+  for(var i = 0; i < playerCards.length; i++) {
+    tableNumber.setAttribute("id", "table-head-" + (playerCards.indexOf(i)+1));
+    tableNumber.innerHTML = playerCards.indexOf(i)+1;
+    tableHead.appendChild(tableNumber);
+  }
+
+  console.log(tableHead);
+}
+
 function removeCardFromPlayerHandAndBoard(index){
+
   if (index < playerCards.length){
-    var itemToRemove = document.getElementById(playerCards[index].id);
-    itemToRemove.parentNode.removeChild(itemToRemove);
-    console.log("Removed :" + playerCards[index].id);
+    // var itemToRemove = document.getElementById(playerCards[index].id);
+    // var tableToRemove = document.getElementById("table-head-"+(index+1));
+    // tableToRemove.parentNode.removeChild(tableToRemove);
+    removeTableNumber(index);
+    removeTableCard(index);
+    adjustTable();
+    // itemToRemove.parentNode.removeChild(itemToRemove);
+    console.log("Removed : " + (index+1));
     playerCards.splice(index,1);
+
+    // for (var i = 1; i < playerCards.length+1; i++) {
+    //   document.getElementById("table-head-"+i).id = 'table-head-'+i;
+
+    // }
   }
   else
     console.log("index is out of Range:" + index);

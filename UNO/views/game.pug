@@ -50,11 +50,34 @@ block content
       //- .row(style="background-color:green")
       //- include chat.pug
       .col-lg-12
-        .row(style="background-color:blue; height:120px;")
-          #card-area
+        .row
+  
+          table
+            thead#table-card
+              tr#table-head
+                //- th(width=72) 1
+                //- th(width=72) 2
+                //- th(width=72) 3
+                //- th(width=72) 4
+                //- th(width=72) 5
+                //- th(width=72) 6
+                //- th(width=72) 7
+                //- th(width=72) 8
+                //- th(width=72) 9
+                //- th(width=72) 10
+                //- th(width=72) 11
+                //- th(width=72) 12
+                //- th(width=72) 13
+                //- th(width=72) 14
+                //- th(width=72) 15
+                //- th(width=72) 16
+            tbody
+              tr#table-body
+
+        .row#card-area
 
     //- .row(style="background-color:red") 
-  include chat.pug
+    //- include chat.pug
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script(src='/socket.io/socket.io.js')
