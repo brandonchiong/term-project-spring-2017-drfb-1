@@ -139,8 +139,8 @@ function playCard(){
 
       if (cardPlayed.card_type != 'number'){
         if (cardPlayed.card_type == 'skip'){
-          // getNextPlayerTurn();
-          // getNextPlayerTurn();
+          getNextPlayerTurn();
+          getNextPlayerTurn();
           return;
         }
         if (cardPlayed.card_type == 'reverse'){
@@ -152,7 +152,7 @@ function playCard(){
           }
         }
         if (cardPlayed.card_type == 'wild4'){
-            // getNextPlayerTurn();
+            getNextPlayerTurn();
 		    for(i = 0; i<4; i++){
 		      socket.emit('draw_card', userData)
 		    }
@@ -161,7 +161,7 @@ function playCard(){
           
         }
       }
-    //getNextPlayerTurn();
+    getNextPlayerTurn();
   }
 }
 
@@ -227,7 +227,7 @@ function removeCardFromPlayerHandAndBoard(index){
 function isCurrentPlayerTurn(){
 	console.log("players[gameData.currentPlayerTurn]" + players[gameData.currentPlayerTurn]);
 	console.log("username" + username);
-	  if (players[gameData.currentPlayerTurn] == 'username'){
+	  if (players[gameData.currentPlayerTurn] == username){
 	    return true;
 	  }
 	  else{

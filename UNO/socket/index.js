@@ -40,7 +40,7 @@ const io = socketIo( server )
         console.log('SOCKET PLAYERS: ' + index);
       })
 
-      socket.broadcast.emit('update_players', socketPlayers);
+      io.emit('update_players', socketPlayers);
 
       Games.getTopCard(gameData.gameid).then(games => { 
         tmpcard = games.top_card;
