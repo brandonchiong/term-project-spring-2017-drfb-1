@@ -31,7 +31,7 @@ block content
                 .card
                   img#top-card.img-responsive.center-block(src='/images/UnoCard/Q.png')
                   .card-block
-                    button#UNO.btn.btn-danger.btn-group-justified Uno    
+                    button#UNO.btn.btn-danger.btn-group-justified UNO    
             .col-md-2
               .row
                 img.img-responsive.center-block(src='/images/user.png' width='72' height='120')
@@ -42,14 +42,13 @@ block content
           .row.text-center
             button#start.btn.btn-success Start
             button#ready.btn.btn-info Ready
-
-            button#end.btn.btn-danger(href='game', role= 'button') End Game
-
             #username.h6 #{username}
 
           .row
             input#cardToPlay(type='text', value ='')
             button.btn.btn-primary(onclick='playCard()') PlayCard
+
+            a#end.btn.btn-danger(href='/gameLobby') End Game
 
       //- .row(style="background-color:green")
       //- include chat.pug

@@ -50,18 +50,15 @@ var intializeSocket = function intializeSocket() {
 };
 
 $(document).ready(function () {
-<<<<<<< HEAD
+
     //var userid = document.currentScript.getAttribute('userid')
     //var username = document.currentScript.getAttribute('username')
-    var user = 'anonymous'
-=======
+
   var user = 'anonymous';
   user = document.getElementById('username').innerHTML;
   console.log(user);
 
   // user = $('#name').innerHTML;
-  
->>>>>>> c872bc2af13f6469c3c6b99316e6a73c95243b8b
   // $('#initial-form button').click(function (event) {
   //   user = $('#who-are-you').val();
 
