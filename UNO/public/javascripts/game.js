@@ -108,6 +108,13 @@ socket.on('draw_card', function(gamecards, cardpath) {
 })
 //Value -1 for Player Handindex
 function playCard(){
+	players.forEach(function(index){
+    console.log("PLAYERS IN GAME" + index);
+  });
+
+	if (isCurrentPlayerTurn() == false){
+		return;
+	}
   console.log("inside PLAYCARD");
   if (document.getElementById("cardToPlay").value > playerCards.length){
 
@@ -217,15 +224,19 @@ function removeCardFromPlayerHandAndBoard(index){
     console.log("index is out of Range:" + index);
 }
 
-// function isCurrentPlayerTurn(){
-//   if (true){
-//     //TODO: turn action
-//   }
-//   else alert ("Its not your turn");
-// }
+function isCurrentPlayerTurn(){
+	console.log("players[gameData.currentPlayerTurn]" + players[gameData.currentPlayerTurn]);
+	console.log("username" + username);
+	  if (players[gameData.currentPlayerTurn] == 'username'){
+	    return true;
+	  }
+	  else{
+	  	alert ("Its not your turn");
+	  	return false;
+	  } 
+}
 
 function isValidPlay(playerCard){
-  console.log ("inside VALID PLAY: ");
   console.log ("inside VALID PLAY: card Type " + playerCard.card_type);
   console.log ("inside VALID PLAY: card Number" + playerCard.number);
   if (gameData.topCard.card_type == 'wild' || gameData.topCard.card_type == 'wild4'){
