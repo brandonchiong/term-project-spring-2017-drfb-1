@@ -50,9 +50,18 @@ var intializeSocket = function intializeSocket() {
 };
 
 $(document).ready(function () {
+<<<<<<< HEAD
     //var userid = document.currentScript.getAttribute('userid')
     //var username = document.currentScript.getAttribute('username')
     var user = 'anonymous'
+=======
+  var user = 'anonymous';
+  user = document.getElementById('username').innerHTML;
+  console.log(user);
+
+  // user = $('#name').innerHTML;
+  
+>>>>>>> c872bc2af13f6469c3c6b99316e6a73c95243b8b
   // $('#initial-form button').click(function (event) {
   //   user = $('#who-are-you').val();
 
@@ -68,7 +77,6 @@ $(document).ready(function () {
   $('#chat-area button').click(function (event) {
     var message = $('#chat-area input').val();
     $('#chat-area input').val('');
-
     socket.emit(_events.MESSAGE_SEND, { user: user, timestamp: Date.now(), message: message });
   });
 });

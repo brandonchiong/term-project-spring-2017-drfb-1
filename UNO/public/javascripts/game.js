@@ -5,7 +5,7 @@ var username = document.currentScript.getAttribute('username')
 var gameid = document.currentScript.getAttribute('gameid')
 
 var playerCards = [];
-var players = [username];
+var players = [];
 var num_starting_cards = 7;
 
 var userData = {
@@ -27,7 +27,7 @@ var gameData = {
 console.log("userid: " + userid);
 console.log("gameid: " + gameid);
 
-socket.emit('join_game', userData, gameData, players);
+socket.emit('join_game', userData, gameData, username);
 
 socket.on('update_players', function(socketPlayers) {
   players = socketPlayers;
@@ -90,7 +90,7 @@ document.getElementById("end").addEventListener("click", function(){
   console.log('Ending game.')
 })
 socket.on('draw_card', function(gamecards, cardpath) {
-  console.log("TOP CARD: " + gameData.topCard);
+  // console.log("TOP CARD: " + gameData.topCard);
   var card = gamecards.card_id;
   var path = cardpath.image;
   playerCards.push(cardpath);
@@ -108,6 +108,15 @@ socket.on('draw_card', function(gamecards, cardpath) {
   // getNextPlayerTurn();
 
 })
+
+document.getElementById('cardToPlay').onkeypress = function(e) {
+  if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+      playCard();
+      this.value='';
+    }
+}
 //Value -1 for Player Handindex
 function playCard(){
   console.log("inside PLAYCARD");
@@ -129,6 +138,7 @@ function playCard(){
     gameData.topCard = playerCards[card];
     renderTopCard();
     removeCardFromPlayerHandAndBoard(card);
+    document.getElementById('cardToPlay').value = '';
     console.log("playCard() playerCards[card].card_type" + playerCards[card].card_type);
 
       if (playerCards[card].card_type != 'number'){
