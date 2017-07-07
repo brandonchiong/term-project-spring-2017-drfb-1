@@ -1,15 +1,15 @@
 # UNO Game Web App
 
-Heroku link:
+### Heroku link:
 
 https://unodrfb.herokuapp.com
 
-Team members:
+### Team members:
 
-Felix Chin
+* Felix Chin
 
-Brandon Chiong
+* Brandon Chiong
 
-Rainier Hui 
+* Rainier Hui 
 
-Daniel Nguyen
+* Daniel Nguyen
